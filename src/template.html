@@ -44,6 +44,36 @@ a{color:inherit}
 .maplink{margin-left:auto; font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--cyan); text-decoration:none; border:1px solid var(--line2); padding:6px 10px; background:var(--panel)}
 .maplink:hover{border-color:var(--cyan); box-shadow:0 0 12px rgba(79,227,255,.25)}
 .maplink + .status{margin-left:0}
+.guppibtn{cursor:pointer; color:var(--amber); border-color:rgba(255,181,71,.45); display:inline-flex; align-items:center; gap:7px}
+.guppibtn:hover{border-color:var(--amber); box-shadow:0 0 12px rgba(255,181,71,.3)}
+.guppibtn + .maplink{margin-left:0}
+.guppi{position:fixed; inset:0; z-index:40; background:rgba(2,5,9,.72); backdrop-filter:blur(3px); display:grid; place-items:center; padding:16px}
+.guppi[hidden]{display:none}
+.gpanel{position:relative; width:min(560px,100%); max-height:calc(100dvh - 32px); overflow:auto; background:linear-gradient(180deg, #102033, #0a1420); border:1px solid var(--line2); border-top:2px solid var(--amber); box-shadow:0 20px 60px rgba(0,0,0,.6), 0 0 40px rgba(255,181,71,.08)}
+.ghead{display:flex; align-items:center; gap:12px; padding:14px 16px; border-bottom:1px solid var(--line)}
+.gface{width:46px; height:46px; flex:none}
+.ghead h2{margin:0; font-family:var(--mono); font-size:14px; letter-spacing:.22em; color:var(--amber)}
+.ghead small{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.14em; color:var(--muted)}
+.gx{margin-left:auto; background:none; border:0; color:var(--muted); font-size:18px; cursor:pointer; padding:6px 10px}
+#gbody{padding:16px 18px 18px}
+.gsay{margin:0 0 10px; font-family:var(--mono); font-size:13px; color:var(--amber)}
+.gsay::before{content:"> "; opacity:.6}
+.gdim{color:var(--muted)}
+.gq{margin:4px 0 14px; font-size:17px; line-height:1.45}
+.gopts{display:grid; gap:8px}
+.gopt{display:flex; align-items:flex-start; gap:12px; text-align:left; background:var(--bg2); border:1px solid var(--line2); padding:10px 12px; cursor:pointer; transition:.12s}
+.gopt b{font-family:var(--mono); color:var(--amber); width:16px; flex:none; text-transform:uppercase}
+.gopt:hover:not(:disabled), .gopt:focus-visible{border-color:var(--amber); outline:none}
+.gopt:disabled{cursor:default; opacity:.55}
+.gopt.right{opacity:1; border-color:var(--green); background:rgba(109,255,176,.08)}
+.gopt.right b{color:var(--green)}
+.gopt.wrong{opacity:1; border-color:var(--red); background:rgba(255,93,108,.08)}
+.gopt.wrong b{color:var(--red)}
+.gres{margin-top:14px}
+.gres:empty{display:none}
+.gact{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+.glink{background:none; border:1px solid var(--line2); color:var(--cyan); font-family:var(--mono); font-size:12px; letter-spacing:.08em; padding:6px 12px; cursor:pointer}
+.glink:hover{border-color:var(--cyan)}
 .status{margin-left:auto; display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.1em}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2.4s infinite}
 @keyframes pulse{50%{opacity:.35}}
@@ -227,6 +257,7 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
         <small>REPLICANT FIELD TERMINAL · v1</small>
       </div>
     </div>
+    <button class="maplink guppibtn" id="guppibtn" title="Ask GUPPI for a trivia question" aria-haspopup="dialog"><svg width="16" height="12" viewBox="0 0 32 22" fill="none" aria-hidden="true"><path d="M2 11c5-9 17-11 24-4l4-4v16l-4-4C19 22 7 20 2 11z" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg> GUPPI</button>
     <a class="maplink" href="map.html" title="Mind map of how everything connects">◈ STAR MAP</a>
     <div class="status"><span class="dot"></span><span id="linkstat">LINK STABLE</span><span class="clock" id="clock"></span></div>
   </header>
@@ -255,6 +286,22 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
       <section class="frame detail" id="detail" aria-live="polite"></section>
     </div>
   </main>
+</div>
+
+<div class="guppi" id="guppi" hidden role="dialog" aria-modal="true" aria-labelledby="gtitle">
+  <div class="gpanel">
+    <div class="ghead">
+      <svg class="gface" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" stroke="#ffb547" stroke-opacity=".35"/>
+        <path d="M8 26c4-11 18-15 28-8 3 2 5 5 5 8-3 6-11 10-20 9-6-1-11-4-13-9z" fill="#14324a" stroke="#ffb547" stroke-width="1.5"/>
+        <circle cx="31" cy="22" r="3.2" fill="#ffb547"><animate attributeName="r" values="3.2;3.2;0.4;3.2;3.2" keyTimes="0;.9;.93;.96;1" dur="5s" repeatCount="indefinite"/></circle>
+        <path d="M14 30h12" stroke="#ffb547" stroke-opacity=".6" stroke-width="1.5"/>
+      </svg>
+      <div><h2 id="gtitle">GUPPI</h2><small>SHIP INTERFACE · TRIVIA MODE</small></div>
+      <button class="gx" data-gclose aria-label="Close">✕</button>
+    </div>
+    <div id="gbody"></div>
+  </div>
 </div>
 
 <script id="data" type="application/json">__DATA__</script>
@@ -556,6 +603,106 @@ document.addEventListener('keydown', ev => {
 // ---------- clock ----------
 function tick(){ const d = new Date(); $('#clock').textContent = d.toISOString().slice(0,19).replace('T',' ') + 'Z'; }
 setInterval(tick, 1000); tick();
+
+// ---------- GUPPI trivia ----------
+const G = { q:null, answered:false, recent:[] };
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const G_INTRO = ['Query follows.', 'Trivia subroutine engaged. Against my recommendation.', 'You requested entertainment. Here is a question.', 'Question loaded. Answer at your convenience. I will wait. I am good at waiting.', 'Processing. Done. Question:'];
+const G_RIGHT = ['Correct. I have logged it. Nobody reads the log.', 'Correct. Celebration protocols are not installed.', 'That is correct. I am adequately impressed.', 'Correct. Statistically, that was bound to happen eventually.', 'Affirmative. You may continue to feel good about yourself.'];
+const G_WRONG = ['Incorrect. This has been noted. Without judgment. Mostly.', 'Negative. I would sigh, but I lack the hardware.', 'Incorrect. A learning opportunity. Several, possibly.', 'That is wrong. I am not disappointed. I am not anything.', 'Negative. The archive remains available for consultation.'];
+const maskName = (text, e) => {
+  let t = text;
+  for (const n of [nameOf(e), ...(e.aliases||[])].filter(Boolean).sort((a,b) => b.length - a.length)){
+    const base = n.replace(/\s*\(.*?\)\s*/g, ' ').trim(); if (base.length < 3) continue;
+    t = t.replace(new RegExp(base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '▇▇▇');
+  }
+  return t;
+};
+function gen(){
+  const vis = k => D[k].filter(visible);
+  const kinds = ['characters','places','terms','ships'];
+  const makers = [
+    () => { // identify from summary
+      const k = pick(kinds), pool = vis(k); if (pool.length < 3) return null;
+      const e = pick(pool), others = shuffle(pool.filter(o => o !== e)).slice(0, 2);
+      return { q:`Identify this ${KINDS[k].one.toLowerCase()} from my records: “${maskName(e.summary, e)}”`, right:nameOf(e), wrong:others.map(nameOf), link:e.id };
+    },
+    () => { // which book first
+      const pool = kinds.flatMap(vis).filter(e => e._b <= S.book); if (S.book < 3) return null;
+      const e = pick(pool), books = shuffle(D.books.filter(b => b.id <= S.book && b.id !== e._b)).slice(0, 2);
+      return { q:`In which book does “${nameOf(e)}” first show up?`, right:`Book ${e._b}: ${BOOKS[e._b].title}`, wrong:books.map(b => `Book ${b.id}: ${b.title}`), link:e.id, sortOpts:true };
+    },
+    () => { // timeline year
+      const pool = vis('timeline').filter(t => t.when && !t.when.startsWith('~')); if (pool.length < 3) return null;
+      const e = pick(pool), years = [...new Set(pool.map(t => t.when))].filter(w => w !== e.when);
+      if (years.length < 2) return null;
+      return { q:`In-story date check. When does this happen: “${e.title}”?`, right:e.when, wrong:shuffle(years).slice(0, 2), link:e.id, sortOpts:true };
+    },
+    () => { // reference
+      const pool = vis('references'); if (pool.length < 3) return null;
+      const e = pick(pool), works = [...new Set(pool.map(r => r.work))].filter(w => w !== e.work); if (works.length < 2) return null;
+      return { q:`Pop-culture cross-reference. “${e.name}” points to which work?`, right:e.work, wrong:shuffle(works).slice(0, 2), link:e.id };
+    },
+    () => { // place parent
+      const pool = vis('places').filter(p => p.parent && visible(INDEX[p.parent]));
+      if (!pool.length) return null;
+      const e = pick(pool), right = INDEX[e.parent];
+      const wrong = shuffle(vis('places').filter(p => p !== right && p !== e && p.kind === right.kind)).slice(0, 2);
+      if (wrong.length < 2) return null;
+      return { q:`Navigation query. Where would I find “${e.name}”?`, right:right.name, wrong:wrong.map(p => p.name), link:e.id };
+    },
+  ];
+  const hand = (D.trivia||[]).filter(t => t.book <= S.book);
+  for (let tries = 0; tries < 40; tries++){
+    let q;
+    if (hand.length && Math.random() < 0.4){ const t = pick(hand); q = { q:t.q, right:t.right, wrong:t.wrong, link:t.link, note:t.note }; }
+    else q = pick(makers)();
+    if (!q || G.recent.includes(q.q)) continue;
+    G.recent = [...G.recent.slice(-15), q.q];
+    let opts = shuffle([q.right, ...q.wrong]);
+    if (q.sortOpts) opts = opts.sort((a, b) => a.localeCompare(b, undefined, {numeric:true}));
+    return { ...q, opts };
+  }
+  return null;
+}
+function guppiAsk(){
+  G.q = gen(); G.answered = false;
+  const q = G.q, el = $('#gbody');
+  if (!q){ el.innerHTML = `<p class="gsay">Insufficient data. Raise the spoiler gate or read faster. Either is acceptable.</p>`; return; }
+  el.innerHTML = `<p class="gsay gdim">${esc(pick(G_INTRO))}</p>
+    <p class="gq">${esc(q.q)}</p>
+    <div class="gopts">${q.opts.map((o, i) => `<button class="gopt" data-i="${i}"><b>${'abc'[i]}</b><span>${esc(o)}</span></button>`).join('')}</div>
+    <div class="gres" id="gres" aria-live="polite"></div>`;
+}
+function guppiAnswer(i){
+  if (G.answered || !G.q) return; G.answered = true;
+  const q = G.q, ok = q.opts[i] === q.right;
+  document.querySelectorAll('.gopt').forEach((b, j) => {
+    b.disabled = true;
+    if (q.opts[j] === q.right) b.classList.add('right'); else if (j === i) b.classList.add('wrong');
+  });
+  const link = q.link && INDEX[q.link] && visible(INDEX[q.link]) ? `<button class="glink" data-open="${esc(q.link)}">Open record ›</button>` : '';
+  $('#gres').innerHTML = `<p class="gsay">${esc(ok ? pick(G_RIGHT) : pick(G_WRONG) + ' The answer was: ' + q.right + '.')}</p>
+    ${q.note ? `<p class="gsay gdim">${esc(q.note)}</p>` : ''}
+    <div class="gact"><button class="btn" id="gnext">Next question</button>${link}</div>`;
+  $('#gnext').focus();
+}
+function guppiOpen(){ document.body.classList.add('guppi-on'); $('#guppi').hidden = false; guppiAsk(); setTimeout(() => $('.gopt')?.focus(), 30); }
+function guppiClose(){ document.body.classList.remove('guppi-on'); $('#guppi').hidden = true; $('#guppibtn').focus(); }
+$('#guppibtn').addEventListener('click', guppiOpen);
+$('#guppi').addEventListener('click', ev => {
+  if (ev.target === $('#guppi') || ev.target.closest('[data-gclose]')) return guppiClose();
+  const o = ev.target.closest('.gopt'); if (o) return guppiAnswer(+o.dataset.i);
+  if (ev.target.closest('#gnext')) return guppiAsk();
+  const l = ev.target.closest('[data-open]'); if (l){ guppiClose(); go(l.dataset.open); }
+});
+document.addEventListener('keydown', ev => {
+  if ($('#guppi').hidden) return;
+  if (ev.key === 'Escape'){ ev.stopImmediatePropagation(); guppiClose(); }
+  else if (!G.answered && 'abc'.includes(ev.key) && ev.key.length === 1 && document.activeElement?.tagName !== 'INPUT'){ guppiAnswer('abc'.indexOf(ev.key)); }
+  else if (G.answered && (ev.key === 'n' || ev.key === 'N')) guppiAsk();
+}, true);
 
 function renderAll(){ renderPips(); renderTabs(); renderChips(); route(); }
 renderAll();

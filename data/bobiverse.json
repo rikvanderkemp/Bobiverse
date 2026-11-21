@@ -3215,5 +3215,161 @@
       "confidence": "low",
       "updates": []
     }
+  ],
+  "trivia": [
+    {
+      "book": 1,
+      "q": "In 2016, Bob made a decision about his own head. Which one?",
+      "right": "Had it frozen after death",
+      "wrong": [
+        "Insured it for a large sum",
+        "Donated it to science while still using it"
+      ],
+      "note": "Cryonics. A plan with one flaw: it worked.",
+      "link": "bob"
+    },
+    {
+      "book": 1,
+      "q": "Who legally owns Bob when he is switched back on?",
+      "right": "FAITH",
+      "wrong": [
+        "The Brazilian Empire",
+        "Bob, obviously"
+      ],
+      "note": "Property. He objected. Objection noted. Objection filed.",
+      "link": "faith"
+    },
+    {
+      "book": 1,
+      "q": "What does Bob use to build copies of himself?",
+      "right": "An autofactory",
+      "wrong": [
+        "A very patient 3D printer",
+        "Me, by hand"
+      ],
+      "note": "I was not asked to build anything by hand. I would have declined.",
+      "link": "autofactory"
+    },
+    {
+      "book": 1,
+      "q": "What is the name of the virtual cat in Bob's VR home?",
+      "right": "Spike",
+      "wrong": [
+        "Hobbes",
+        "Garfield"
+      ],
+      "note": "Garfield is a Bob. A common error. Not one I would make.",
+      "link": "spike"
+    },
+    {
+      "book": 1,
+      "q": "In which star system does Bob first stop and start making copies?",
+      "right": "Epsilon Eridani",
+      "wrong": [
+        "Alpha Centauri",
+        "Delta Eridani"
+      ],
+      "note": "Epsilon Eridani. Close enough to be convenient. Far enough to be lonely.",
+      "link": "epsilon-eridani"
+    },
+    {
+      "book": 1,
+      "q": "Which Bob names the planets Vulcan and Romulus?",
+      "right": "Milo",
+      "wrong": [
+        "Riker",
+        "Bill"
+      ],
+      "note": "Milo. Naming planets after a television show. I have no comment. That is my comment.",
+      "link": "milo"
+    },
+    {
+      "book": 1,
+      "q": "What is the hostile Brazilian replicant called?",
+      "right": "Medeiros",
+      "wrong": [
+        "Homer",
+        "Mario"
+      ],
+      "note": "Medeiros. Persistent. I respect persistence. I do not respect him.",
+      "link": "medeiros"
+    },
+    {
+      "book": 2,
+      "q": "What does Bob wear to walk among the Deltans?",
+      "right": "A remote-controlled android body",
+      "wrong": [
+        "A very convincing hat",
+        "A hologram"
+      ],
+      "note": "An android. The hat was considered. Briefly. By no one.",
+      "link": "android"
+    },
+    {
+      "book": 2,
+      "q": "Which Deltan does Bob take a special interest in?",
+      "right": "Archimedes",
+      "wrong": [
+        "Hazjiar",
+        "Marvin"
+      ],
+      "note": "Archimedes. Curious, stubborn, ahead of his time. Bob found that relatable.",
+      "link": "archimedes"
+    },
+    {
+      "book": 2,
+      "q": "What keeps people alive on long colony voyages?",
+      "right": "Stasis pods",
+      "wrong": [
+        "Very long naps",
+        "Strong coffee"
+      ],
+      "note": "Stasis. Nobody complains about the in-flight entertainment.",
+      "link": "stasis-pods"
+    },
+    {
+      "book": 3,
+      "q": "What is the Bellerophon?",
+      "right": "A captured Others ship rebuilt as an ark",
+      "wrong": [
+        "Bob's personal yacht",
+        "A Deltan temple"
+      ],
+      "note": "An enemy ship, repurposed. Recycling, at scale.",
+      "link": "bellerophon"
+    },
+    {
+      "book": 4,
+      "q": "What shape is Heaven's River?",
+      "right": "A tube wrapped around a star",
+      "wrong": [
+        "A sphere around a star",
+        "A flat ring around a planet"
+      ],
+      "note": "A topopolis. Very long. I measured. It did not help.",
+      "link": "topopolis"
+    },
+    {
+      "book": 4,
+      "q": "Who is Bob looking for in Heaven's River?",
+      "right": "Bender",
+      "wrong": [
+        "Riker",
+        "Medeiros"
+      ],
+      "note": "Bender. Missing for over a century. Bob does not give up. I have noticed.",
+      "link": "bender"
+    },
+    {
+      "book": 5,
+      "q": "What do the Skippies end up building?",
+      "right": "A self-aware AI",
+      "wrong": [
+        "A moon-sized library",
+        "A better GUPPI"
+      ],
+      "note": "A better GUPPI was never on the list. Correctly.",
+      "link": "thoth"
+    }
   ]
 }

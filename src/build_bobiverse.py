@@ -356,6 +356,45 @@ ship("others-ships", "The Others' ships", 2,
      "Huge industrial ships that arrive at a star system, sterilize it and strip its planets for raw materials. Each one is a factory as much as a warship, and they travel in groups.",
      ["others", "gliese-877", "battle-of-delta-pavonis", "death-asteroids"], cls="Alien", confidence="medium")
 
+# ---------------- GUPPI TRIVIA ----------------
+# Hand-written questions for the GUPPI panel (the app also generates questions from the data).
+# book = earliest book a reader must have finished for the question AND all its options to be spoiler-free.
+# note = GUPPI's deadpan remark after the answer. All wording is original.
+TR = []
+def trivia(book, q, right, wrong, note, link=None):
+    assert len(wrong) == 2
+    TR.append(dict(book=book, q=q, right=right, wrong=list(wrong), note=note, link=link))
+
+trivia(1, "In 2016, Bob made a decision about his own head. Which one?", "Had it frozen after death",
+       ["Insured it for a large sum", "Donated it to science while still using it"],
+       "Cryonics. A plan with one flaw: it worked.", "bob")
+trivia(1, "Who legally owns Bob when he is switched back on?", "FAITH", ["The Brazilian Empire", "Bob, obviously"],
+       "Property. He objected. Objection noted. Objection filed.", "faith")
+trivia(1, "What does Bob use to build copies of himself?", "An autofactory", ["A very patient 3D printer", "Me, by hand"],
+       "I was not asked to build anything by hand. I would have declined.", "autofactory")
+trivia(1, "What is the name of the virtual cat in Bob's VR home?", "Spike", ["Hobbes", "Garfield"],
+       "Garfield is a Bob. A common error. Not one I would make.", "spike")
+trivia(1, "In which star system does Bob first stop and start making copies?", "Epsilon Eridani", ["Alpha Centauri", "Delta Eridani"],
+       "Epsilon Eridani. Close enough to be convenient. Far enough to be lonely.", "epsilon-eridani")
+trivia(1, "Which Bob names the planets Vulcan and Romulus?", "Milo", ["Riker", "Bill"],
+       "Milo. Naming planets after a television show. I have no comment. That is my comment.", "milo")
+trivia(1, "What is the hostile Brazilian replicant called?", "Medeiros", ["Homer", "Mario"],
+       "Medeiros. Persistent. I respect persistence. I do not respect him.", "medeiros")
+trivia(2, "What does Bob wear to walk among the Deltans?", "A remote-controlled android body", ["A very convincing hat", "A hologram"],
+       "An android. The hat was considered. Briefly. By no one.", "android")
+trivia(2, "Which Deltan does Bob take a special interest in?", "Archimedes", ["Hazjiar", "Marvin"],
+       "Archimedes. Curious, stubborn, ahead of his time. Bob found that relatable.", "archimedes")
+trivia(2, "What keeps people alive on long colony voyages?", "Stasis pods", ["Very long naps", "Strong coffee"],
+       "Stasis. Nobody complains about the in-flight entertainment.", "stasis-pods")
+trivia(3, "What is the Bellerophon?", "A captured Others ship rebuilt as an ark", ["Bob's personal yacht", "A Deltan temple"],
+       "An enemy ship, repurposed. Recycling, at scale.", "bellerophon")
+trivia(4, "What shape is Heaven's River?", "A tube wrapped around a star", ["A sphere around a star", "A flat ring around a planet"],
+       "A topopolis. Very long. I measured. It did not help.", "topopolis")
+trivia(4, "Who is Bob looking for in Heaven's River?", "Bender", ["Riker", "Medeiros"],
+       "Bender. Missing for over a century. Bob does not give up. I have noticed.", "bender")
+trivia(5, "What do the Skippies end up building?", "A self-aware AI", ["A moon-sized library", "A better GUPPI"],
+       "A better GUPPI was never on the list. Correctly.", "thoth")
+
 data = dict(
     meta=dict(series="Bobiverse", author="Dennis E. Taylor", version=1, generated="2026-11-21",
               notes=["All summaries are original paraphrases written for this app.",
@@ -364,7 +403,7 @@ data = dict(
                      "confidence: high = sources agree; medium = sources conflict or first-book tag is inferred (the later plausible book was chosen); low = book 6 premise only, from pre-release info.",
                      "related lists ids across terms, places and characters. Hide a related link when its target's firstBook is past the reader's book. Timeline events carry a book and an order within it.",
                      "when = in-universe year(s), from the fan-made Bobiverse wiki timeline (bobiverse.fandom.com/wiki/Timeline). A leading ~ marks an estimate: the exact event is not dated there, or (books 5-6) only the book's overall span is known."]),
-    books=books, terms=T, places=P, characters=C, timeline=TL, references=R, ships=SH)
+    books=books, terms=T, places=P, characters=C, timeline=TL, references=R, ships=SH, trivia=TR)
 
 # move ship-like terms into SH
 _MOVE = {"ship-buster": "Drones & weapons", "colony-ships": "Transport", "bellerophon": "Transport", "derelict-ship": "Alien"}
