@@ -44,6 +44,8 @@ a{color:inherit}
 .maplink{margin-left:auto; font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--cyan); text-decoration:none; border:1px solid var(--line2); padding:6px 10px; background:var(--panel)}
 .maplink:hover{border-color:var(--cyan); box-shadow:0 0 12px rgba(79,227,255,.25)}
 .maplink + .status{margin-left:0}
+.homebtn{cursor:pointer}
+.homebtn + .guppibtn{margin-left:0}
 .guppibtn{cursor:pointer; color:var(--amber); border-color:rgba(255,181,71,.45); display:inline-flex; align-items:center; gap:7px}
 .guppibtn:hover{border-color:var(--amber); box-shadow:0 0 12px rgba(255,181,71,.3)}
 .guppibtn + .maplink{margin-left:0}
@@ -169,6 +171,15 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
 /* ---------- detail ---------- */
 .detail{overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--line2) transparent}
 .dhead{padding:22px 26px 16px; border-bottom:1px solid var(--line); position:relative}
+.dnav{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:12px}
+.dnav .back{margin-bottom:0}
+.tohome{background:none; border:1px solid var(--line2); color:var(--muted); font-family:var(--mono); font-size:11px; letter-spacing:.08em; padding:5px 9px; cursor:pointer; border-radius:2px}
+.tohome:hover{color:var(--cyan); border-color:var(--cyan)}
+.trail{display:flex; flex-wrap:wrap; align-items:center; gap:4px; font-size:12px; color:var(--muted); min-width:0}
+.trail button{background:none; border:0; color:var(--cyan-dim); cursor:pointer; padding:2px 3px; font-size:12px}
+.trail button:hover{color:var(--cyan); text-decoration:underline}
+.trail i{font-style:normal; color:var(--faint)}
+.trail span{color:var(--text)}
 .back{display:none; background:none; border:1px solid var(--line2); color:var(--cyan); font-family:var(--mono); font-size:12px; letter-spacing:.1em; padding:6px 10px; cursor:pointer; margin-bottom:14px; border-radius:2px}
 .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--tc); display:flex; gap:10px; flex-wrap:wrap; align-items:center}
 .kicker span+span::before{content:"//"; margin-right:10px; color:var(--faint)}
@@ -265,6 +276,7 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
         <small>REPLICANT FIELD TERMINAL · v1</small>
       </div>
     </div>
+    <button class="maplink homebtn" id="homebtn" title="Back to the overview">⌂ HOME</button>
     <button class="maplink guppibtn" id="guppibtn" title="Ask GUPPI for a trivia question" aria-haspopup="dialog"><svg width="16" height="12" viewBox="0 0 32 22" fill="none" aria-hidden="true"><path d="M2 11c5-9 17-11 24-4l4-4v16l-4-4C19 22 7 20 2 11z" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg> GUPPI</button>
     <a class="maplink" href="map.html" title="Mind map of how everything connects">◈ STAR MAP</a>
     <div class="status"><span class="dot"></span><span id="linkstat">LINK STABLE</span><span class="clock" id="clock"></span></div>
@@ -518,7 +530,7 @@ function renderDetail(){
   if (!e){ el.innerHTML = idle(); el.style.removeProperty('--tc'); return; }
   const m = KINDS[e._k];
   el.style.setProperty('--tc', m.color);
-  const back = `<button class="back" data-back>‹ BACK</button>`;
+  const back = `<div class="dnav"><button class="back" data-back>‹ BACK</button><button class="tohome" data-home>⌂ ${esc(KINDS[e ? e._k : S.tab].label)} overview</button>${trailHTML()}</div>`;
   if (!visible(e)){
     el.innerHTML = `<div class="dhead">${back}</div><div class="locked"><h2>▣ SEALED RECORD</h2>
       <p>This record first appears after the book you're reading (Book ${S.book}).</p>
@@ -564,12 +576,26 @@ function renderDetail(){
 }
 $('#detail').addEventListener('click', ev => {
   if (ev.target.closest('[data-back]')){ closeDetail(); return; }
+  if (ev.target.closest('[data-home]')){ goHome(); return; }
   const u = ev.target.closest('[data-unlock]');
   if (u){ S.book = +u.dataset.unlock; store.set('book', S.book); renderAll(); return; }
   const l = ev.target.closest('[data-id]'); if (l) go(l.dataset.id);
 });
 
 // ---------- routing ----------
+const TRAIL = [];
+function trailHTML(){
+  const t = TRAIL.filter(id => INDEX[id] && visible(INDEX[id]));
+  if (t.length < 2) return '';
+  return `<nav class="trail" aria-label="Recently viewed">${t.slice(-5).map((id, i, a) => i === a.length - 1
+    ? `<span>${esc(nameOf(INDEX[id]))}</span>` : `<button data-id="${esc(id)}">${esc(nameOf(INDEX[id]))}</button>`).join('<i>›</i>')}</nav>`;
+}
+function goHome(){
+  TRAIL.length = 0;
+  history.replaceState(null, '', location.pathname + location.search);
+  if (S.q){ $('#q').value = ''; S.q = ''; $('#searchbox').classList.remove('has'); renderTabs(); renderChips(); }
+  route(); $('#list').scrollTop = 0;
+}
 function go(id){ if (location.hash.slice(1) !== id) location.hash = id; else route(); }
 function closeDetail(){
   if (history.length > 1 && location.hash) history.back(); else { location.hash = ''; }
@@ -578,6 +604,7 @@ function route(){
   const id = decodeURIComponent(location.hash.slice(1));
   const e = INDEX[id];
   S.sel = e ? id : null;
+  if (e){ const i = TRAIL.indexOf(id); if (i >= 0) TRAIL.splice(i + 1); else TRAIL.push(id); } else TRAIL.length = 0;
   document.body.classList.toggle('showdetail', !!e);
   if (e && e._k !== S.tab && !S.q){ S.tab = e._k; S.facet = null; store.set('tab', S.tab); renderTabs(); renderChips(); }
   renderList(); renderDetail();
@@ -585,6 +612,9 @@ function route(){
   if (r && window.matchMedia('(min-width: 821px)').matches) r.scrollIntoView({block:'nearest'});
 }
 window.addEventListener('hashchange', route);
+$('#homebtn').addEventListener('click', goHome);
+document.querySelector('.brand').addEventListener('click', goHome);
+document.querySelector('.brand').style.cursor = 'pointer';
 
 // ---------- search wiring ----------
 let t;
