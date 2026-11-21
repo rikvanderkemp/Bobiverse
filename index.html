@@ -805,6 +805,7 @@ function gen(){
   return null;
 }
 function guppiAsk(){
+  if (!G.opening) HAP.buzz(10);
   G.q = gen(); G.answered = false;
   const q = G.q, el = $('#gbody');
   if (!q){ el.innerHTML = `<p class="gsay">Insufficient data. Raise the spoiler gate or read faster. Either is acceptable.</p>`; return; }
@@ -816,6 +817,7 @@ function guppiAsk(){
 function guppiAnswer(i){
   if (G.answered || !G.q) return; G.answered = true;
   const q = G.q, ok = q.opts[i] === q.right;
+  HAP.buzz(ok ? 35 : [40, 30, 40]);
   document.querySelectorAll('.gopt').forEach((b, j) => {
     b.disabled = true;
     if (q.opts[j] === q.right) b.classList.add('right'); else if (j === i) b.classList.add('wrong');
@@ -826,7 +828,7 @@ function guppiAnswer(i){
     <div class="gact"><button class="btn" id="gnext">Next question</button>${link}</div>`;
   $('#gnext').focus();
 }
-function guppiOpen(){ document.body.classList.add('guppi-on'); $('#guppi').hidden = false; guppiAsk(); setTimeout(() => $('.gopt')?.focus(), 30); }
+function guppiOpen(){ HAP.buzz([15, 50, 15]); G.opening = true; document.body.classList.add('guppi-on'); $('#guppi').hidden = false; guppiAsk(); G.opening = false; setTimeout(() => $('.gopt')?.focus(), 30); }
 function guppiClose(){ document.body.classList.remove('guppi-on'); $('#guppi').hidden = true; $('#guppibtn').focus(); }
 $('#guppibtn').addEventListener('click', guppiOpen);
 $('#guppi').addEventListener('click', ev => {
