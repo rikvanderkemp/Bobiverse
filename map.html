@@ -55,6 +55,8 @@ body.searching .controls{display:block}
 .sugg.on{display:block}
 .sugg button{display:flex; gap:8px; align-items:center; width:100%; text-align:left; background:none; border:0; border-bottom:1px solid var(--line); padding:8px 12px; cursor:pointer}
 .sugg button:hover,.sugg button.act{background:rgba(79,227,255,.08)}
+.sugg button.nohit{cursor:default; line-height:1.4; color:var(--muted)}
+.sugg .nohit em{color:var(--faint); font-size:12px}
 .sugg i{width:8px; height:8px; border-radius:50%; flex:none}
 .sugg small{margin-left:auto; color:var(--faint); font-family:var(--mono); font-size:11px}
 
@@ -417,6 +419,17 @@ function refresh(a){
   if (S.sel && !V.includes(N[S.sel])) S.sel = null;
   build(); alpha = a; run(0);
 }
+const ARCH_NONE = [
+  'Request queued. Your position in the queue: considerable. Estimated reply: a few millennia.',
+  'Request logged. A clerk will be assigned once a clerk exists.',
+  'Access to that record requires a clearance level you do not have. Nobody does. Possibly it does not exist.',
+  'Your query has been filed under Pending. Pending is a very large section.',
+  'The Archivist acknowledges receipt. The Archivist does not acknowledge urgency.',
+  'Request placed in the queue behind several civilizations. Please remain patient. For a long time.',
+  'That subject is restricted. Or misspelled. The Archivist declines to say which.',
+  'No such record. The Archivist suggests submitting form 7-B. There is no form 7-B.',
+];
+const archNone = s => { let h = 0; for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return ARCH_NONE[h % ARCH_NONE.length]; };
 const q = $('#q'), sugg = $('#sugg'); let hits = [], act = 0;
 function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
 function renderSugg(){
@@ -427,7 +440,7 @@ function renderSugg(){
           .map(x => x[0]).slice(0, 12);
   act = 0;
   sugg.innerHTML = hits.length ? hits.map((n, i) => `<button data-id="${esc(n.id)}" class="${i===act?'act':''}"><i style="background:${KINDS[n.k].color}"></i>${esc(n.name)}<small>${KINDS[n.k].one}</small></button>`).join('')
-                              : `<button disabled>No visible match</button>`;
+                              : `<button disabled class="nohit"><span><b>0 records found.</b><br><em>Archivist: ${esc(archNone(t))}</em></span></button>`;
   sugg.classList.add('on');
 }
 q.addEventListener('input', renderSugg);
