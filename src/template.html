@@ -13,7 +13,7 @@
   --text:#d6e9f5; --muted:#7f9bb0; --faint:#4b6477;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --c-terms:#4fe3ff; --c-places:#6dffb0; --c-characters:#ffb547; --c-timeline:#c99bff;
+  --c-terms:#4fe3ff; --c-places:#6dffb0; --c-characters:#ffb547; --c-timeline:#c99bff; --c-refs:#ff7ab8;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -81,7 +81,7 @@ a{color:inherit}
 .frame::before{top:-2px; left:-2px; border-right:0; border-bottom:0}
 .frame::after{bottom:-2px; right:-2px; border-left:0; border-top:0}
 
-.tabs{display:grid; grid-template-columns:repeat(4,1fr); border-bottom:1px solid var(--line)}
+.tabs{display:grid; grid-template-columns:repeat(5,1fr); border-bottom:1px solid var(--line)}
 .tab{
   background:none; border:0; border-bottom:2px solid transparent; padding:10px 4px 8px; cursor:pointer;
   font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--muted); text-transform:uppercase;
@@ -94,6 +94,7 @@ a{color:inherit}
 
 .chips{display:flex; gap:6px; padding:10px 12px; overflow-x:auto; border-bottom:1px solid var(--line); scrollbar-width:none; flex:none}
 .chips::-webkit-scrollbar{display:none}
+.chipsep{flex:none; width:1px; margin:2px 4px; background:var(--line)}
 .chip{flex:none; background:var(--bg2); border:1px solid var(--line2); border-radius:20px; padding:3px 10px; font-size:12px; font-family:var(--mono); color:var(--muted); cursor:pointer; white-space:nowrap}
 .chip.on{color:var(--bg); background:var(--tc); border-color:var(--tc)}
 
@@ -259,6 +260,7 @@ const KINDS = {
   places:     {label:'Places',     one:'Place',     color:'var(--c-places)',     facet:'kind'},
   characters: {label:'Characters', one:'Character', color:'var(--c-characters)', facet:'group'},
   timeline:   {label:'Timeline',   one:'Event',     color:'var(--c-timeline)',   facet:null},
+  references: {label:'Refs',       one:'Reference', color:'var(--c-refs)',       facet:'medium'},
 };
 const BOOKS = Object.fromEntries(D.books.map(b => [b.id, b]));
 const MAXB = Math.max(...D.books.map(b => b.id));
@@ -270,7 +272,8 @@ const store = {
   get(k, d){ try { const v = localStorage.getItem('bobcodex.'+k); return v == null ? d : JSON.parse(v); } catch { return d; } },
   set(k, v){ try { localStorage.setItem('bobcodex.'+k, JSON.stringify(v)); } catch {} }
 };
-const S = { book: store.get('book', MAXB), tab: store.get('tab', 'terms'), facet: null, q: '', sel: null };
+const S = { book: store.get('book', MAXB), tab: store.get('tab', 'terms'), facet: null, rbook: null, q: '', sel: null };
+if (!KINDS[S.tab]) S.tab = 'terms';
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -293,7 +296,7 @@ $('#pips').addEventListener('click', ev => {
 // ---------- search ----------
 function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
 function haystack(e){
-  const parts = [nameOf(e), ...(e.aliases||[]), e.summary, e.category, e.kind, e.group, e.when];
+  const parts = [nameOf(e), ...(e.aliases||[]), e.summary, e.category, e.kind, e.group, e.when, e.work, e.medium];
   for (const u of (e.updates||[])) if (u.book <= S.book) parts.push(u.text);
   return norm(parts.join(' \u0001 '));
 }
@@ -342,16 +345,22 @@ function renderChips(){
   if (S.facet && !counts[S.facet]) S.facet = null;
   el.innerHTML = `<button class="chip ${S.facet==null?'on':''}" data-f="">All</button>` +
     keys.map(f => `<button class="chip ${S.facet===f?'on':''}" data-f="${esc(f)}">${esc(f)} · ${counts[f]}</button>`).join('');
+  if (S.tab === 'references'){
+    if (S.rbook && S.rbook > S.book) S.rbook = null;
+    el.innerHTML += `<span class="chipsep"></span><button class="chip ${S.rbook==null?'on':''}" data-rb="">All books</button>` +
+      D.books.filter(b => b.id <= S.book).map(b => `<button class="chip ${S.rbook===b.id?'on':''}" data-rb="${b.id}">Book ${b.id}</button>`).join('');
+  }
 }
 $('#chips').addEventListener('click', ev => {
   const c = ev.target.closest('.chip'); if (!c) return;
+  if (c.dataset.rb !== undefined){ S.rbook = c.dataset.rb === '' ? null : +c.dataset.rb; renderChips(); renderList(); $('#list').scrollTop = 0; return; }
   const f = c.dataset.f; S.facet = f === '' ? null : (KINDS[S.tab].facet ? f : +f);
   renderChips(); renderList(); $('#list').scrollTop = 0;
 });
 
 function rowHTML(e){
   const m = KINDS[e._k];
-  const sub = e._k === 'timeline' ? e.summary : (e.summary);
+  const sub = e._k === 'references' ? `${e.work} · ${e.summary}` : e.summary;
   const right = e._k === 'timeline' ? `<span class="when"${(e.when||'').startsWith('~') ? ' title="Estimate"' : ''}>${esc(e.when || '—')}</span>` : `<span class="bk" title="${esc(BOOKS[e._b].title)}">${bookShort(e._b)}</span>`;
   return `<button class="row ${S.sel===e.id?'sel':''}" data-id="${esc(e.id)}" style="--tc:${m.color}">
     <span class="glyph"></span>
@@ -364,6 +373,7 @@ function renderList(){
   let items = itemsFor(k);
   if (m.facet && S.facet) items = items.filter(e => e[m.facet] === S.facet);
   if (!m.facet && S.facet) items = items.filter(e => e.book === S.facet);
+  if (k === 'references' && S.rbook) items = items.filter(e => e._b === S.rbook);
   let html = '';
   if (k === 'timeline'){
     items.sort((a,b) => a.book-b.book || a.order-b.order);
@@ -403,6 +413,11 @@ $('#list').addEventListener('click', ev => {
 });
 
 // ---------- detail ----------
+const CONF_REF = {
+  high:   'The book makes this explicit, or the reference is unmistakable.',
+  medium: 'The name clearly points here, but the book may not spell it out.',
+  low:    "A fan reading that the books don't confirm. Take it with a grain of salt.",
+};
 const CONF = {
   high:   'Sources agree.',
   medium: 'Sources disagree on a detail, or the first-appearance book is a best guess (the later plausible book was used, to be safe).',
@@ -426,7 +441,7 @@ function idle(){
 }
 function linkHTML(e){
   const m = KINDS[e._k];
-  return `<button class="link" data-id="${esc(e.id)}" style="--tc:${m.color}"><small>${m.one}</small>${esc(nameOf(e))}</button>`;
+  return `<button class="link" data-id="${esc(e.id)}" style="--tc:${m.color}"><small>${m.one}</small>${esc(e._k==='references' ? e.work : nameOf(e))}</button>`;
 }
 function renderDetail(){
   const el = $('#detail'), e = INDEX[S.sel];
@@ -440,7 +455,8 @@ function renderDetail(){
       <button class="btn" data-unlock="${e._b}">Raise gate to Book ${e._b}</button></div>`;
     return;
   }
-  const kick = [m.one, e.category || e.kind || e.group, e._k==='timeline' && e.when ? e.when : null].filter(Boolean);
+  const kick = [m.one, e.category || e.kind || e.group || e.medium, e._k==='timeline' && e.when ? e.when : null].filter(Boolean);
+  const conf = (e._k === 'references' ? CONF_REF : CONF)[e.confidence];
   const parent = e.parent && INDEX[e.parent] && visible(INDEX[e.parent]) ? INDEX[e.parent] : null;
   const children = e._k === 'places' ? D.places.filter(p => p.parent === e.id && visible(p)) : [];
   const ups = (e.updates||[]).filter(u => u.book <= S.book).sort((a,b) => a.book-b.book);
@@ -459,16 +475,17 @@ function renderDetail(){
     ${e.aliases && e.aliases.length ? `<div class="aka"><b>AKA</b>${e.aliases.map(esc).join(' · ')}</div>` : ''}
     <div class="meta">
       <span class="tag book">${e._k==='timeline'?'Happens in':'First seen'}: Book ${e._b} · ${esc(BOOKS[e._b].title)}</span>
-      <span class="tag conf-${e.confidence}" title="${esc(CONF[e.confidence])}">Confidence: ${esc(e.confidence)}</span>
+      <span class="tag conf-${e.confidence}" title="${esc(conf)}">Confidence: ${esc(e.confidence)}</span>
       ${parent ? `<span class="tag">In <button data-id="${esc(parent.id)}">${esc(parent.name)}</button></span>` : ''}
     </div>
   </div>
   <div class="dbody">
-    <div class="sect"><h4>Summary</h4><p class="summary">${esc(e.summary)}</p>
-      ${e.confidence !== 'high' ? `<div class="confnote">⚠ ${esc(CONF[e.confidence])}</div>` : ''}</div>
+    ${e.work ? `<div class="sect"><h4>Refers to</h4><p class="summary"><b>${esc(e.work)}</b> · ${esc(e.medium)}</p></div>` : ''}
+    <div class="sect"><h4>${e._k==='references'?'The reference':'Summary'}</h4><p class="summary">${esc(e.summary)}</p>
+      ${e.confidence !== 'high' ? `<div class="confnote">⚠ ${esc(conf)}</div>` : ''}</div>
     ${ups.length ? `<div class="sect"><h4>Later developments</h4><ul class="updates">${ups.map(u => `<li><span class="ub">Book ${u.book}</span><span>${esc(u.text)}</span></li>`).join('')}</ul></div>` : ''}
     ${children.length ? `<div class="sect"><h4>Contains</h4><div class="links">${children.map(linkHTML).join('')}</div></div>` : ''}
-    ${['characters','places','terms'].filter(k => groups[k]).map(k => `<div class="sect"><h4>Linked ${KINDS[k].label.toLowerCase()}</h4><div class="links">${groups[k].map(linkHTML).join('')}</div></div>`).join('')}
+    ${['characters','places','terms','references'].filter(k => groups[k]).map(k => `<div class="sect"><h4>Linked ${KINDS[k].label.toLowerCase()}</h4><div class="links">${groups[k].map(linkHTML).join('')}</div></div>`).join('')}
     ${[...events, ...relEvents].length ? `<div class="sect"><h4>On the timeline</h4><div class="events">${[...events, ...relEvents].map(t => `<button class="event" data-id="${esc(t.id)}"><span class="when">B${t.book}${t.when ? `<br>${esc(t.when)}`:''}</span><span>${esc(t.title)} <em>· ${esc(t.summary)}</em></span></button>`).join('')}</div></div>` : ''}
   </div>`;
   el.scrollTop = 0;

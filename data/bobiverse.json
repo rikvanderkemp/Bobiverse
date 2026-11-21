@@ -2743,5 +2743,391 @@
       ],
       "confidence": "low"
     }
+  ],
+  "references": [
+    {
+      "id": "ref-legion",
+      "name": "Title: We Are Legion",
+      "work": "The Bible (Mark 5:9)",
+      "medium": "Other",
+      "firstBook": 1,
+      "summary": "The title echoes the possessed man in the Gospel of Mark who says his name is Legion, \"for we are many\". A neat fit for one mind running in many copies.",
+      "related": [
+        "bob",
+        "bobiverse"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-ackbar",
+      "name": "Guppy's face",
+      "work": "Star Wars",
+      "medium": "Film",
+      "firstBook": 1,
+      "summary": "Bob gives GUPPI a fish-headed avatar that looks like Admiral Ackbar, the Mon Calamari officer from Return of the Jedi.",
+      "related": [
+        "guppi",
+        "bob"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-riker",
+      "name": "Riker",
+      "work": "Star Trek: The Next Generation",
+      "medium": "TV",
+      "firstBook": 1,
+      "summary": "The clone who takes charge at Sol picks the name of the Enterprise's dependable second-in-command, Will Riker.",
+      "related": [
+        "riker"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-vulcan",
+      "name": "Vulcan and Romulus",
+      "work": "Star Trek",
+      "medium": "TV",
+      "firstBook": 1,
+      "summary": "Milo names a pair of planets after Spock's home world and the Romulan home world.",
+      "related": [
+        "vulcan",
+        "romulus",
+        "milo",
+        "omicron2-eridani"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-khan",
+      "name": "Khan",
+      "work": "Star Trek II: The Wrath of Khan",
+      "medium": "Film",
+      "firstBook": 1,
+      "summary": "The clone who leads the fighting against the Brazilians shares his name with Star Trek's most famous villain.",
+      "related": [
+        "khan"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-homer",
+      "name": "Homer",
+      "work": "The Simpsons",
+      "medium": "TV",
+      "firstBook": 1,
+      "summary": "Riker's clown of a clone is named for Homer Simpson, and for a while even uses a Homer Simpson avatar until Riker makes him drop it.",
+      "related": [
+        "homer",
+        "riker"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-marvin",
+      "name": "Marvin",
+      "work": "The Hitchhiker's Guide to the Galaxy",
+      "medium": "Literature",
+      "firstBook": 1,
+      "summary": "Shares a name with Marvin the Paranoid Android, Douglas Adams's gloomy robot.",
+      "related": [
+        "marvin"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-garfield",
+      "name": "Garfield",
+      "work": "Garfield",
+      "medium": "Comic",
+      "firstBook": 1,
+      "summary": "Bill's lab partner carries the name of Jim Davis's lazy comic-strip cat.",
+      "related": [
+        "garfield",
+        "bill"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-calvin-goku",
+      "name": "Calvin and Goku",
+      "work": "Calvin and Hobbes / Dragon Ball",
+      "medium": "Comic",
+      "firstBook": 1,
+      "summary": "Two of Bill's clones go out as a pair: Calvin like Bill Watterson's comic-strip boy, Goku like the hero of the Dragon Ball manga.",
+      "related": [
+        "calvin",
+        "goku"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-jeeves",
+      "name": "Jeeves",
+      "work": "Jeeves and Wooster (P. G. Wodehouse)",
+      "medium": "Literature",
+      "firstBook": 1,
+      "summary": "Bob's virtual butler is named after Wodehouse's famously unflappable valet.",
+      "related": [
+        "jeeves",
+        "vr"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-norse",
+      "name": "Ragnarök",
+      "work": "Norse mythology",
+      "medium": "Myth & legend",
+      "firstBook": 1,
+      "summary": "Bill's terraforming project is named after Ragnarök, the end of the world in Norse myth. Fitting for a planet that has to be remade.",
+      "related": [
+        "ragnarok",
+        "bill"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-eden",
+      "name": "Eden",
+      "work": "The Bible (Genesis)",
+      "medium": "Other",
+      "firstBook": 1,
+      "summary": "Bob names the Deltans' unspoiled world after the Garden of Eden.",
+      "related": [
+        "eden",
+        "deltans"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-many",
+      "name": "Title: For We Are Many",
+      "work": "The Bible (Mark 5:9)",
+      "medium": "Other",
+      "firstBook": 2,
+      "summary": "Completes the quote from the first book's title: \"My name is Legion, for we are many.\"",
+      "related": [
+        "bobiverse"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-linus",
+      "name": "Linus",
+      "work": "Peanuts",
+      "medium": "Comic",
+      "firstBook": 2,
+      "summary": "Shares a name with Charlie Brown's thoughtful, blanket-carrying friend.",
+      "related": [
+        "linus"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-hal",
+      "name": "Hal",
+      "work": "2001: A Space Odyssey",
+      "medium": "Film",
+      "firstBook": 2,
+      "summary": "A Bob named like HAL 9000, the ship's computer from Kubrick's film.",
+      "related": [
+        "hal"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-bashful",
+      "name": "Bashful",
+      "work": "Snow White and the Seven Dwarfs",
+      "medium": "Film",
+      "firstBook": 2,
+      "summary": "One of Mario's clones goes by the name of one of the seven dwarfs.",
+      "related": [
+        "bashful",
+        "mario"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-camelot",
+      "name": "Camelot",
+      "work": "Arthurian legend",
+      "medium": "Myth & legend",
+      "firstBook": 2,
+      "summary": "Bob names the Deltan village he watches over after King Arthur's court.",
+      "related": [
+        "camelot",
+        "archimedes"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-all-worlds",
+      "name": "Title: All These Worlds",
+      "work": "2010: Odyssey Two (Arthur C. Clarke)",
+      "medium": "Literature",
+      "firstBook": 3,
+      "summary": "From the alien message in Clarke's novel and its film: \"All these worlds are yours, except Europa.\"",
+      "related": [
+        "bobiverse"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-caerleon",
+      "name": "Caerleon",
+      "work": "Arthurian legend",
+      "medium": "Myth & legend",
+      "firstBook": 3,
+      "summary": "The rival Deltan village gets the name of another of King Arthur's seats, to match Camelot.",
+      "related": [
+        "caerleon",
+        "camelot",
+        "fred"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-norse-gods",
+      "name": "Odin and Thor",
+      "work": "Norse mythology",
+      "medium": "Myth & legend",
+      "firstBook": 3,
+      "summary": "More Norse names turn up: the gas giant Odin, and a Bob called Thor.",
+      "related": [
+        "odin",
+        "thor"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-greek",
+      "name": "Daedalus, Icarus, Bellerophon, Poseidon",
+      "work": "Greek mythology",
+      "medium": "Myth & legend",
+      "firstBook": 3,
+      "summary": "A cluster of Greek names: the inventor Daedalus and his son Icarus, the hero Bellerophon, and the sea god Poseidon.",
+      "related": [
+        "daedalus",
+        "icarus",
+        "bellerophon",
+        "poseidon"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-starfleet",
+      "name": "Starfleet",
+      "work": "Star Trek",
+      "medium": "TV",
+      "firstBook": 4,
+      "summary": "The faction that insists on non-interference names itself after Star Trek's Starfleet and its Prime Directive.",
+      "related": [
+        "starfleet"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-bender",
+      "name": "Bender",
+      "work": "Futurama",
+      "medium": "TV",
+      "firstBook": 4,
+      "summary": "The missing clone shares his name with Futurama's foul-mouthed robot.",
+      "related": [
+        "bender"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-hugh",
+      "name": "Hugh",
+      "work": "Star Trek: The Next Generation",
+      "medium": "TV",
+      "firstBook": 4,
+      "summary": "Shares a name with Hugh, the Borg drone who gains individuality in The Next Generation, a fitting name for a Bob who works with AIs.",
+      "related": [
+        "hugh",
+        "skippies"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-boojums",
+      "name": "Boojums",
+      "work": "The Hunting of the Snark (Lewis Carroll)",
+      "medium": "Literature",
+      "firstBook": 4,
+      "summary": "In Carroll's poem a Boojum is the deadly kind of Snark that makes hunters vanish, like the scouts that disappear at Eta Leporis.",
+      "related": [
+        "boojums",
+        "eta-leporis"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-ringworld",
+      "name": "Heaven's River as a megastructure",
+      "work": "Ringworld (Larry Niven)",
+      "medium": "Literature",
+      "firstBook": 4,
+      "summary": "A world-sized habitat around a star belongs to the same family of ideas as Niven's Ringworld, which the Bobs are well aware of.",
+      "related": [
+        "topopolis",
+        "heavens-river"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "id": "ref-skippy",
+      "name": "Skippies",
+      "work": "Expeditionary Force (Craig Alanson)",
+      "medium": "Literature",
+      "firstBook": 4,
+      "summary": "Some readers link the AI-loving faction's name to Skippy, the arrogant alien AI of Craig Alanson's series.",
+      "related": [
+        "skippies"
+      ],
+      "confidence": "low"
+    },
+    {
+      "id": "ref-walden",
+      "name": "Title: Not Till We Are Lost",
+      "work": "Walden (Henry David Thoreau)",
+      "medium": "Literature",
+      "firstBook": 5,
+      "summary": "From Walden: \"Not till we are lost ... do we begin to find ourselves.\"",
+      "related": [
+        "bobiverse"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-jabberwocky",
+      "name": "Jabberwocky",
+      "work": "Through the Looking-Glass (Lewis Carroll)",
+      "medium": "Literature",
+      "firstBook": 5,
+      "summary": "The dragon planet is named after Carroll's nonsense poem about slaying the Jabberwock.",
+      "related": [
+        "jabberwocky",
+        "jabberwocky-dragons"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "ref-thoth",
+      "name": "Thoth",
+      "work": "Egyptian mythology",
+      "medium": "Myth & legend",
+      "firstBook": 5,
+      "summary": "The Skippies' AI is named after the Egyptian god of wisdom and writing.",
+      "related": [
+        "thoth",
+        "skippies"
+      ],
+      "confidence": "medium"
+    }
   ]
 }

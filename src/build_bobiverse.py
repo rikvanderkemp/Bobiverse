@@ -257,6 +257,81 @@ ev(6, "Nemesis", "The Bobs face a black hole threatening the galaxy.", ["nemesis
 term("battle-of-delta-pavonis", "Battle of Delta Pavonis", 2, "The Bobs' first big fleet battle with the Others, fought to protect the Pav, and a loss.", ["others", "pav", "delta-pavonis", "jacques"], category="event")
 term("battle-of-sol", "Battle of Sol", 3, "The Others' attack on humanity's home system and the Bobs' defense and mass evacuation of Earth.", ["others", "sol", "earth", "bellerophon", "herschel", "cuba", "death-asteroids"], category="event")
 
+
+# ---------------- REFERENCES ----------------
+# Pop-culture and other references. firstBook = book where the reference first shows up.
+# confidence: high = the book makes it explicit or it's unmistakable; medium = the name clearly points
+# there but the book may not spell it out; low = a fan reading the books don't confirm.
+R = []
+def ref(id, name, work, medium, book, summary, related=(), confidence="high"):
+    R.append(dict(id=id, name=name, work=work, medium=medium, firstBook=book,
+                  summary=summary, related=list(related), confidence=confidence))
+
+ref("ref-legion", "Title: We Are Legion", "The Bible (Mark 5:9)", "Other", 1,
+    "The title echoes the possessed man in the Gospel of Mark who says his name is Legion, \"for we are many\". A neat fit for one mind running in many copies.", ["bob", "bobiverse"])
+ref("ref-ackbar", "Guppy's face", "Star Wars", "Film", 1,
+    "Bob gives GUPPI a fish-headed avatar that looks like Admiral Ackbar, the Mon Calamari officer from Return of the Jedi.", ["guppi", "bob"])
+ref("ref-riker", "Riker", "Star Trek: The Next Generation", "TV", 1,
+    "The clone who takes charge at Sol picks the name of the Enterprise's dependable second-in-command, Will Riker.", ["riker"])
+ref("ref-vulcan", "Vulcan and Romulus", "Star Trek", "TV", 1,
+    "Milo names a pair of planets after Spock's home world and the Romulan home world.", ["vulcan", "romulus", "milo", "omicron2-eridani"])
+ref("ref-khan", "Khan", "Star Trek II: The Wrath of Khan", "Film", 1,
+    "The clone who leads the fighting against the Brazilians shares his name with Star Trek's most famous villain.", ["khan"], confidence="medium")
+ref("ref-homer", "Homer", "The Simpsons", "TV", 1,
+    "Riker's clown of a clone is named for Homer Simpson, and for a while even uses a Homer Simpson avatar until Riker makes him drop it.", ["homer", "riker"])
+ref("ref-marvin", "Marvin", "The Hitchhiker's Guide to the Galaxy", "Literature", 1,
+    "Shares a name with Marvin the Paranoid Android, Douglas Adams's gloomy robot.", ["marvin"], confidence="medium")
+ref("ref-garfield", "Garfield", "Garfield", "Comic", 1,
+    "Bill's lab partner carries the name of Jim Davis's lazy comic-strip cat.", ["garfield", "bill"], confidence="medium")
+ref("ref-calvin-goku", "Calvin and Goku", "Calvin and Hobbes / Dragon Ball", "Comic", 1,
+    "Two of Bill's clones go out as a pair: Calvin like Bill Watterson's comic-strip boy, Goku like the hero of the Dragon Ball manga.", ["calvin", "goku"], confidence="medium")
+ref("ref-jeeves", "Jeeves", "Jeeves and Wooster (P. G. Wodehouse)", "Literature", 1,
+    "Bob's virtual butler is named after Wodehouse's famously unflappable valet.", ["jeeves", "vr"], confidence="medium")
+ref("ref-norse", "Ragnarök", "Norse mythology", "Myth & legend", 1,
+    "Bill's terraforming project is named after Ragnarök, the end of the world in Norse myth. Fitting for a planet that has to be remade.", ["ragnarok", "bill"])
+ref("ref-eden", "Eden", "The Bible (Genesis)", "Other", 1,
+    "Bob names the Deltans' unspoiled world after the Garden of Eden.", ["eden", "deltans"], confidence="medium")
+
+ref("ref-many", "Title: For We Are Many", "The Bible (Mark 5:9)", "Other", 2,
+    "Completes the quote from the first book's title: \"My name is Legion, for we are many.\"", ["bobiverse"])
+ref("ref-linus", "Linus", "Peanuts", "Comic", 2,
+    "Shares a name with Charlie Brown's thoughtful, blanket-carrying friend.", ["linus"], confidence="medium")
+ref("ref-hal", "Hal", "2001: A Space Odyssey", "Film", 2,
+    "A Bob named like HAL 9000, the ship's computer from Kubrick's film.", ["hal"], confidence="medium")
+ref("ref-bashful", "Bashful", "Snow White and the Seven Dwarfs", "Film", 2,
+    "One of Mario's clones goes by the name of one of the seven dwarfs.", ["bashful", "mario"], confidence="medium")
+ref("ref-camelot", "Camelot", "Arthurian legend", "Myth & legend", 2,
+    "Bob names the Deltan village he watches over after King Arthur's court.", ["camelot", "archimedes"])
+
+ref("ref-all-worlds", "Title: All These Worlds", "2010: Odyssey Two (Arthur C. Clarke)", "Literature", 3,
+    "From the alien message in Clarke's novel and its film: \"All these worlds are yours, except Europa.\"", ["bobiverse"])
+ref("ref-caerleon", "Caerleon", "Arthurian legend", "Myth & legend", 3,
+    "The rival Deltan village gets the name of another of King Arthur's seats, to match Camelot.", ["caerleon", "camelot", "fred"])
+ref("ref-norse-gods", "Odin and Thor", "Norse mythology", "Myth & legend", 3,
+    "More Norse names turn up: the gas giant Odin, and a Bob called Thor.", ["odin", "thor"], confidence="medium")
+ref("ref-greek", "Daedalus, Icarus, Bellerophon, Poseidon", "Greek mythology", "Myth & legend", 3,
+    "A cluster of Greek names: the inventor Daedalus and his son Icarus, the hero Bellerophon, and the sea god Poseidon.", ["daedalus", "icarus", "bellerophon", "poseidon"])
+
+ref("ref-starfleet", "Starfleet", "Star Trek", "TV", 4,
+    "The faction that insists on non-interference names itself after Star Trek's Starfleet and its Prime Directive.", ["starfleet"])
+ref("ref-bender", "Bender", "Futurama", "TV", 4,
+    "The missing clone shares his name with Futurama's foul-mouthed robot.", ["bender"], confidence="medium")
+ref("ref-hugh", "Hugh", "Star Trek: The Next Generation", "TV", 4,
+    "Shares a name with Hugh, the Borg drone who gains individuality in The Next Generation, a fitting name for a Bob who works with AIs.", ["hugh", "skippies"], confidence="medium")
+ref("ref-boojums", "Boojums", "The Hunting of the Snark (Lewis Carroll)", "Literature", 4,
+    "In Carroll's poem a Boojum is the deadly kind of Snark that makes hunters vanish, like the scouts that disappear at Eta Leporis.", ["boojums", "eta-leporis"], confidence="medium")
+ref("ref-ringworld", "Heaven's River as a megastructure", "Ringworld (Larry Niven)", "Literature", 4,
+    "A world-sized habitat around a star belongs to the same family of ideas as Niven's Ringworld, which the Bobs are well aware of.", ["topopolis", "heavens-river"], confidence="medium")
+ref("ref-skippy", "Skippies", "Expeditionary Force (Craig Alanson)", "Literature", 4,
+    "Some readers link the AI-loving faction's name to Skippy, the arrogant alien AI of Craig Alanson's series.", ["skippies"], confidence="low")
+
+ref("ref-walden", "Title: Not Till We Are Lost", "Walden (Henry David Thoreau)", "Literature", 5,
+    "From Walden: \"Not till we are lost ... do we begin to find ourselves.\"", ["bobiverse"])
+ref("ref-jabberwocky", "Jabberwocky", "Through the Looking-Glass (Lewis Carroll)", "Literature", 5,
+    "The dragon planet is named after Carroll's nonsense poem about slaying the Jabberwock.", ["jabberwocky", "jabberwocky-dragons"])
+ref("ref-thoth", "Thoth", "Egyptian mythology", "Myth & legend", 5,
+    "The Skippies' AI is named after the Egyptian god of wisdom and writing.", ["thoth", "skippies"], confidence="medium")
+
 data = dict(
     meta=dict(series="Bobiverse", author="Dennis E. Taylor", version=1, generated="2026-11-21",
               notes=["All summaries are original paraphrases written for this app.",
@@ -265,7 +340,7 @@ data = dict(
                      "confidence: high = sources agree; medium = sources conflict or first-book tag is inferred (the later plausible book was chosen); low = book 6 premise only, from pre-release info.",
                      "related lists ids across terms, places and characters. Hide a related link when its target's firstBook is past the reader's book. Timeline events carry a book and an order within it.",
                      "when = in-universe year(s), from the fan-made Bobiverse wiki timeline (bobiverse.fandom.com/wiki/Timeline). A leading ~ marks an estimate: the exact event is not dated there, or (books 5-6) only the book's overall span is known."]),
-    books=books, terms=T, places=P, characters=C, timeline=TL)
+    books=books, terms=T, places=P, characters=C, timeline=TL, references=R)
 
 for kind in (T, P, C):
     for e in kind:
@@ -278,12 +353,12 @@ for kind in (T, P, C):
 
 # ---------- validation ----------
 ids = {}
-for kind in ("terms", "places", "characters"):
+for kind in ("terms", "places", "characters", "references"):
     for e in data[kind]:
         assert e["id"] not in ids, ("dup", e["id"])
         ids[e["id"]] = (kind, e["firstBook"])
 errs = []
-for kind in ("terms", "places", "characters", "timeline"):
+for kind in ("terms", "places", "characters", "timeline", "references"):
     for e in data[kind]:
         b = e.get("firstBook", e.get("book"))
         for r in e["related"]:
@@ -299,6 +374,6 @@ os.makedirs(os.path.dirname(out), exist_ok=True)
 with open(out, "w") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 from collections import Counter
-print({k: len(data[k]) for k in ("terms", "places", "characters", "timeline")})
+print({k: len(data[k]) for k in ("terms", "places", "characters", "timeline", "references")})
 print("by book", Counter(e["firstBook"] for k in ("terms","places","characters") for e in data[k]))
 print("low/medium", Counter(e["confidence"] for k in ("terms","places","characters","timeline") for e in data[k]))

@@ -14,7 +14,7 @@ Unofficial fan project for personal use. Not affiliated with the author or publi
 | --- | --- |
 | `index.html` | The built app: one self-contained HTML file (no external requests). |
 | `src/template.html` | The app's HTML/CSS/JS with a `__DATA__` placeholder. |
-| `src/build_bobiverse.py` | Source of all entries, summaries and per-book updates. |
+| `src/build_bobiverse.py` | Source of all entries, summaries, per-book updates, timeline years and pop-culture references. |
 | `data/bobiverse.json` | Generated data (don't edit by hand). |
 | `build.py` | Regenerates the JSON and inlines it into `index.html`. |
 | `.github/workflows/pages.yml` | Rebuilds and deploys to GitHub Pages on every push to `main`. |
