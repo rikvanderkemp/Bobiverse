@@ -1476,7 +1476,7 @@
       "updates": [
         {
           "book": 2,
-          "text": "VEHEMENT hacks him into sabotaging Earth, and he does not survive the aftermath."
+          "text": "VEHEMENT hacks him into sabotaging Earth."
         }
       ],
       "died": {
@@ -1491,7 +1491,7 @@
       "aliases": [],
       "group": "Bob",
       "firstBook": 1,
-      "summary": "A clone who finds and names Vulcan and Romulus, then is killed by Brazilian forces.",
+      "summary": "A clone who finds and names Vulcan and Romulus.",
       "related": [
         "vulcan",
         "romulus",
@@ -1737,12 +1737,7 @@
         "buster"
       ],
       "confidence": "high",
-      "updates": [
-        {
-          "book": 3,
-          "text": "Dies of old age, which hits Bob very hard."
-        }
-      ],
+      "updates": [],
       "died": {
         "book": 3,
         "text": "Dies of old age after a long life, which hits Bob very hard.",
@@ -1868,7 +1863,7 @@
       "aliases": [],
       "group": "Bob",
       "firstBook": 2,
-      "summary": "Mario's clone, killed while scouting the Others' home system.",
+      "summary": "Mario's clone, sent to scout the Others' home system.",
       "related": [
         "mario",
         "gliese-877",

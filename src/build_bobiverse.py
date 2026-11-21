@@ -135,7 +135,7 @@ char("bill", "Bill", 1, "Bob's first clone. Stays at Epsilon Eridani as the inve
 char("riker", "Riker", 1, "A clone who goes back to Sol and takes on the thankless job of looking after Earth's survivors and getting them to the stars.", ["sol", "earth", "homer", "butterworth", "vehement", "colony-ships"])
 char("will", "Will", 4, "A Bob who keeps a backup body ready in Heaven's River and secretly heads out to extend the relay network.", ["riker", "relay", "herschel", "neil"], confidence="medium")
 char("homer", "Homer", 1, "Riker's clone and the joker of the family, who goes with him to Sol.", ["riker", "sol"])
-char("milo", "Milo", 1, "A clone who finds and names Vulcan and Romulus, then is killed by Brazilian forces.", ["vulcan", "romulus", "brazilian-empire", "82-eridani"])
+char("milo", "Milo", 1, "A clone who finds and names Vulcan and Romulus.", ["vulcan", "romulus", "brazilian-empire", "82-eridani"])
 char("mario", "Mario", 1, "A loner clone who explores far afield and finds the first signs of something destroying planets.", ["others", "bashful", "hal", "beta-hydri"])
 char("khan", "Khan", 1, "A clone who leads fighting against the Brazilians and comes back with their cloaking technology.", ["cloaking", "brazilian-empire"], confidence="medium")
 char("marvin", "Marvin", 1, "Bob's clone at Delta Eridani with an interest in archaeology, who studies the Deltans' history.", ["bob", "deltans", "delta-eridani"], confidence="medium")
@@ -157,7 +157,7 @@ char("howard", "Howard", 2, "A clone who works with the colonists on Vulcan and 
 char("bridget", "Bridget", 2, "A human biologist on Vulcan. After her husband dies, she and Howard grow close.", ["howard", "stephane", "vulcan", "heavens-river", "jabberwocky"], group="Human, later replicant", aliases=["Bridget Sheehy", "Bridget Brodeur", "Bridgett"])
 char("stephane", "Stéphane Brodeur", 2, "Head of security for a human colony and Bridget's husband, who dies of illness.", ["bridget"], group="Human")
 char("dexter", "Dexter", 2, "A Bob who takes over some of Howard's duties.", ["howard"], confidence="medium")
-char("bashful", "Bashful", 2, "Mario's clone, killed while scouting the Others' home system.", ["mario", "gliese-877", "others"])
+char("bashful", "Bashful", 2, "Mario's clone, sent to scout the Others' home system.", ["mario", "gliese-877", "others"])
 char("hal", "Hal", 2, "Mario's clone who confirms what is at the Others' home system.", ["mario", "gliese-877"])
 char("jacques", "Jacques", 2, "The Bob who finds the Pav and leads the effort to save some of them.", ["pav", "delta-pavonis", "hazjiar"])
 char("hazjiar", "Hazjiar", 2, "A Pav leader who deals with the Bobs.", ["pav", "jacques"], group="Pav", confidence="medium")
@@ -182,7 +182,6 @@ later("bridget", 4, "Joins the Heaven's River expedition and finds out what happ
 later("bridget", 5, "Works with Howard to save the natives of Jabberwocky.")
 later("howard", 3, "He and Bridget build a floating city on Odin together.")
 later("howard", 5, "Works with Bridget to save the natives of Jabberwocky.")
-later("archimedes", 3, "Dies of old age, which hits Bob very hard.")
 later("bill", 4, "Acts as the Bobiverse's unofficial administrator and digs into the attack on BobNet.")
 later("bill", 5, "Experiments with wormholes as a route to faster-than-light travel.")
 later("daedalus", 5, "Sets out with Icarus on a very long trip to the galactic core.")
@@ -196,7 +195,7 @@ later("bobnet", 4, "Control of the relays turns out to matter a great deal when 
 later("bob", 2, "Moves among the Deltans in an android body, as 'Robert'.")
 later("bob", 4, "Spends over a century searching for the missing Bender.")
 later("medeiros", 3, "Has a final showdown with the Bobs at 82 Eridani.")
-later("homer", 2, "VEHEMENT hacks him into sabotaging Earth, and he does not survive the aftermath.")
+later("homer", 2, "VEHEMENT hacks him into sabotaging Earth.")
 later("riker", 3, "Runs the defense and evacuation of Earth when the Others reach Sol.")
 later("skippies", 5, "Build an AI, Thoth, that becomes self-aware.")
 
@@ -433,6 +432,13 @@ for e in C:
     if e["id"] in DIED:
         d = DIED.pop(e["id"]); assert d["book"] >= e["firstBook"], e["id"]; e["died"] = d
 assert not DIED, DIED
+# a death is told only in the "died" note, never again in the summary or an update
+import re
+_DEATH = re.compile(r"\b(dies|died|death|killed|kills himself|self-destruct\w*|does not survive|destroyed)\b", re.I)
+for e in C:
+    if "died" in e:
+        for txt in [e["summary"]] + [u["text"] for u in e["updates"]]:
+            assert not _DEATH.search(txt), ("death repeated outside died()", e["id"], txt)
 for kind in (T, P, C, SH):
     for e in kind:
         for u in e["updates"]:
