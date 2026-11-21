@@ -848,19 +848,20 @@ renderAll();
 
 // ---------- haptics (Android/Chrome only; silently absent elsewhere) ----------
 const HAP = (() => {
-  const can = typeof navigator.vibrate === 'function' && matchMedia('(pointer:coarse)').matches;
-  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let on = !calm, armed = false, last = 0;
+  const can = typeof navigator.vibrate === 'function' && (matchMedia('(pointer:coarse)').matches || navigator.maxTouchPoints > 0);
+  let on = true, armed = false, last = 0;
   try { const v = localStorage.getItem('bobcodex.haptics'); if (v !== null) on = v === '1'; } catch(e){}
   const btn = document.getElementById('hapbtn');
   const paint = () => { if (btn){ btn.textContent = on ? 'HAPTICS ON' : 'HAPTICS OFF'; btn.setAttribute('aria-pressed', String(on)); } };
   if (can && btn){
     btn.hidden = false; paint();
-    btn.addEventListener('click', () => { on = !on; try { localStorage.setItem('bobcodex.haptics', on ? '1' : '0'); } catch(e){} paint(); if (on) navigator.vibrate(15); });
+    btn.addEventListener('click', () => { on = !on; try { localStorage.setItem('bobcodex.haptics', on ? '1' : '0'); } catch(e){} paint(); if (on) navigator.vibrate(60); });
   }
-  addEventListener('pointerdown', () => { armed = true; }, {once:true, capture:true});
+  // the browser only allows vibrate after a real tap (a scroll-drag doesn't count)
+  ['click','touchend','keydown'].forEach(t => addEventListener(t, () => { armed = true; }, {capture:true, passive:true}));
+  const active = () => navigator.userActivation ? navigator.userActivation.hasBeenActive : armed;
   const buzz = (ms, gap = 0) => {
-    if (!can || !on || !armed || document.hidden) return;
+    if (!can || !on || !active() || document.hidden) return;
     const now = performance.now(); if (now - last < gap) return;
     last = now; try { navigator.vibrate(ms); } catch(e){}
   };
@@ -874,7 +875,7 @@ const HAP = (() => {
   const tick = () => {
     const r = L.querySelector('.row'); const h = r ? r.offsetHeight : 44;
     const idx = Math.floor(L.scrollTop / Math.max(h, 24));
-    if (lastIdx !== null && idx !== lastIdx) HAP.buzz(6, 55);
+    if (lastIdx !== null && idx !== lastIdx) HAP.buzz(12, 60);
     lastIdx = idx;
   };
   L.addEventListener('scroll', tick, {passive:true});
@@ -886,7 +887,7 @@ const HAP = (() => {
   const fx = ['ping','ping','glitch','twitch'];
   const go = () => {
     const c = fx[Math.floor(Math.random() * fx.length)];
-    sg.classList.remove(...fx); void sg.getBoundingClientRect(); sg.classList.add(c); if (c === 'ping') HAP.buzz(14);
+    sg.classList.remove(...fx); void sg.getBoundingClientRect(); sg.classList.add(c); if (c === 'ping') HAP.buzz(30);
     setTimeout(() => sg.classList.remove(c), 1500);
     setTimeout(go, 4000 + Math.random() * 9000);
   };
