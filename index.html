@@ -45,7 +45,7 @@ a{color:inherit}
 .maplink:hover{border-color:var(--cyan); box-shadow:0 0 12px rgba(79,227,255,.25)}
 .maplink + .status{margin-left:0}
 .homebtn{cursor:pointer}
-.homebtn + .guppibtn{margin-left:0}
+.homebtn:not([hidden]) + .guppibtn{margin-left:0}
 .guppibtn{cursor:pointer; color:var(--amber); border-color:rgba(255,181,71,.45); display:inline-flex; align-items:center; gap:7px}
 .guppibtn:hover{border-color:var(--amber); box-shadow:0 0 12px rgba(255,181,71,.3)}
 .guppibtn + .maplink{margin-left:0}
@@ -276,7 +276,7 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
         <small>REPLICANT FIELD TERMINAL · v1</small>
       </div>
     </div>
-    <button class="maplink homebtn" id="homebtn" title="Back to the overview">⌂ HOME</button>
+    <button class="maplink homebtn" id="homebtn" hidden title="Back to the overview">⌂ HOME</button>
     <button class="maplink guppibtn" id="guppibtn" title="Ask GUPPI for a trivia question" aria-haspopup="dialog"><svg width="16" height="12" viewBox="0 0 32 22" fill="none" aria-hidden="true"><path d="M2 11c5-9 17-11 24-4l4-4v16l-4-4C19 22 7 20 2 11z" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg> GUPPI</button>
     <a class="maplink" href="map.html" title="Mind map of how everything connects">◈ STAR MAP</a>
     <div class="status"><span class="dot"></span><span id="linkstat">LINK STABLE</span><span class="clock" id="clock"></span></div>
@@ -451,6 +451,7 @@ function rowHTML(e){
 }
 
 function renderList(){
+  $('#homebtn').hidden = !(S.sel || S.q);
   const k = S.tab, m = KINDS[k], el = $('#list');
   let items = itemsFor(k);
   if (m.facet && S.facet) items = items.filter(e => e[m.facet] === S.facet);
