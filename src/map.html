@@ -33,7 +33,21 @@ a{color:inherit}
 
 .hdr{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
 .brand{display:flex; align-items:center; gap:10px; min-width:0; text-decoration:none; margin-right:auto}
-.sigil{width:34px;height:34px;flex:none}
+.sigil{width:34px;height:34px;flex:none; overflow:visible}
+.sigil *{transform-box:view-box; transform-origin:20px 20px}
+.sigil .sg-ring{animation:sgspin 26s linear infinite}
+.sigil .sg-outer{animation:sgspin 70s linear infinite reverse}
+.sigil .sg-core{animation:sgcore 3.4s ease-in-out infinite}
+.sigil .sg-ping{opacity:0}
+.sigil.ping .sg-ping{animation:sgping 1.4s ease-out}
+.sigil.glitch{animation:sgglitch .32s steps(2) 1}
+.sigil.twitch .sg-ticks{animation:sgtwitch .9s ease-in-out}
+@keyframes sgspin{to{transform:rotate(360deg)}}
+@keyframes sgcore{0%,100%{opacity:1} 50%{opacity:.55}}
+@keyframes sgping{0%{opacity:.9; transform:scale(1)} 100%{opacity:0; transform:scale(5.2)}}
+@keyframes sgglitch{0%{transform:translate(1px,-1px); opacity:.6} 50%{transform:translate(-1px,1px); opacity:1} 100%{transform:none}}
+@keyframes sgtwitch{0%,100%{transform:rotate(0)} 40%{transform:rotate(22deg)} 70%{transform:rotate(16deg)}}
+@media (prefers-reduced-motion: reduce){.sigil *, .sigil{animation:none !important}}
 .brand h1{margin:0; font-family:var(--mono); font-size:15px; letter-spacing:.22em; font-weight:600; color:var(--cyan); text-shadow:0 0 12px rgba(79,227,255,.45)}
 .brand small{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; color:var(--muted)}
 .navlink{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--cyan); text-decoration:none; border:1px solid var(--line2); padding:7px 12px; background:var(--panel)}
@@ -153,10 +167,11 @@ svg#g.drag{cursor:grabbing}
   <header class="hdr">
     <a class="brand" href="./">
       <svg class="sigil" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        <circle cx="20" cy="20" r="17" stroke="#4fe3ff" stroke-opacity=".35"/>
-        <circle cx="20" cy="20" r="11" stroke="#4fe3ff" stroke-dasharray="3 3"/>
-        <path d="M20 3v6M20 31v6M3 20h6M31 20h6" stroke="#4fe3ff"/>
-        <circle cx="20" cy="20" r="3.2" fill="#ffb547"/>
+        <circle class="sg-outer" cx="20" cy="20" r="17" stroke="#4fe3ff" stroke-opacity=".35" stroke-dasharray="20 3 6 3"/>
+        <circle class="sg-ring" cx="20" cy="20" r="11" stroke="#4fe3ff" stroke-dasharray="3 3"/>
+        <path class="sg-ticks" d="M20 3v6M20 31v6M3 20h6M31 20h6" stroke="#4fe3ff"/>
+        <circle class="sg-ping" cx="20" cy="20" r="3.2" stroke="#4fe3ff" fill="none"/>
+        <circle class="sg-core" cx="20" cy="20" r="3.2" fill="#ffb547"/>
       </svg>
       <div><h1>BOBIVERSE CODEX</h1><small>STAR MAP · LINKS BETWEEN RECORDS</small></div>
     </a>
@@ -465,6 +480,20 @@ const h = decodeURIComponent(location.hash.slice(1));
 if (h && N[h] && V.includes(N[h])) select(h, true);
 alpha = 0.08; run(0);
 window.addEventListener('resize', () => { if (!S.sel) fit(); });
+})();
+
+// ---------- logo idle animation: random scan ping / glitch / tick twitch ----------
+(() => {
+  const sg = document.querySelector('.sigil');
+  if (!sg || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const fx = ['ping','ping','glitch','twitch'];
+  const go = () => {
+    const c = fx[Math.floor(Math.random() * fx.length)];
+    sg.classList.remove(...fx); void sg.getBoundingClientRect(); sg.classList.add(c);
+    setTimeout(() => sg.classList.remove(c), 1500);
+    setTimeout(go, 4000 + Math.random() * 9000);
+  };
+  setTimeout(go, 2500 + Math.random() * 3000);
 })();
 </script>
 </body>
