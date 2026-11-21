@@ -45,7 +45,7 @@ a{color:inherit}
 .maplink:hover{border-color:var(--cyan); box-shadow:0 0 12px rgba(79,227,255,.25)}
 .maplink + .status{margin-left:0}
 .homebtn{cursor:pointer}
-.homebtn:not([hidden]) + .guppibtn{margin-left:0}
+
 .guppibtn{cursor:pointer; color:var(--amber); border-color:rgba(255,181,71,.45); display:inline-flex; align-items:center; gap:7px}
 .guppibtn:hover{border-color:var(--amber); box-shadow:0 0 12px rgba(255,181,71,.3)}
 .guppibtn + .maplink{margin-left:0}
@@ -82,7 +82,16 @@ a{color:inherit}
 .clock{color:var(--cyan-dim)}
 
 /* ---------- control strip ---------- */
-.controls{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:stretch}
+.controls{display:none; grid-row:2}
+.main{grid-row:3}
+.credit{grid-row:4}
+body.searching .controls{display:block}
+.archbtn{cursor:pointer; display:inline-flex; align-items:center; gap:6px}
+.archbtn[aria-expanded="true"]{background:rgba(79,227,255,.12); border-color:var(--cyan)}
+.homebtn:not([hidden]) + .archbtn{margin-left:0}
+.archbtn + .guppibtn{margin-left:0}
+.brand h1 .dot{display:inline-block; width:6px; height:6px; vertical-align:middle; margin-left:6px}
+.hdr .bookgate{height:36px}
 .search{position:relative}
 .search input{
   width:100%; height:42px; padding:0 40px 0 38px; background:var(--panel); border:1px solid var(--line2);
@@ -236,7 +245,7 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
   body{font-size:15px}
   .app{padding:10px 12px 12px; gap:10px; padding-bottom:max(12px, env(safe-area-inset-bottom))}
   .status .clock{display:none}
-  .controls{grid-template-columns:minmax(0,1fr)}
+  .hdr .bookgate{flex-basis:100%}
   .bookgate{justify-content:space-between}
   .bookpips button{width:34px; height:30px}
   .main{grid-template-columns:minmax(0,1fr); position:relative}
@@ -265,10 +274,11 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
   body{overflow:auto}
   .app{height:auto; min-height:100dvh; grid-template-rows:auto auto auto auto; padding:8px 12px 12px; gap:8px}
   .hdr{gap:8px}
-  .brand small, .status .clock, #linkstat, .status .dot{display:none}
+  .brand small{display:none}
   .sigil{width:26px; height:26px}
   .maplink{padding:4px 8px}
-  .controls{grid-template-columns:minmax(0,1fr) auto}
+  .hdr .bookgate{flex-basis:auto}
+  .lbl{display:none}
   .search input{height:36px}
   .bookgate{height:36px}
   .bookgate label{display:none}
@@ -297,26 +307,26 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
         <circle cx="20" cy="20" r="3.2" fill="#ffb547"/>
       </svg>
       <div>
-        <h1>BOBIVERSE CODEX</h1>
+        <h1>BOBIVERSE CODEX <span class="dot" title="Link stable"></span></h1>
         <small>REPLICANT FIELD TERMINAL · v1</small>
       </div>
     </div>
-    <button class="maplink homebtn" id="homebtn" hidden title="Back to the overview">⌂ HOME</button>
-    <button class="maplink guppibtn" id="guppibtn" title="Ask GUPPI for a trivia question" aria-haspopup="dialog"><svg width="16" height="12" viewBox="0 0 32 22" fill="none" aria-hidden="true"><path d="M2 11c5-9 17-11 24-4l4-4v16l-4-4C19 22 7 20 2 11z" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg> GUPPI</button>
-    <a class="maplink" href="map.html" title="Mind map of how everything connects">◈ STAR MAP</a>
-    <div class="status"><span class="dot"></span><span id="linkstat">LINK STABLE</span><span class="clock" id="clock"></span></div>
+    <button class="maplink homebtn" id="homebtn" hidden title="Back to the overview">⌂<span class="lbl"> HOME</span></button>
+    <button class="maplink archbtn" id="archbtn" title="Ask the Archivist (search) — shortcut: /" aria-expanded="false" aria-controls="searchrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="lbl"> ARCHIVIST</span></button>
+    <button class="maplink guppibtn" id="guppibtn" title="Ask GUPPI for a trivia question" aria-haspopup="dialog"><svg width="16" height="12" viewBox="0 0 32 22" fill="none" aria-hidden="true"><path d="M2 11c5-9 17-11 24-4l4-4v16l-4-4C19 22 7 20 2 11z" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg><span class="lbl"> GUPPI</span></button>
+    <a class="maplink" href="map.html" title="Mind map of how everything connects">◈<span class="lbl"> STAR MAP</span></a>
+    <div class="bookgate" title="Anything first appearing after this book is hidden">
+      <label>READING BOOK<span> · SPOILER GATE</span></label>
+      <div class="bookpips" id="pips" role="radiogroup" aria-label="Current book"></div>
+    </div>
   </header>
 
-  <div class="controls">
+  <div class="controls" id="searchrow">
     <div class="search" id="searchbox">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
       <input id="q" type="text" enterkeyhint="search" placeholder="Ask the Archivist… (names, aliases, summaries)" autocomplete="off" spellcheck="false" aria-label="Search">
       <kbd>/</kbd>
       <button class="clear" id="clearq" aria-label="Clear search">✕</button>
-    </div>
-    <div class="bookgate" title="Anything first appearing after this book is hidden">
-      <label>READING BOOK<span> · SPOILER GATE</span></label>
-      <div class="bookpips" id="pips" role="radiogroup" aria-label="Current book"></div>
     </div>
   </div>
 
@@ -620,6 +630,7 @@ function goHome(){
   TRAIL.length = 0;
   history.replaceState(null, '', location.pathname + location.search);
   if (S.q){ $('#q').value = ''; S.q = ''; $('#searchbox').classList.remove('has'); renderTabs(); renderChips(); }
+  document.body.classList.remove('searching'); $('#archbtn').setAttribute('aria-expanded', 'false');
   route(); $('#list').scrollTop = 0;
 }
 function go(id){ if (location.hash.slice(1) !== id) location.hash = id; else route(); }
@@ -658,10 +669,14 @@ $('#q').addEventListener('input', ev => {
   }, 80);
 });
 $('#clearq').addEventListener('click', () => { $('#q').value=''; $('#q').dispatchEvent(new Event('input')); $('#q').focus(); });
+function openSearch(){ document.body.classList.add('searching'); $('#archbtn').setAttribute('aria-expanded', 'true'); $('#q').focus(); $('#q').select(); }
+function closeSearch(){ if (S.q){ $('#q').value = ''; $('#q').dispatchEvent(new Event('input')); } document.body.classList.remove('searching'); $('#archbtn').setAttribute('aria-expanded', 'false'); $('#q').blur(); }
+$('#archbtn').addEventListener('click', () => document.body.classList.contains('searching') ? closeSearch() : openSearch());
 document.addEventListener('keydown', ev => {
-  if (ev.key === '/' && document.activeElement !== $('#q')){ ev.preventDefault(); $('#q').focus(); $('#q').select(); }
+  if (ev.key === '/' && document.activeElement !== $('#q') && $('#guppi').hidden){ ev.preventDefault(); openSearch(); }
   else if (ev.key === 'Escape'){
     if (document.activeElement === $('#q') && $('#q').value){ $('#clearq').click(); }
+    else if (document.activeElement === $('#q')){ closeSearch(); }
     else if (S.sel) closeDetail();
   }
   else if ((ev.key === 'ArrowDown' || ev.key === 'ArrowUp') && document.activeElement && (document.activeElement.classList.contains('row') || document.activeElement === $('#q'))){
@@ -674,8 +689,7 @@ document.addEventListener('keydown', ev => {
 });
 
 // ---------- clock ----------
-function tick(){ const d = new Date(); $('#clock').textContent = d.toISOString().slice(0,19).replace('T',' ') + 'Z'; }
-setInterval(tick, 1000); tick();
+
 
 // ---------- GUPPI trivia ----------
 const G = { q:null, answered:false, recent:[] };
