@@ -142,6 +142,8 @@ svg#g.drag{cursor:grabbing}
 .credit b{color:var(--text); font-weight:600}
 .credit a{color:var(--cyan); text-decoration:none; margin-left:10px; font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; white-space:nowrap}
 .credit a:hover{text-decoration:underline}
+.hapbtn{margin-left:10px; background:none; border:1px solid var(--line2); color:var(--cyan); font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; padding:2px 7px; cursor:pointer}
+.hapbtn[aria-pressed="false"]{color:var(--faint)}
 .credit small{font-size:11px; color:var(--faint)}
 @media (max-width: 720px){ .credit{padding:6px 10px; font-size:12px} .credit .more{display:none} .credit a{margin-left:6px} }
 
@@ -201,7 +203,8 @@ svg#g.drag{cursor:grabbing}
   <footer class="credit">
     <span>The <b>Bobiverse</b> series is written by <b>Dennis E. Taylor</b>.
       <a href="http://www.dennisetaylor.org" target="_blank" rel="noopener">Author's website ↗</a>
-      <a href="https://www.goodreads.com/series/192752-bobiverse" target="_blank" rel="noopener">The books ↗</a></span>
+      <a href="https://www.goodreads.com/series/192752-bobiverse" target="_blank" rel="noopener">The books ↗</a>
+      <button class="hapbtn" id="hapbtn" hidden aria-pressed="true">HAPTICS ON</button></span>
     <small>Unofficial fan project for personal use. Not affiliated with or endorsed by the author or publishers.<span class="more"> All summaries are written in our own words.</span></small>
   </footer>
 </div>
@@ -482,6 +485,26 @@ alpha = 0.08; run(0);
 window.addEventListener('resize', () => { if (!S.sel) fit(); });
 })();
 
+// ---------- haptics (Android/Chrome only; silently absent elsewhere) ----------
+const HAP = (() => {
+  const can = typeof navigator.vibrate === 'function' && matchMedia('(pointer:coarse)').matches;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let on = !calm, armed = false, last = 0;
+  try { const v = localStorage.getItem('bobcodex.haptics'); if (v !== null) on = v === '1'; } catch(e){}
+  const btn = document.getElementById('hapbtn');
+  const paint = () => { if (btn){ btn.textContent = on ? 'HAPTICS ON' : 'HAPTICS OFF'; btn.setAttribute('aria-pressed', String(on)); } };
+  if (can && btn){
+    btn.hidden = false; paint();
+    btn.addEventListener('click', () => { on = !on; try { localStorage.setItem('bobcodex.haptics', on ? '1' : '0'); } catch(e){} paint(); if (on) navigator.vibrate(15); });
+  }
+  addEventListener('pointerdown', () => { armed = true; }, {once:true, capture:true});
+  const buzz = (ms, gap = 0) => {
+    if (!can || !on || !armed || document.hidden) return;
+    const now = performance.now(); if (now - last < gap) return;
+    last = now; try { navigator.vibrate(ms); } catch(e){}
+  };
+  return { buzz };
+})();
 // ---------- logo idle animation: random scan ping / glitch / tick twitch ----------
 (() => {
   const sg = document.querySelector('.sigil');
@@ -489,7 +512,7 @@ window.addEventListener('resize', () => { if (!S.sel) fit(); });
   const fx = ['ping','ping','glitch','twitch'];
   const go = () => {
     const c = fx[Math.floor(Math.random() * fx.length)];
-    sg.classList.remove(...fx); void sg.getBoundingClientRect(); sg.classList.add(c);
+    sg.classList.remove(...fx); void sg.getBoundingClientRect(); sg.classList.add(c); if (c === 'ping') HAP.buzz(14);
     setTimeout(() => sg.classList.remove(c), 1500);
     setTimeout(go, 4000 + Math.random() * 9000);
   };
