@@ -178,6 +178,8 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
 .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
 .tag{font-family:var(--mono); font-size:11.5px; padding:3px 9px; border:1px solid var(--line2); border-radius:2px; color:var(--muted); background:var(--bg2)}
 .tag.book{color:var(--amber); border-color:rgba(255,181,71,.4)}
+.rip{color:var(--muted); font-weight:400; margin-left:2px}
+.rip-note .ub{font-family:var(--mono); font-size:11px; color:var(--amber); border:1px solid rgba(255,181,71,.4); padding:1px 6px; margin-right:6px}
 .tag.maptag{color:var(--cyan); border-color:rgba(79,227,255,.4); text-decoration:none}
 .tag.maptag:hover{border-color:var(--cyan)}
 .tag.conf-medium{color:var(--amber); border-style:dashed}
@@ -344,6 +346,8 @@ if (!KINDS[S.tab]) S.tab = 'terms';
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const visible = e => e && e._b <= S.book;
+const deadNow = e => e && e.died && e.died.book <= S.book;
+const CROSS = ' <span class="rip" title="Deceased">†</span>';
 const bookShort = n => `B${n}`;
 
 // ---------- book gate ----------
@@ -430,7 +434,7 @@ function rowHTML(e){
   const right = e._k === 'timeline' ? `<span class="when"${(e.when||'').startsWith('~') ? ' title="Estimate"' : ''}>${esc(e.when || '—')}</span>` : `<span class="bk" title="${esc(BOOKS[e._b].title)}">${bookShort(e._b)}</span>`;
   return `<button class="row ${S.sel===e.id?'sel':''}" data-id="${esc(e.id)}" style="--tc:${m.color}">
     <span class="glyph"></span>
-    <span><span class="nm">${hl(nameOf(e), S.q)}</span><span class="sub">${hl(sub, S.q)}</span></span>
+    <span><span class="nm">${hl(nameOf(e), S.q)}${deadNow(e) ? CROSS : ''}</span><span class="sub">${hl(sub, S.q)}</span></span>
     ${right}</button>`;
 }
 
@@ -537,7 +541,7 @@ function renderDetail(){
   el.innerHTML = `
   <div class="dhead">${back}
     <div class="kicker">${kick.map(k => `<span>${esc(k)}</span>`).join('')}</div>
-    <h2>${esc(nameOf(e))}</h2>
+    <h2>${esc(nameOf(e))}${deadNow(e) ? CROSS : ''}</h2>
     ${e.aliases && e.aliases.length ? `<div class="aka"><b>AKA</b>${e.aliases.map(esc).join(' · ')}</div>` : ''}
     <div class="meta">
       <span class="tag book">${e._k==='timeline'?'Happens in':'First seen'}: Book ${e._b} · ${esc(BOOKS[e._b].title)}</span>
@@ -550,6 +554,7 @@ function renderDetail(){
     ${e.work ? `<div class="sect"><h4>Refers to</h4><p class="summary"><b>${esc(e.work)}</b> · ${esc(e.medium)}</p></div>` : ''}
     <div class="sect"><h4>${e._k==='references'?'The reference':'Summary'}</h4><p class="summary">${esc(e.summary)}</p>
       ${e.confidence !== 'high' ? `<div class="confnote">⚠ ${esc(conf)}</div>` : ''}</div>
+    ${deadNow(e) ? `<div class="sect"><h4>Deceased</h4><p class="summary rip-note"><span class="ub">Book ${e.died.book}</span> ${esc(e.died.text)}</p>${e.died.confidence !== 'high' ? `<div class="confnote">⚠ How exactly this happens is not fully certain in the sources.</div>` : ''}</div>` : ''}
     ${ups.length ? `<div class="sect"><h4>Later developments</h4><ul class="updates">${ups.map(u => `<li><span class="ub">Book ${u.book}</span><span>${esc(u.text)}</span></li>`).join('')}</ul></div>` : ''}
     ${children.length ? `<div class="sect"><h4>Contains</h4><div class="links">${children.map(linkHTML).join('')}</div></div>` : ''}
     ${['characters','places','terms','ships','references'].filter(k => groups[k]).map(k => `<div class="sect"><h4>Linked ${KINDS[k].label.toLowerCase()}</h4><div class="links">${groups[k].map(linkHTML).join('')}</div></div>`).join('')}

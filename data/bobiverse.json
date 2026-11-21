@@ -1478,7 +1478,12 @@
           "book": 2,
           "text": "VEHEMENT hacks him into sabotaging Earth, and he does not survive the aftermath."
         }
-      ]
+      ],
+      "died": {
+        "book": 2,
+        "text": "Never recovers from being hacked by VEHEMENT and turned against Earth. He chooses to end his own existence.",
+        "confidence": "high"
+      }
     },
     {
       "id": "milo",
@@ -1494,7 +1499,12 @@
         "82-eridani"
       ],
       "confidence": "high",
-      "updates": []
+      "updates": [],
+      "died": {
+        "book": 1,
+        "text": "Destroyed at 82 Eridani, most likely by Brazilian forces. The Bobs never get a full account of his last moments.",
+        "confidence": "medium"
+      }
     },
     {
       "id": "mario",
@@ -1732,7 +1742,12 @@
           "book": 3,
           "text": "Dies of old age, which hits Bob very hard."
         }
-      ]
+      ],
+      "died": {
+        "book": 3,
+        "text": "Dies of old age after a long life, which hits Bob very hard.",
+        "confidence": "high"
+      }
     },
     {
       "id": "buster",
@@ -1860,7 +1875,12 @@
         "others"
       ],
       "confidence": "high",
-      "updates": []
+      "updates": [],
+      "died": {
+        "book": 2,
+        "text": "Self-destructs while scouting the Others' home system rather than be captured.",
+        "confidence": "high"
+      }
     },
     {
       "id": "hal",
@@ -1874,7 +1894,12 @@
         "gliese-877"
       ],
       "confidence": "high",
-      "updates": []
+      "updates": [],
+      "died": {
+        "book": 2,
+        "text": "Confirms what is at the Others' home system and then self-destructs to avoid capture.",
+        "confidence": "high"
+      }
     },
     {
       "id": "jacques",

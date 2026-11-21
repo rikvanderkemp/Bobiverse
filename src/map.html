@@ -259,7 +259,7 @@ function build(){
   for (const n of V){
     const g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'node' + (HUBS.has(n.id) ? '' : ' minor')); g.dataset.id = n.id;
     const c = document.createElementNS(NS, 'circle'); c.setAttribute('r', n.r); c.setAttribute('fill', KINDS[n.k].color);
-    const t = document.createElementNS(NS, 'text'); t.setAttribute('x', n.r + 4); t.setAttribute('y', 4); t.textContent = n.name;
+    const t = document.createElementNS(NS, 'text'); t.setAttribute('x', n.r + 4); t.setAttribute('y', 4); t.textContent = n.name + (n.e.died && n.e.died.book <= S.book ? ' †' : '');
     const ti = document.createElementNS(NS, 'title'); ti.textContent = n.name;
     g.append(c, t, ti); gN.appendChild(g); nodeEls[n.id] = g;
   }
@@ -293,7 +293,7 @@ function renderCard(n, nb){
   c.style.setProperty('--tc', m.color);
   c.innerHTML = `<button class="x" aria-label="Close">✕</button>
     <div class="k">${m.one}${sub ? ' // ' + esc(sub) : ''} · Book ${n.b}</div>
-    <h2>${esc(n.name)}</h2>
+    <h2>${esc(n.name)}${e.died && e.died.book <= S.book ? ' †' : ''}</h2>
     <p>${esc(e.summary)}</p>
     <div class="row"><a class="open" href="./#${encodeURIComponent(n.id)}">OPEN IN CODEX ›</a></div>
     ${list.length ? `<h4>CONNECTED · ${list.length}</h4><div class="nb">${list.map(x => `<button data-go="${esc(x.id)}" style="--c:${KINDS[x.k].color}">${esc(x.name)}</button>`).join('')}</div>` : ''}`;

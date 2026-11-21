@@ -395,6 +395,19 @@ trivia(4, "Who is Bob looking for in Heaven's River?", "Bender", ["Riker", "Mede
 trivia(5, "What do the Skippies end up building?", "A self-aware AI", ["A moon-sized library", "A better GUPPI"],
        "A better GUPPI was never on the list. Correctly.", "thoth")
 
+# ---------------- DEATHS ----------------
+# Shown as a cross (†) only once the reader's book has reached `book`.
+# Only deaths that are reasonably well established are listed; uncertain ones are left out on purpose.
+DIED = {}
+def died(id, book, text, confidence="high"):
+    DIED[id] = dict(book=book, text=text, confidence=confidence)
+
+died("milo", 1, "Destroyed at 82 Eridani, most likely by Brazilian forces. The Bobs never get a full account of his last moments.", confidence="medium")
+died("homer", 2, "Never recovers from being hacked by VEHEMENT and turned against Earth. He chooses to end his own existence.")
+died("bashful", 2, "Self-destructs while scouting the Others' home system rather than be captured.")
+died("hal", 2, "Confirms what is at the Others' home system and then self-destructs to avoid capture.")
+died("archimedes", 3, "Dies of old age after a long life, which hits Bob very hard.")
+
 data = dict(
     meta=dict(series="Bobiverse", author="Dennis E. Taylor", version=1, generated="2026-11-21",
               notes=["All summaries are original paraphrases written for this app.",
@@ -416,6 +429,10 @@ for kind in (T, P, C, SH):
     for e in kind:
         e["updates"] = sorted(UPD.pop(e["id"], []), key=lambda u: u["book"])
 assert not UPD, UPD
+for e in C:
+    if e["id"] in DIED:
+        d = DIED.pop(e["id"]); assert d["book"] >= e["firstBook"], e["id"]; e["died"] = d
+assert not DIED, DIED
 for kind in (T, P, C, SH):
     for e in kind:
         for u in e["updates"]:
