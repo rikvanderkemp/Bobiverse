@@ -118,6 +118,21 @@ svg#g.drag{cursor:grabbing}
 .credit a:hover{text-decoration:underline}
 .credit small{font-size:11px; color:var(--faint)}
 @media (max-width: 720px){ .credit{padding:6px 10px; font-size:12px} .credit .more{display:none} .credit a{margin-left:6px} }
+
+@media (max-height: 560px){
+  body{overflow:auto}
+  .app{height:auto; min-height:100dvh; grid-template-rows:auto auto auto auto; padding:8px 12px 12px; gap:8px}
+  .brand small{display:none}
+  .sigil{width:26px; height:26px}
+  .navlink{padding:4px 8px}
+  .controls{grid-template-columns:minmax(0,1fr) auto}
+  .search input,.bookgate{height:36px}
+  .bookgate label{display:none}
+  .bookpips button{width:28px; height:26px}
+  .stage{height:calc(100dvh - 16px); min-height:300px}
+  .hint{display:none}
+  .card{max-height:70%}
+}
 </style>
 </head>
 <body>

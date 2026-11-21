@@ -259,6 +259,24 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
 .credit a:hover{text-decoration:underline}
 .credit small{font-size:11px; color:var(--faint)}
 @media (max-width: 720px){ .credit{padding:6px 10px; font-size:12px} .credit .more{display:none} .credit a{margin-left:6px} }
+
+/* ---------- short screens (phone in landscape) ---------- */
+@media (max-height: 560px){
+  body{overflow:auto}
+  .app{height:auto; min-height:100dvh; grid-template-rows:auto auto auto auto; padding:8px 12px 12px; gap:8px}
+  .hdr{gap:8px}
+  .brand small, .status .clock, #linkstat, .status .dot{display:none}
+  .sigil{width:26px; height:26px}
+  .maplink{padding:4px 8px}
+  .controls{grid-template-columns:minmax(0,1fr) auto}
+  .search input{height:36px}
+  .bookgate{height:36px}
+  .bookgate label{display:none}
+  .bookpips button{width:28px; height:26px}
+  .main{height:calc(100dvh - 16px); min-height:300px}
+  .detailwrap{padding-top:8px}
+  .credit{font-size:11.5px}
+}
 </style>
 </head>
 <body>
