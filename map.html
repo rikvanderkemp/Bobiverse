@@ -68,9 +68,11 @@ svg#g.drag{cursor:grabbing}
 .edge{stroke:#2a4a63; stroke-width:1; stroke-opacity:.55}
 .edge.hot{stroke:var(--cyan); stroke-opacity:.9; stroke-width:1.6}
 .node circle{stroke:#05090f; stroke-width:1.5; cursor:pointer}
-.node text{font-family:var(--mono); font-size:11px; fill:var(--text); paint-order:stroke; stroke:#05090f; stroke-width:3px; pointer-events:none; letter-spacing:.02em}
+.node text{font-family:var(--mono); font-size:var(--fs, 11px); fill:var(--text); paint-order:stroke; stroke:#05090f; stroke-width:var(--sw, 3px); pointer-events:none; letter-spacing:.02em}
 .node.minor text{display:none}
 .zoomed .node.minor text{display:block}
+.node:hover text{display:block}
+.node.minor circle{opacity:.85}
 .dim .node{opacity:.16}
 .dim .edge{stroke-opacity:.07}
 .dim .node.hot{opacity:1}
@@ -105,6 +107,9 @@ svg#g.drag{cursor:grabbing}
   .brand small{display:none}
   .hint{display:none}
   .card{max-height:48%}
+  .legend{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; max-width:calc(100% - 64px)}
+  .legend::-webkit-scrollbar{display:none}
+  .legend button{flex:none; font-size:10px; padding:2px 8px}
 }
 @media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
 .credit{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:4px 16px; padding:8px 12px; border:1px solid var(--line); background:rgba(10,17,27,.85); font-size:12.5px; color:var(--muted)}
@@ -192,7 +197,7 @@ for (const n of ALL){ for (const r of (n.e.related||[])) addEdge(n.id, r); if (n
 let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 Object.keys(KINDS).forEach((k, i) => {
   const a0 = i * 2 * Math.PI / Object.keys(KINDS).length;
-  for (const n of ALL.filter(n => n.k === k)){ const a = a0 + rnd() * 1.4, r = 120 + rnd() * 260; n.x = Math.cos(a) * r; n.y = Math.sin(a) * r; }
+  for (const n of ALL.filter(n => n.k === k)){ const a = a0 + rnd() * 1.4, r = 200 + rnd() * 450; n.x = Math.cos(a) * r; n.y = Math.sin(a) * r; }
 });
 
 let V = [], VE = [], deg = {};
@@ -207,12 +212,12 @@ function computeVisible(){
 // ---- simple force layout ----
 let alpha = 1, raf = null, dragging = null;
 function tick(){
-  const k = 60, rep = 2400;
+  const k = 115, rep = 9000;
   for (let i = 0; i < V.length; i++){
     const a = V[i];
     for (let j = i + 1; j < V.length; j++){
       const b = V[j]; let dx = a.x - b.x, dy = a.y - b.y, d2 = dx*dx + dy*dy + .01;
-      if (d2 > 250000) continue;
+      if (d2 > 1000000) continue;
       const f = rep / d2 * alpha, d = Math.sqrt(d2); dx /= d; dy /= d;
       a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
     }
@@ -223,8 +228,8 @@ function tick(){
     e.a.vx += fx; e.a.vy += fy; e.b.vx -= fx; e.b.vy -= fy;
   }
   for (const n of V){
-    n.vx -= n.x * 0.004 * alpha; n.vy -= n.y * 0.004 * alpha;
-    if (!(deg[n.id])) { n.vx -= n.x * 0.01 * alpha; n.vy -= n.y * 0.01 * alpha; }
+    n.vx -= n.x * 0.0022 * alpha; n.vy -= n.y * 0.0022 * alpha;
+    if (!(deg[n.id])) { n.vx -= n.x * 0.006 * alpha; n.vy -= n.y * 0.006 * alpha; }
     if (n === dragging) { n.vx = n.vy = 0; continue; }
     n.vx *= .6; n.vy *= .6;
     const cap = 30; n.x += Math.max(-cap, Math.min(cap, n.vx)); n.y += Math.max(-cap, Math.min(cap, n.vy));
@@ -243,13 +248,16 @@ function heat(a){ alpha = Math.max(alpha, a); run(0); }
 // ---- render ----
 const svg = $('#g'), vp = $('#vp'), gE = $('#edges'), gN = $('#nodes');
 let T = { x:0, y:0, s:1 };
-function applyT(){ vp.setAttribute('transform', `translate(${T.x},${T.y}) scale(${T.s})`); svg.classList.toggle('zoomed', T.s > 1.6); }
+function applyT(){ vp.setAttribute('transform', `translate(${T.x},${T.y}) scale(${T.s})`);
+  const z = Math.max(0.35, Math.min(1.6, T.s)); svg.style.setProperty('--fs', (11.5 / z).toFixed(2) + 'px'); svg.style.setProperty('--sw', (3 / z).toFixed(2) + 'px'); svg.classList.toggle('zoomed', T.s > 1.35); }
 let nodeEls = {}, edgeEls = [];
+let HUBS = new Set();
 function build(){
+  HUBS = new Set([...V].sort((a, b) => (deg[b.id]||0) - (deg[a.id]||0)).slice(0, 14).map(n => n.id));
   gE.textContent = ''; gN.textContent = ''; nodeEls = {}; edgeEls = [];
   for (const e of VE){ const l = document.createElementNS(NS, 'line'); l.setAttribute('class', 'edge'); gE.appendChild(l); edgeEls.push([e, l]); }
   for (const n of V){
-    const g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'node' + ((deg[n.id]||0) < 4 ? ' minor' : '')); g.dataset.id = n.id;
+    const g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'node' + (HUBS.has(n.id) ? '' : ' minor')); g.dataset.id = n.id;
     const c = document.createElementNS(NS, 'circle'); c.setAttribute('r', n.r); c.setAttribute('fill', KINDS[n.k].color);
     const t = document.createElementNS(NS, 'text'); t.setAttribute('x', n.r + 4); t.setAttribute('y', 4); t.textContent = n.name;
     const ti = document.createElementNS(NS, 'title'); ti.textContent = n.name;
@@ -311,6 +319,7 @@ function fit(){
   for (const n of V){ x0 = Math.min(x0, n.x); y0 = Math.min(y0, n.y); x1 = Math.max(x1, n.x); y1 = Math.max(y1, n.y); }
   const pad = 40, w = x1 - x0 + pad * 2, h = y1 - y0 + pad * 2;
   T.s = Math.min(2, Math.min(r.width / w, r.height / h));
+  if (r.width < 720) T.s = Math.max(T.s, 0.55);
   T.x = r.width / 2 - (x0 + x1) / 2 * T.s; T.y = r.height / 2 - (y0 + y1) / 2 * T.s; applyT();
 }
 
@@ -407,7 +416,7 @@ document.addEventListener('keydown', ev => { if (ev.key === '/' && document.acti
 
 // ---- boot ----
 computeVisible(); renderPips(); renderLegend();
-for (let i = 0; i < 260; i++) tick();
+for (let i = 0; i < 420; i++) tick();
 build(); draw(); fit();
 const h = decodeURIComponent(location.hash.slice(1));
 if (h && N[h] && V.includes(N[h])) select(h, true);
