@@ -25,12 +25,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Build index.html from data
+      - name: Build index.html and map.html from data
         run: python build.py
       - name: Collect site
         run: |
           mkdir _site
-          cp index.html _site/
+          cp index.html map.html _site/
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
