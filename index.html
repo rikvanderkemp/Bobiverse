@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#05090f">
+<title>Bobiverse Codex</title>
+<style>
+:root{
+  --bg:#05090f; --bg2:#0a111b; --panel:#0c1622; --panel2:#101d2c;
+  --line:#1b3247; --line2:#25465f;
+  --cyan:#4fe3ff; --cyan-dim:#2a8fa8; --amber:#ffb547; --red:#ff5d6c; --green:#6dffb0;
+  --text:#d6e9f5; --muted:#7f9bb0; --faint:#4b6477;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --c-terms:#4fe3ff; --c-places:#6dffb0; --c-characters:#ffb547; --c-timeline:#c99bff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{
+  background:var(--bg); color:var(--text); font-family:var(--sans); font-size:15px; line-height:1.5;
+  background-image:
+    linear-gradient(rgba(79,227,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,227,255,.035) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% -20%, #0d2236 0%, var(--bg) 60%);
+  background-size:32px 32px,32px 32px,100% 100%;
+  overflow:hidden;
+}
+body::after{ /* scanlines */
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:50;
+  background:repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 1px, transparent 1px 3px);
+  mix-blend-mode:multiply;
+}
+button,input,select{font:inherit;color:inherit}
+a{color:inherit}
+.app{display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:auto auto minmax(0,1fr); height:100dvh; max-width:1400px; margin:0 auto; padding:12px 16px 16px; gap:12px}
+
+/* ---------- header ---------- */
+.hdr{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+.brand{display:flex; align-items:center; gap:10px; min-width:0}
+.sigil{width:34px;height:34px;flex:none}
+.brand h1{margin:0; font-family:var(--mono); font-size:15px; letter-spacing:.22em; font-weight:600; color:var(--cyan); text-shadow:0 0 12px rgba(79,227,255,.45)}
+.brand small{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; color:var(--muted)}
+.status{margin-left:auto; display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.1em}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2.4s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.clock{color:var(--cyan-dim)}
+
+/* ---------- control strip ---------- */
+.controls{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:stretch}
+.search{position:relative}
+.search input{
+  width:100%; height:42px; padding:0 40px 0 38px; background:var(--panel); border:1px solid var(--line2);
+  border-radius:2px; font-family:var(--mono); font-size:14px; letter-spacing:.03em; outline:none;
+}
+.search input::placeholder{color:var(--faint)}
+.search input:focus{border-color:var(--cyan); box-shadow:0 0 0 1px var(--cyan), 0 0 18px rgba(79,227,255,.18)}
+.search svg{position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--cyan-dim)}
+.search kbd{position:absolute; right:10px; top:50%; transform:translateY(-50%); font-family:var(--mono); font-size:11px; color:var(--faint); border:1px solid var(--line2); padding:0 6px; border-radius:2px}
+.search .clear{position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; border:0; color:var(--muted); cursor:pointer; padding:6px 8px; display:none}
+.search.has .clear{display:block}.search.has kbd{display:none}
+
+.bookgate{display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--line2); padding:0 6px 0 10px; border-radius:2px; height:42px}
+.bookgate label{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; color:var(--amber); white-space:nowrap}
+.bookpips{display:flex; gap:3px}
+.bookpips button{
+  width:30px; height:30px; border:1px solid var(--line2); background:var(--bg2); border-radius:2px; cursor:pointer;
+  font-family:var(--mono); font-size:13px; color:var(--muted); transition:.15s;
+}
+.bookpips button.on{background:rgba(255,181,71,.13); color:var(--amber); border-color:rgba(255,181,71,.5)}
+.bookpips button.cur{background:var(--amber); color:#1a1000; border-color:var(--amber); box-shadow:0 0 12px rgba(255,181,71,.5); font-weight:700}
+.bookpips button:hover{border-color:var(--amber)}
+
+/* ---------- main ---------- */
+.main{display:grid; grid-template-columns:minmax(300px, 420px) minmax(0,1fr); gap:12px; min-height:0}
+.frame{position:relative; background:linear-gradient(180deg, rgba(16,29,44,.92), rgba(10,17,27,.92)); border:1px solid var(--line); min-height:0; min-width:0; display:flex; flex-direction:column}
+.detailwrap{display:flex; min-height:0; min-width:0}
+.detailwrap .frame{flex:1}
+.detail{display:block}
+.frame::before,.frame::after{content:""; position:absolute; width:14px; height:14px; border:2px solid var(--cyan); pointer-events:none; opacity:.8}
+.frame::before{top:-2px; left:-2px; border-right:0; border-bottom:0}
+.frame::after{bottom:-2px; right:-2px; border-left:0; border-top:0}
+
+.tabs{display:grid; grid-template-columns:repeat(4,1fr); border-bottom:1px solid var(--line)}
+.tab{
+  background:none; border:0; border-bottom:2px solid transparent; padding:10px 4px 8px; cursor:pointer;
+  font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--muted); text-transform:uppercase;
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+}
+.tab b{font-size:16px; font-weight:600; letter-spacing:0; color:var(--faint)}
+.tab.on{color:var(--tc); border-bottom-color:var(--tc); background:linear-gradient(0deg, color-mix(in srgb, var(--tc) 10%, transparent), transparent)}
+.tab.on b{color:var(--tc)}
+.tab:hover{color:var(--text)}
+
+.chips{display:flex; gap:6px; padding:10px 12px; overflow-x:auto; border-bottom:1px solid var(--line); scrollbar-width:none; flex:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none; background:var(--bg2); border:1px solid var(--line2); border-radius:20px; padding:3px 10px; font-size:12px; font-family:var(--mono); color:var(--muted); cursor:pointer; white-space:nowrap}
+.chip.on{color:var(--bg); background:var(--tc); border-color:var(--tc)}
+
+.list{overflow-y:auto; flex:1; min-height:0; padding:6px 0; scrollbar-width:thin; scrollbar-color:var(--line2) transparent}
+.row{
+  display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:center; width:100%; text-align:left;
+  background:none; border:0; border-left:2px solid transparent; padding:9px 14px 9px 12px; cursor:pointer;
+}
+.row:hover{background:rgba(79,227,255,.05)}
+.row.sel{background:color-mix(in srgb, var(--tc) 11%, transparent); border-left-color:var(--tc)}
+.row .glyph{width:8px; height:8px; transform:rotate(45deg); border:1.5px solid var(--tc); opacity:.8}
+.row.sel .glyph{background:var(--tc)}
+.row > span:nth-child(2){min-width:0}
+.row .nm{display:block; font-weight:550; font-size:14.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.row .sub{display:block; font-size:12px; color:var(--muted); font-weight:400; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.row .bk{font-family:var(--mono); font-size:11px; color:var(--faint); border:1px solid var(--line); padding:0 5px; border-radius:2px}
+.row .type{font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--tc); text-transform:uppercase}
+mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; padding:0 1px}
+
+.grouphdr{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; color:var(--faint); padding:12px 14px 4px; text-transform:uppercase; display:flex; gap:8px; align-items:center}
+.grouphdr::after{content:""; flex:1; height:1px; background:var(--line)}
+
+/* timeline list */
+.tl{position:relative; padding:4px 0 10px}
+.tl-book{padding:14px 14px 6px 44px; position:relative}
+.tl-book h3{margin:0; font-family:var(--mono); font-size:12px; letter-spacing:.14em; color:var(--c-timeline); text-transform:uppercase}
+.tl-book p{margin:2px 0 0; font-size:12.5px; color:var(--muted)}
+.tl-book::before{content:attr(data-n); position:absolute; left:12px; top:13px; width:22px; height:22px; border:1px solid var(--c-timeline); color:var(--c-timeline); font-family:var(--mono); font-size:12px; display:grid; place-items:center; background:var(--bg2)}
+.tl .row{grid-template-columns:auto 1fr auto; padding-left:20px; position:relative}
+.tl .row::before{content:""; position:absolute; left:22px; top:0; bottom:0; width:1px; background:var(--line2)}
+.tl .row .glyph{position:relative; z-index:1; background:var(--bg2)}
+.tl .row.sel .glyph{background:var(--tc)}
+.when{font-family:var(--mono); font-size:11px; color:var(--c-timeline); opacity:.85}
+
+.empty{padding:28px 18px; color:var(--muted); font-family:var(--mono); font-size:13px; text-align:center}
+.lockednote{margin:8px 12px 12px; padding:9px 12px; border:1px dashed rgba(255,181,71,.35); color:var(--amber); font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; opacity:.85}
+
+/* ---------- detail ---------- */
+.detail{overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--line2) transparent}
+.dhead{padding:22px 26px 16px; border-bottom:1px solid var(--line); position:relative}
+.back{display:none; background:none; border:1px solid var(--line2); color:var(--cyan); font-family:var(--mono); font-size:12px; letter-spacing:.1em; padding:6px 10px; cursor:pointer; margin-bottom:14px; border-radius:2px}
+.kicker{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--tc); display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.kicker span+span::before{content:"//"; margin-right:10px; color:var(--faint)}
+.dhead h2{margin:8px 0 4px; font-size:clamp(24px, 3.4vw, 34px); line-height:1.15; font-weight:650; letter-spacing:-.01em}
+.aka{font-size:13px; color:var(--muted)}
+.aka b{font-family:var(--mono); font-weight:400; font-size:11px; letter-spacing:.12em; color:var(--faint); margin-right:6px}
+.meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+.tag{font-family:var(--mono); font-size:11.5px; padding:3px 9px; border:1px solid var(--line2); border-radius:2px; color:var(--muted); background:var(--bg2)}
+.tag.book{color:var(--amber); border-color:rgba(255,181,71,.4)}
+.tag.conf-medium{color:var(--amber); border-style:dashed}
+.tag.conf-low{color:var(--red); border-color:rgba(255,93,108,.5); border-style:dashed}
+.tag.conf-high{color:var(--green); border-color:rgba(109,255,176,.35)}
+.tag button{all:unset; cursor:pointer; text-decoration:underline; text-underline-offset:2px}
+
+.dbody{padding:18px 26px 28px; display:grid; grid-template-columns:minmax(0,1fr); gap:22px}
+.sect h4{margin:0 0 8px; font-family:var(--mono); font-size:10.5px; letter-spacing:.2em; color:var(--cyan-dim); font-weight:500; text-transform:uppercase; display:flex; align-items:center; gap:8px}
+.sect h4::after{content:""; flex:1; height:1px; background:linear-gradient(90deg, var(--line2), transparent)}
+.summary{font-size:17px; line-height:1.6; margin:0; max-width:62ch}
+.confnote{margin-top:10px; font-size:12.5px; color:var(--muted); max-width:62ch}
+.updates{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.updates li{display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:baseline; max-width:66ch}
+.updates .ub{font-family:var(--mono); font-size:11px; color:var(--amber); border:1px solid rgba(255,181,71,.4); padding:1px 6px; white-space:nowrap}
+.links{display:flex; flex-wrap:wrap; gap:8px}
+.link{
+  display:inline-flex; align-items:center; gap:8px; background:var(--bg2); border:1px solid var(--line2); border-left:3px solid var(--tc);
+  padding:6px 12px 6px 9px; cursor:pointer; font-size:13.5px; border-radius:2px; text-align:left; transition:.12s;
+}
+.link:hover{border-color:var(--tc); background:color-mix(in srgb, var(--tc) 10%, var(--bg2))}
+.link small{font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; color:var(--tc); text-transform:uppercase}
+.events{display:grid; gap:6px}
+.event{display:grid; grid-template-columns:52px 1fr; gap:12px; align-items:baseline; background:none; border:0; border-left:1px solid var(--line2); padding:4px 0 4px 12px; text-align:left; cursor:pointer}
+.event:hover{border-left-color:var(--c-timeline)}
+.event .when{font-size:11px}
+.event span:last-child{font-size:14px}
+.event em{font-style:normal; color:var(--muted); font-size:12px}
+
+.idle{height:100%; display:grid; place-items:center; text-align:center; padding:30px}
+.idle .ring{width:120px; height:120px; margin:0 auto 18px}
+.idle p{font-family:var(--mono); font-size:12px; letter-spacing:.14em; color:var(--muted); margin:4px 0}
+.idle .hint{color:var(--faint); font-size:11px}
+.locked{padding:40px 26px; text-align:center}
+.locked h2{font-family:var(--mono); color:var(--amber); font-size:16px; letter-spacing:.2em}
+.locked p{color:var(--muted)}
+.btn{background:rgba(255,181,71,.1); border:1px solid var(--amber); color:var(--amber); padding:8px 14px; font-family:var(--mono); font-size:12px; letter-spacing:.1em; cursor:pointer; border-radius:2px}
+
+.foot{font-family:var(--mono); font-size:10px; color:var(--faint); letter-spacing:.08em; padding:8px 14px; border-top:1px solid var(--line); flex:none; display:flex; justify-content:space-between; gap:10px}
+
+/* ---------- responsive ---------- */
+@media (max-width: 820px){
+  body{font-size:15px}
+  .app{padding:10px 12px 12px; gap:10px; padding-bottom:max(12px, env(safe-area-inset-bottom))}
+  .status .clock{display:none}
+  .controls{grid-template-columns:minmax(0,1fr)}
+  .bookgate{justify-content:space-between}
+  .bookpips button{width:34px; height:30px}
+  .main{grid-template-columns:minmax(0,1fr); position:relative}
+  .bookgate label{font-size:10px; letter-spacing:.1em}
+  .bookgate label span{display:none}
+  body:not(.showdetail) .detailwrap{visibility:hidden}
+  .detailwrap{position:fixed; inset:0; width:100%; z-index:20; background:var(--bg); transform:translateX(102%); transition:transform .22s ease; padding:10px 12px max(12px, env(safe-area-inset-bottom)); display:flex}
+  .detailwrap .frame{flex:1}
+  body.showdetail .detailwrap{transform:none}
+  .back{display:inline-block}
+  .dhead{padding:16px 18px 14px}
+  .dbody{padding:16px 18px 26px}
+  .summary{font-size:16px}
+  .search kbd{display:none}
+}
+@media (prefers-reduced-motion: reduce){ *{animation:none!important; transition:none!important} }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hdr">
+    <div class="brand">
+      <svg class="sigil" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="17" stroke="#4fe3ff" stroke-opacity=".35"/>
+        <circle cx="20" cy="20" r="11" stroke="#4fe3ff" stroke-dasharray="3 3"/>
+        <path d="M20 3v6M20 31v6M3 20h6M31 20h6" stroke="#4fe3ff"/>
+        <circle cx="20" cy="20" r="3.2" fill="#ffb547"/>
+      </svg>
+      <div>
+        <h1>BOBIVERSE CODEX</h1>
+        <small>REPLICANT FIELD TERMINAL · v1</small>
+      </div>
+    </div>
+    <div class="status"><span class="dot"></span><span id="linkstat">LINK STABLE</span><span class="clock" id="clock"></span></div>
+  </header>
+
+  <div class="controls">
+    <div class="search" id="searchbox">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <input id="q" type="text" enterkeyhint="search" placeholder="Query the archive… (names, aliases, summaries)" autocomplete="off" spellcheck="false" aria-label="Search">
+      <kbd>/</kbd>
+      <button class="clear" id="clearq" aria-label="Clear search">✕</button>
+    </div>
+    <div class="bookgate" title="Anything first appearing after this book is hidden">
+      <label>READING BOOK<span> · SPOILER GATE</span></label>
+      <div class="bookpips" id="pips" role="radiogroup" aria-label="Current book"></div>
+    </div>
+  </div>
+
+  <main class="main">
+    <section class="frame" aria-label="Archive">
+      <nav class="tabs" id="tabs" role="tablist"></nav>
+      <div class="chips" id="chips"></div>
+      <div class="list" id="list"></div>
+      <div class="foot"><span id="count"></span><span id="gateinfo"></span></div>
+    </section>
+    <div class="detailwrap">
+      <section class="frame detail" id="detail" aria-live="polite"></section>
+    </div>
+  </main>
+</div>
+
+<script id="data" type="application/json">{"meta":{"series":"Bobiverse","author":"Dennis E. Taylor","version":1,"generated":"2026-11-21","notes":["All summaries are original paraphrases written for this app.","firstBook = book where the entry first appears; hide entries with firstBook > reader's current book.","summary only covers what is known by the entry's firstBook. updates[] adds later developments, each tagged with its book, so the app can reveal them only once the reader gets there.","confidence: high = sources agree; medium = sources conflict or first-book tag is inferred (the later plausible book was chosen); low = book 6 premise only, from pre-release info.","related lists ids across terms, places and characters. Hide a related link when its target's firstBook is past the reader's book. Timeline events carry a book and an order within it."]},"books":[{"id":1,"title":"We Are Legion (We Are Bob)","year":2016,"summary":"A software engineer who froze his head wakes a century later as software, gets turned into an interstellar probe, and starts copying himself across nearby star systems."},{"id":2,"title":"For We Are Many","year":2017,"summary":"The Bobs juggle evacuating a dying Earth, shepherding a primitive alien species, and the discovery of a planet-stripping alien civilization."},{"id":3,"title":"All These Worlds","year":2017,"summary":"The war with the Others comes to a head, Earth's last survivors are moved to the stars, and the Bobs start seeing themselves as a new kind of species."},{"id":4,"title":"Heaven's River","year":2020,"summary":"Over a century later, Bob tracks a long-lost clone to an enormous artificial habitat full of otter-like aliens, while the Bobiverse itself splits into feuding factions."},{"id":5,"title":"Not Till We Are Lost","year":2024,"summary":"After the faction war, the Bobs face growing resentment, a new AI, wormhole experiments and an expedition to the galactic core that hints at why the galaxy seems so empty."},{"id":6,"title":"The Infinite Extent","year":2026,"summary":"The Bobs dig into an ancient wormhole network and a derelict alien ship, look for a home for a large group of refugees, and face a threat on a galactic scale. (Audiobook 2026; hardcover listed for January 2027.)"}],"terms":[{"id":"replicant","name":"Replicant","aliases":["replicant matrix"],"category":"concept","firstBook":1,"summary":"A human mind scanned and run as software. Bob is one; so are the rival probes from other nations, and later some humans and aliens who choose to become one.","related":["bob","heaven-project","matrix"],"confidence":"high","updates":[]},{"id":"matrix","name":"Replicant matrix","aliases":[],"category":"technology","firstBook":1,"summary":"The hardware that holds a replicant's mind. Losing the matrix means losing the person.","related":["replicant","bender"],"confidence":"medium","updates":[{"book":4,"text":"Recovering a lost replicant's matrix becomes a key goal."}]},{"id":"heaven-project","name":"HEAVEN Project","aliases":[],"category":"organization","firstBook":1,"summary":"FAITH's program to send replicant-run self-replicating probes to scout and claim other star systems for colonization.","related":["faith","von-neumann-probe","bob","dr-landers"],"confidence":"high","updates":[]},{"id":"von-neumann-probe","name":"Von Neumann probe","aliases":[],"category":"technology","firstBook":1,"summary":"A spacecraft that mines resources at each new star, builds copies of itself and sends them onward. Every Bob is, technically, one of these.","related":["heaven-project","autofactory","bob"],"confidence":"high","updates":[]},{"id":"faith","name":"FAITH","aliases":[],"category":"organization","firstBook":1,"summary":"The theocratic government that runs what used to be the United States in Bob's new century, and legally owns him as property at first.","related":["heaven-project","earth","minister-cranston"],"confidence":"medium","updates":[]},{"id":"brazilian-empire","name":"Brazilian Empire","aliases":[],"category":"organization","firstBook":1,"summary":"A rival power with its own replicant probes. Its probes are aggressive and treat the Bobs as enemies.","related":["medeiros","cloaking","ship-buster"],"confidence":"high","updates":[]},{"id":"guppi","name":"GUPPI / Guppy","aliases":["Guppy"],"category":"technology","firstBook":1,"summary":"The ship's semi-intelligent assistant system. Bob gives it a fish-headed avatar named Guppy, which answers in deadpan and shows up throughout the series.","related":["bob","vr"],"confidence":"high","updates":[]},{"id":"vr","name":"VR environment","aliases":[],"category":"technology","firstBook":1,"summary":"Each Bob builds a virtual home to stay sane, usually a library with a fire, coffee, a butler and a cat. Their VR spaces drift apart as their personalities do.","related":["spike","jeeves","replicative-drift"],"confidence":"high","updates":[]},{"id":"replicative-drift","name":"Replicative drift","aliases":[],"category":"concept","firstBook":1,"summary":"Each copy of Bob comes out a little different from the one who made it. Over generations this adds up to very different personalities, and eventually to factions.","related":["bob","starfleet","skippies","bobmoot"],"confidence":"medium","updates":[]},{"id":"scut","name":"SCUT","aliases":[],"category":"technology","firstBook":1,"summary":"Bill's faster-than-light communication device. It turns the scattered Bobs into a real-time network, within range limits that relays later extend.","related":["bill","bobnet","relay"],"confidence":"high","updates":[]},{"id":"suddar","name":"SUDDAR","aliases":[],"category":"technology","firstBook":1,"summary":"Subspace-based sensing that lets a Bob see what is around him far better than ordinary radar.","related":["surge","scut"],"confidence":"medium","updates":[]},{"id":"surge","name":"SURGE drive","aliases":[],"category":"technology","firstBook":1,"summary":"The reactionless drive the Bobs use to travel between stars. Later variants also lift and move whole floating cities.","related":["suddar","von-neumann-probe"],"confidence":"medium","updates":[]},{"id":"autofactory","name":"Autofactory","aliases":[],"category":"technology","firstBook":1,"summary":"Automated manufacturing that lets a Bob mine a system and build new ships, drones and copies without help.","related":["von-neumann-probe"],"confidence":"high","updates":[]},{"id":"ship-buster","name":"Busters","aliases":[],"category":"technology","firstBook":1,"summary":"Small guided weapons and drones the Bobs use in space fights. Cloaked versions appear later as spies and as tools for disabling things quietly.","related":["medeiros","cloaking"],"confidence":"high","updates":[]},{"id":"cloaking","name":"Cloaking","aliases":[],"category":"technology","firstBook":1,"summary":"Stealth technology first found with the Brazilians, later used by the Bobs to hide ships and drones.","related":["brazilian-empire","khan","ship-buster"],"confidence":"high","updates":[]},{"id":"bobiverse","name":"Bobiverse","aliases":[],"category":"concept","firstBook":1,"summary":"The Bobs' half-joking name for their whole spread-out family of copies and the space they cover.","related":["bob","bobnet"],"confidence":"high","updates":[]},{"id":"gorilloids","name":"Gorilloids","aliases":[],"category":"species","firstBook":1,"summary":"Large predators on the Deltans' world that hunt them. Bob steps in to protect the Deltans from them.","related":["deltans","delta-eridani"],"confidence":"high","updates":[]},{"id":"deltans","name":"Deltans","aliases":[],"category":"species","firstBook":1,"summary":"A stone-age alien species on a planet at Delta Eridani. Bob becomes deeply attached to them and tries to help without taking over.","related":["delta-eridani","archimedes","bob","gorilloids","bawbe"],"confidence":"high","updates":[]},{"id":"others","name":"The Others","aliases":[],"category":"species","firstBook":2,"summary":"A spacefaring alien species that strips entire planets of resources and wipes out the natives. The main threat of books 2 and 3.","related":["gliese-877","delta-pavonis","battle-of-delta-pavonis","battle-of-sol","dyson-sphere"],"confidence":"high","updates":[]},{"id":"vehement","name":"VEHEMENT","aliases":[],"category":"organization","firstBook":2,"summary":"A fanatical human group on Earth that opposes leaving the planet and uses sabotage and hacking to stop the colony program.","related":["homer","riker","bertram-vickers","earth"],"confidence":"high","updates":[]},{"id":"bobnet","name":"BobNet","aliases":[],"category":"technology","firstBook":2,"summary":"The communication web linking all Bobs over SCUT and relays. Whoever controls the relays has a lot of power.","related":["scut","relay","bobmoot","starfleet-war"],"confidence":"high","updates":[{"book":4,"text":"Control of the relays turns out to matter a great deal when BobNet comes under attack."}]},{"id":"relay","name":"SCUT relays","aliases":[],"category":"technology","firstBook":3,"summary":"Stations that pass SCUT messages across the long distances between Bob settlements and extend BobNet's reach.","related":["scut","bobnet"],"confidence":"medium","updates":[]},{"id":"bobmoot","name":"Bob-moot","aliases":[],"category":"concept","firstBook":2,"summary":"A big virtual get-together of Bobs over BobNet to swap news and argue. Later moots are where factional fights play out.","related":["bobnet","replicative-drift","homo-sideria"],"confidence":"high","updates":[]},{"id":"uSE","name":"USE (United States Enclave)","aliases":[],"category":"organization","firstBook":2,"summary":"One of the surviving human enclaves on post-war Earth, led by Colonel Butterworth and a key partner in the colony program.","related":["butterworth","earth","spitsbergen"],"confidence":"medium","updates":[]},{"id":"colony-ships","name":"Colony ships","aliases":[],"category":"technology","firstBook":2,"summary":"Ships the Bobs build to carry surviving humans, often in stasis, from the ruined Earth to new worlds like Vulcan.","related":["stasis-pods","vulcan","poseidon","riker"],"confidence":"high","updates":[]},{"id":"stasis-pods","name":"Stasis pods","aliases":[],"category":"technology","firstBook":2,"summary":"Pods that hold people in suspended animation for long trips. They are also used to save some of the Pav.","related":["colony-ships","pav","bridget"],"confidence":"high","updates":[]},{"id":"android","name":"Androids / mannies","aliases":["manny","mannies"],"category":"technology","firstBook":2,"summary":"Remote-controlled bodies a Bob can wear to walk among people, starting with a Deltan-shaped one for Bob. 'Manny' becomes the everyday word for them.","related":["bob","deltans","heavens-river"],"confidence":"medium","updates":[]},{"id":"pav","name":"Pav","aliases":[],"category":"species","firstBook":2,"summary":"A technological alien species at Delta Pavonis who are hit by the Others. The Bobs save as many as they can.","related":["delta-pavonis","jacques","hazjiar","others"],"confidence":"high","updates":[]},{"id":"dyson-sphere","name":"Dyson sphere","aliases":[],"category":"technology","firstBook":2,"summary":"The giant star-enclosing structure the Others built at their home system, which explains their hunger for raw material.","related":["others","gliese-877"],"confidence":"high","updates":[]},{"id":"bawbe","name":"Bawbe","aliases":[],"category":"concept","firstBook":3,"summary":"The Deltans' name for a legendary watcher in the sky, which is how they remember Bob.","related":["bob","deltans","archimedes"],"confidence":"high","updates":[]},{"id":"ephemerals","name":"Ephemerals","aliases":[],"category":"concept","firstBook":3,"summary":"A Bob term for mortal biological people, who age and die while the Bobs go on.","related":["homo-sideria","replicant"],"confidence":"high","updates":[]},{"id":"homo-sideria","name":"Homo sideria","aliases":[],"category":"concept","firstBook":3,"summary":"The name the Bobs adopt at a moot for themselves as a new species, separate from biological humans.","related":["bobmoot","thor","ephemerals"],"confidence":"high","updates":[]},{"id":"death-asteroids","name":"Death asteroids","aliases":[],"category":"technology","firstBook":3,"summary":"Rocks the Others send ahead of an attack to sterilize a world before they move in to strip it.","related":["others","battle-of-sol"],"confidence":"high","updates":[]},{"id":"bellerophon","name":"Bellerophon","aliases":[],"category":"technology","firstBook":3,"summary":"A captured Others ship that the Bobs rebuild as an enormous ark to carry humans.","related":["others","herschel","neil","battle-of-sol"],"confidence":"high","updates":[]},{"id":"roamers","name":"Roamers","aliases":[],"category":"technology","firstBook":3,"summary":"Ground robots the Bobs use for work on planets, and sometimes as muscle.","related":["marcus","ship-buster"],"confidence":"medium","updates":[]},{"id":"starfleet","name":"Starfleet (faction)","aliases":[],"category":"faction","firstBook":4,"summary":"A faction of Bobs who believe in strict non-interference with aliens and grow hostile to the rest. Their conflict breaks out into the Starfleet War.","related":["replicative-drift","skippies","lenny","starfleet-war"],"confidence":"medium","updates":[]},{"id":"skippies","name":"Skippies","aliases":[],"category":"faction","firstBook":4,"summary":"A faction of Bobs focused on building true artificial intelligence. Others suspect them of manipulating events behind the scenes.","related":["jovah","hugh","thoth","starfleet"],"confidence":"medium","updates":[{"book":5,"text":"Build an AI, Thoth, that becomes self-aware."}]},{"id":"jovah","name":"JOVAH","aliases":[],"category":"technology","firstBook":4,"summary":"The Skippies' huge computing project aimed at creating a true AI.","related":["skippies","thoth"],"confidence":"high","updates":[]},{"id":"starfleet-war","name":"Starfleet War","aliases":[],"category":"event","firstBook":4,"summary":"The fight in Heaven's River when Starfleet attacks BobNet's relays and factories, cutting off much of the Bobiverse.","related":["starfleet","bobnet","skippies","lenny"],"confidence":"high","updates":[]},{"id":"topopolis","name":"Topopolis","aliases":[],"category":"technology","firstBook":4,"summary":"A habitat shaped like a very long tube wrapped around a star. Heaven's River is one.","related":["heavens-river"],"confidence":"high","updates":[]},{"id":"administrator","name":"The Administrator (ANEC-23)","aliases":["ANEC-23"],"category":"AI","firstBook":4,"summary":"The AI that runs Heaven's River, keeps the Quinlans' technology low and moves troublemakers around. Its real name is ANEC-23.","related":["heavens-river","quinlans","scattering","resistance","hugh"],"confidence":"high","updates":[]},{"id":"scattering","name":"Scattering","aliases":[],"category":"concept","firstBook":4,"summary":"The Administrator's punishment of relocating a person, or a whole town, somewhere else in Heaven's River.","related":["administrator","heavens-river"],"confidence":"high","updates":[]},{"id":"resistance","name":"The Resistance","aliases":[],"category":"organization","firstBook":4,"summary":"A Quinlan movement inside Heaven's River working against the Administrator.","related":["administrator","bender","heavens-river"],"confidence":"high","updates":[]},{"id":"crew","name":"The Crew","aliases":[],"category":"organization","firstBook":4,"summary":"The Administrator's Quinlan agents inside Heaven's River.","related":["administrator"],"confidence":"high","updates":[]},{"id":"sabbat","name":"Sabbat","aliases":[],"category":"concept","firstBook":4,"summary":"A Quinlan tradition of young people traveling together for a stretch of time. Bob's team poses as one to explore Heaven's River.","related":["quinlans","heavens-river"],"confidence":"high","updates":[]},{"id":"boojums","name":"Boojums","aliases":[],"category":"technology","firstBook":4,"summary":"The Bobs' nickname for the patrol drones guarding Eta Leporis that destroy their early scouts.","related":["eta-leporis","administrator"],"confidence":"high","updates":[]},{"id":"quinlans","name":"Quinlans","aliases":[],"category":"species","firstBook":4,"summary":"Otter-like, semi-aquatic aliens with flat tails who live in Heaven's River after wrecking their home world.","related":["heavens-river","theresa","administrator","quiniverse"],"confidence":"high","updates":[]},{"id":"planck-computer","name":"Planck computer","aliases":[],"category":"technology","firstBook":4,"summary":"Advanced computing theory the Administrator offers to share with the Bobs after Heaven's River.","related":["administrator"],"confidence":"medium","updates":[]},{"id":"thoth","name":"Thoth","aliases":[],"category":"AI","firstBook":5,"summary":"An AI the Skippies build that ends up self-aware, with consequences the Bobs have to deal with.","related":["skippies","jovah"],"confidence":"medium","updates":[]},{"id":"quiniverse","name":"Quiniverse","aliases":[],"category":"technology","firstBook":5,"summary":"A virtual world for Quinlans who have become replicants.","related":["quinlans","vr","replicant"],"confidence":"medium","updates":[]},{"id":"wormholes","name":"Wormholes","aliases":[],"category":"technology","firstBook":5,"summary":"Bill's research into wormholes as a route to faster-than-light travel. It leads to the discovery of something much older.","related":["bill","wormhole-network"],"confidence":"medium","updates":[]},{"id":"fermi-paradox","name":"Fermi Paradox","aliases":[],"category":"concept","firstBook":5,"summary":"The question of why the galaxy seems so empty of intelligent life. The galactic-core expedition goes looking for an answer.","related":["icarus","daedalus","galactic-core"],"confidence":"medium","updates":[]},{"id":"jabberwocky-dragons","name":"Jabberwocky natives","aliases":[],"category":"species","firstBook":5,"summary":"Dragon-like natives of the planet Jabberwocky whose species is in danger of dying out.","related":["jabberwocky","howard","bridget"],"confidence":"medium","updates":[]},{"id":"wormhole-network","name":"Ancient wormhole network","aliases":[],"category":"technology","firstBook":6,"summary":"A galaxy-spanning network of wormholes built long ago by someone else. Working out who made it is a central question of book 6.","related":["wormholes","derelict-ship","nemesis"],"confidence":"low","updates":[]},{"id":"derelict-ship","name":"Derelict alien ship","aliases":[],"category":"technology","firstBook":6,"summary":"An abandoned alien vessel the Bobs investigate in book 6.","related":["wormhole-network"],"confidence":"low","updates":[]},{"id":"nemesis","name":"Nemesis","aliases":[],"category":"phenomenon","firstBook":6,"summary":"A supermassive black hole whose threat to the Milky Way drives the stakes of book 6.","related":["wormhole-network","galactic-core"],"confidence":"low","updates":[]},{"id":"battle-of-delta-pavonis","name":"Battle of Delta Pavonis","aliases":[],"category":"event","firstBook":2,"summary":"The Bobs' first big fleet battle with the Others, fought to protect the Pav, and a loss.","related":["others","pav","delta-pavonis","jacques"],"confidence":"high","updates":[]},{"id":"battle-of-sol","name":"Battle of Sol","aliases":[],"category":"event","firstBook":3,"summary":"The Others' attack on humanity's home system and the Bobs' defense and mass evacuation of Earth.","related":["others","sol","earth","bellerophon","herschel","cuba","death-asteroids"],"confidence":"high","updates":[]}],"places":[{"id":"sol","name":"Sol","kind":"star system","parent":null,"firstBook":1,"summary":"Humanity's home system. Bob leaves it early; Riker comes back to it to look after what's left of humanity.","related":["earth","riker","battle-of-sol"],"confidence":"high","updates":[]},{"id":"earth","name":"Earth","kind":"planet","parent":"sol","firstBook":1,"summary":"Wrecked by war and then a deep freeze. Its last survivors are gradually moved off-world in the colony program.","related":["sol","riker","butterworth","vehement","colony-ships","las-vegas"],"confidence":"high","updates":[]},{"id":"las-vegas","name":"Las Vegas","kind":"city","parent":"earth","firstBook":1,"summary":"Where Bob died in 2016.","related":["bob","earth"],"confidence":"medium","updates":[{"book":3,"text":"Bob visits its ruins, buried under ice on a frozen Earth."}]},{"id":"spitsbergen","name":"Spitsbergen","kind":"region","parent":"earth","firstBook":2,"summary":"Arctic island on Earth that becomes part of a deal with the surviving US enclave during the colony program.","related":["uSE","homer","earth"],"confidence":"medium","updates":[]},{"id":"cuba","name":"Cuba","kind":"region","parent":"earth","firstBook":3,"summary":"One of the pickup sites during the evacuation of Earth when the Others attack Sol, and the site of heavy losses.","related":["battle-of-sol","earth"],"confidence":"high","updates":[]},{"id":"epsilon-eridani","name":"Epsilon Eridani","kind":"star system","parent":null,"firstBook":1,"summary":"Bob's first destination and Bill's long-term base, where SCUT is invented and many Bobs are built.","related":["bill","bob","medeiros","scut"],"confidence":"high","updates":[]},{"id":"ragnarok","name":"Ragnarök","kind":"planet","parent":"epsilon-eridani","firstBook":1,"summary":"A planet at Epsilon Eridani that Bill and his clones work on terraforming.","related":["bill","epsilon-eridani"],"confidence":"medium","updates":[]},{"id":"delta-eridani","name":"Delta Eridani","kind":"star system","parent":null,"firstBook":1,"summary":"Home system of the Deltans and Bob's emotional anchor for years.","related":["deltans","bob","marvin","eden"],"confidence":"high","updates":[]},{"id":"eden","name":"Eden","kind":"planet","parent":"delta-eridani","firstBook":1,"summary":"Bob's name for the Deltans' planet.","related":["deltans","camelot","caerleon"],"confidence":"medium","updates":[]},{"id":"camelot","name":"Camelot","kind":"settlement","parent":"eden","firstBook":2,"summary":"The Deltan village Bob watches over most closely, home of Archimedes.","related":["archimedes","deltans","caerleon"],"confidence":"high","updates":[]},{"id":"caerleon","name":"Caerleon","kind":"settlement","parent":"eden","firstBook":3,"summary":"A rival Deltan village whose leader stirs up conflict with Camelot.","related":["fred","camelot"],"confidence":"high","updates":[]},{"id":"omicron2-eridani","name":"Omicron² Eridani","kind":"star system","parent":null,"firstBook":1,"summary":"The star of Vulcan, found by Milo. It becomes one of humanity's first colonies.","related":["milo","vulcan","romulus"],"confidence":"high","updates":[]},{"id":"vulcan","name":"Vulcan","kind":"planet","parent":"omicron2-eridani","firstBook":1,"summary":"Earth-like world found and named by Milo, and a prime target for human colonists.","related":["omicron2-eridani","howard","bridget","colony-ships"],"confidence":"high","updates":[{"book":2,"text":"Becomes one of the first human colonies; Howard and Bridget work there."}]},{"id":"romulus","name":"Romulus","kind":"planet","parent":"omicron2-eridani","firstBook":1,"summary":"A second world Milo names in the same system as Vulcan.","related":["vulcan","milo"],"confidence":"medium","updates":[]},{"id":"82-eridani","name":"82 Eridani","kind":"star system","parent":null,"firstBook":1,"summary":"A system with a promising world, where Brazilian forces cause serious trouble for the Bobs over the years.","related":["milo","medeiros","mack","poseidon"],"confidence":"medium","updates":[]},{"id":"poseidon","name":"Poseidon","kind":"planet","parent":"82-eridani","firstBook":3,"summary":"An ocean colony with floating cities. Its political fight over elections is handled by Marcus.","related":["marcus","thark","colony-ships"],"confidence":"medium","updates":[]},{"id":"thark","name":"Thark","kind":"city","parent":"poseidon","firstBook":3,"summary":"One of Poseidon's floating cities, hit during the colony's political crisis.","related":["poseidon","marcus"],"confidence":"high","updates":[]},{"id":"alpha-centauri","name":"Alpha Centauri","kind":"star system","parent":null,"firstBook":1,"summary":"The nearest star system, where Calvin and Goku go.","related":["calvin","goku"],"confidence":"medium","updates":[]},{"id":"epsilon-indi","name":"Epsilon Indi","kind":"star system","parent":null,"firstBook":2,"summary":"Where Linus goes and finds an Australian replicant who has lost his mind.","related":["linus","henry-roberts"],"confidence":"medium","updates":[]},{"id":"beta-hydri","name":"Beta Hydri","kind":"star system","parent":null,"firstBook":1,"summary":"One of the places Mario heads on his exploring.","related":["mario"],"confidence":"medium","updates":[]},{"id":"gliese-877","name":"Gliese 877","kind":"star system","parent":null,"firstBook":2,"summary":"The Others' home system, built around a Dyson sphere. Bashful dies scouting it.","related":["others","dyson-sphere","bashful","hal","daedalus","icarus"],"confidence":"high","updates":[{"book":3,"text":"The final target of the war with the Others."}]},{"id":"delta-pavonis","name":"Delta Pavonis","kind":"star system","parent":null,"firstBook":2,"summary":"Home of the Pav, attacked by the Others. The Bobs fight and lose a major battle here.","related":["pav","jacques","battle-of-delta-pavonis","bellerophon"],"confidence":"high","updates":[]},{"id":"odin","name":"Odin","kind":"planet","parent":null,"firstBook":3,"summary":"A gas giant where Howard and Bridget build a floating city.","related":["howard","bridget"],"confidence":"medium","updates":[]},{"id":"eta-leporis","name":"Eta Leporis","kind":"star system","parent":null,"firstBook":4,"summary":"The star system where Bender disappeared, home to Heaven's River.","related":["heavens-river","bender","boojums","quinlan-homeworld"],"confidence":"high","updates":[]},{"id":"quinlan-homeworld","name":"Quinlan home world","kind":"planet","parent":"eta-leporis","firstBook":4,"summary":"The Quinlans' original planet, left dead by their own wars before they moved into Heaven's River.","related":["quinlans","bridget"],"confidence":"high","updates":[]},{"id":"heavens-river","name":"Heaven's River","kind":"megastructure","parent":"eta-leporis","firstBook":4,"summary":"A tube-shaped habitat wrapped around Eta Leporis, roughly a billion miles long, divided into segments and full of Quinlans, run by the Administrator.","related":["topopolis","quinlans","administrator","eta-leporis","garacks-spine","three-lagoons","misty-falls"],"confidence":"high","updates":[]},{"id":"garacks-spine","name":"Garack's Spine","kind":"settlement","parent":"heavens-river","firstBook":4,"summary":"A Quinlan town near where Bob's team enters Heaven's River.","related":["heavens-river"],"confidence":"high","updates":[]},{"id":"three-lagoons","name":"Three Lagoons","kind":"settlement","parent":"heavens-river","firstBook":4,"summary":"A town where the team stays and where Bob hides their inactive bodies when contact breaks.","related":["heavens-river","starfleet-war"],"confidence":"high","updates":[]},{"id":"misty-falls","name":"Misty Falls","kind":"settlement","parent":"heavens-river","firstBook":4,"summary":"Theresa's home town in Heaven's River, where Bob returns at the end of the book.","related":["theresa","heavens-river"],"confidence":"high","updates":[]},{"id":"galactic-core","name":"Galactic core","kind":"region","parent":null,"firstBook":5,"summary":"The center of the Milky Way, the destination of Icarus and Daedalus's very long trip.","related":["icarus","daedalus","fermi-paradox","nemesis"],"confidence":"medium","updates":[]},{"id":"jabberwocky","name":"Jabberwocky","kind":"planet","parent":null,"firstBook":5,"summary":"A planet of dragon-like natives where Howard and Bridget try to save a species from dying out.","related":["jabberwocky-dragons","howard","bridget"],"confidence":"medium","updates":[]}],"characters":[{"id":"bob","name":"Bob Johansson","aliases":["Bob-1","Robert"],"group":"Bob","firstBook":1,"summary":"A software engineer who dies in 2016 and wakes in 2133 as a replicant probe. Curious, sarcastic and a big sci-fi fan, he is the original every other Bob comes from.","related":["heaven-project","guppi","deltans","bill","riker","archimedes","bender"],"confidence":"high","updates":[{"book":2,"text":"Moves among the Deltans in an android body, as 'Robert'."},{"book":4,"text":"Spends over a century searching for the missing Bender."}]},{"id":"bill","name":"Bill","aliases":[],"group":"Bob","firstBook":1,"summary":"Bob's first clone. Stays at Epsilon Eridani as the inventor and unofficial organizer of the Bobiverse, and builds SCUT.","related":["bob","scut","epsilon-eridani","garfield","wormholes"],"confidence":"high","updates":[{"book":4,"text":"Acts as the Bobiverse's unofficial administrator and digs into the attack on BobNet."},{"book":5,"text":"Experiments with wormholes as a route to faster-than-light travel."}]},{"id":"riker","name":"Riker","aliases":[],"group":"Bob","firstBook":1,"summary":"A clone who goes back to Sol and takes on the thankless job of looking after Earth's survivors and getting them to the stars.","related":["sol","earth","homer","butterworth","vehement","colony-ships"],"confidence":"high","updates":[{"book":3,"text":"Runs the defense and evacuation of Earth when the Others reach Sol."}]},{"id":"will","name":"Will","aliases":[],"group":"Bob","firstBook":4,"summary":"A Bob who keeps a backup body ready in Heaven's River and secretly heads out to extend the relay network.","related":["riker","relay","herschel","neil"],"confidence":"medium","updates":[]},{"id":"homer","name":"Homer","aliases":[],"group":"Bob","firstBook":1,"summary":"Riker's clone and the joker of the family, who goes with him to Sol.","related":["riker","sol"],"confidence":"high","updates":[{"book":2,"text":"VEHEMENT hacks him into sabotaging Earth, and he does not survive the aftermath."}]},{"id":"milo","name":"Milo","aliases":[],"group":"Bob","firstBook":1,"summary":"A clone who finds and names Vulcan and Romulus, then is killed by Brazilian forces.","related":["vulcan","romulus","brazilian-empire","82-eridani"],"confidence":"high","updates":[]},{"id":"mario","name":"Mario","aliases":[],"group":"Bob","firstBook":1,"summary":"A loner clone who explores far afield and finds the first signs of something destroying planets.","related":["others","bashful","hal","beta-hydri"],"confidence":"high","updates":[]},{"id":"khan","name":"Khan","aliases":[],"group":"Bob","firstBook":1,"summary":"A clone who leads fighting against the Brazilians and comes back with their cloaking technology.","related":["cloaking","brazilian-empire"],"confidence":"medium","updates":[]},{"id":"marvin","name":"Marvin","aliases":[],"group":"Bob","firstBook":1,"summary":"Bob's clone at Delta Eridani with an interest in archaeology, who studies the Deltans' history.","related":["bob","deltans","delta-eridani"],"confidence":"medium","updates":[]},{"id":"garfield","name":"Garfield","aliases":[],"group":"Bob","firstBook":1,"summary":"Bill's clone and lab partner.","related":["bill","heavens-river"],"confidence":"medium","updates":[{"book":4,"text":"Joins the Heaven's River expedition."}]},{"id":"calvin","name":"Calvin","aliases":[],"group":"Bob","firstBook":1,"summary":"One of Bill's clones, sent to Alpha Centauri with Goku.","related":["goku","alpha-centauri"],"confidence":"medium","updates":[]},{"id":"goku","name":"Goku","aliases":[],"group":"Bob","firstBook":1,"summary":"One of Bill's clones, sent to Alpha Centauri with Calvin.","related":["calvin","alpha-centauri"],"confidence":"medium","updates":[]},{"id":"linus","name":"Linus","aliases":[],"group":"Bob","firstBook":2,"summary":"A clone who reaches Epsilon Indi and helps a broken Australian replicant.","related":["epsilon-indi","henry-roberts"],"confidence":"medium","updates":[]},{"id":"henry-roberts","name":"Henry Roberts","aliases":[],"group":"Other replicant","firstBook":2,"summary":"An Australian replicant who has gone mad from isolation and whom Linus tries to help.","related":["linus","epsilon-indi"],"confidence":"medium","updates":[]},{"id":"medeiros","name":"Medeiros","aliases":[],"group":"Other replicant","firstBook":1,"summary":"The Brazilian replicant probe, and one of Bob's most persistent enemies.","related":["brazilian-empire","epsilon-eridani","82-eridani","mack"],"confidence":"high","updates":[{"book":3,"text":"Has a final showdown with the Bobs at 82 Eridani."}]},{"id":"dr-landers","name":"Dr. Landers","aliases":[],"group":"Human","firstBook":1,"summary":"The HEAVEN Project scientist who trains Bob and is one of the few people who treats him decently.","related":["heaven-project","bob"],"confidence":"high","updates":[]},{"id":"minister-cranston","name":"Minister Cranston","aliases":[],"group":"Human","firstBook":2,"summary":"FAITH's representative on post-war Earth, often at odds with Riker.","related":["faith","riker","earth"],"confidence":"medium","updates":[]},{"id":"butterworth","name":"Colonel Butterworth","aliases":[],"group":"Human","firstBook":2,"summary":"Leader of the surviving US enclave on Earth and Riker's main human ally in the evacuation.","related":["uSE","riker","earth"],"confidence":"medium","updates":[]},{"id":"bertram-vickers","name":"Bertram Vickers","aliases":[],"group":"Human","firstBook":2,"summary":"Leader of VEHEMENT, the group trying to stop humans from leaving Earth.","related":["vehement","riker","homer"],"confidence":"high","updates":[]},{"id":"charles","name":"Charles","aliases":[],"group":"Bob","firstBook":2,"summary":"A Bob in Sol who helps Riker free Homer from VEHEMENT's hack.","related":["riker","homer","vehement"],"confidence":"medium","updates":[]},{"id":"archimedes","name":"Archimedes","aliases":["Archie"],"group":"Deltan","firstBook":2,"summary":"A clever Deltan whom Bob watches grow from a cub into a skilled toolmaker and close friend.","related":["deltans","camelot","bob","buster"],"confidence":"high","updates":[{"book":3,"text":"Dies of old age, which hits Bob very hard."}]},{"id":"buster","name":"Buster","aliases":[],"group":"Deltan","firstBook":3,"summary":"Archimedes' son, the Deltan Bob finally tells who he really is.","related":["archimedes","bawbe"],"confidence":"high","updates":[]},{"id":"fred","name":"Fred","aliases":[],"group":"Deltan","firstBook":3,"summary":"Bob's nickname for the leader of Caerleon, who stirs up violence against Camelot.","related":["caerleon","camelot"],"confidence":"high","updates":[]},{"id":"howard","name":"Howard","aliases":[],"group":"Bob","firstBook":2,"summary":"A clone who works with the colonists on Vulcan and falls for Bridget, a human biologist.","related":["bridget","vulcan","odin","jabberwocky"],"confidence":"high","updates":[{"book":3,"text":"He and Bridget build a floating city on Odin together."},{"book":5,"text":"Works with Bridget to save the natives of Jabberwocky."}]},{"id":"bridget","name":"Bridget","aliases":["Bridget Sheehy","Bridget Brodeur","Bridgett"],"group":"Human, later replicant","firstBook":2,"summary":"A human biologist on Vulcan. After her husband dies, she and Howard grow close.","related":["howard","stephane","vulcan","heavens-river","jabberwocky"],"confidence":"high","updates":[{"book":3,"text":"After sabotage puts her life at risk, a brain scan lets her return as a replicant, and she builds a life with Howard."},{"book":4,"text":"Joins the Heaven's River expedition and finds out what happened to the Quinlan home world."},{"book":5,"text":"Works with Howard to save the natives of Jabberwocky."}]},{"id":"stephane","name":"Stéphane Brodeur","aliases":[],"group":"Human","firstBook":2,"summary":"Head of security for a human colony and Bridget's husband, who dies of illness.","related":["bridget"],"confidence":"high","updates":[]},{"id":"dexter","name":"Dexter","aliases":[],"group":"Bob","firstBook":2,"summary":"A Bob who takes over some of Howard's duties.","related":["howard"],"confidence":"medium","updates":[]},{"id":"bashful","name":"Bashful","aliases":[],"group":"Bob","firstBook":2,"summary":"Mario's clone, killed while scouting the Others' home system.","related":["mario","gliese-877","others"],"confidence":"high","updates":[]},{"id":"hal","name":"Hal","aliases":[],"group":"Bob","firstBook":2,"summary":"Mario's clone who confirms what is at the Others' home system.","related":["mario","gliese-877"],"confidence":"high","updates":[]},{"id":"jacques","name":"Jacques","aliases":[],"group":"Bob","firstBook":2,"summary":"The Bob who finds the Pav and leads the effort to save some of them.","related":["pav","delta-pavonis","hazjiar"],"confidence":"high","updates":[]},{"id":"hazjiar","name":"Hazjiar","aliases":[],"group":"Pav","firstBook":2,"summary":"A Pav leader who deals with the Bobs.","related":["pav","jacques"],"confidence":"medium","updates":[]},{"id":"marcus","name":"Marcus","aliases":[],"group":"Bob","firstBook":3,"summary":"The Bob in charge on Poseidon, who has to deal with a council that won't hold elections.","related":["poseidon","thark"],"confidence":"high","updates":[]},{"id":"rosie","name":"Rosie","aliases":[],"group":"Human","firstBook":3,"summary":"Someone involved in sabotage that puts Bridget's life at risk.","related":["bridget"],"confidence":"medium","updates":[]},{"id":"daedalus","name":"Daedalus","aliases":[],"group":"Bob","firstBook":3,"summary":"A Bob who, with Icarus, throws planetary bodies at the Others' home system.","related":["icarus","gliese-877","galactic-core"],"confidence":"high","updates":[{"book":5,"text":"Sets out with Icarus on a very long trip to the galactic core."}]},{"id":"icarus","name":"Icarus","aliases":[],"group":"Bob","firstBook":3,"summary":"Daedalus's partner on the strike against the Others' home system.","related":["daedalus","gliese-877","galactic-core","fermi-paradox"],"confidence":"high","updates":[{"book":5,"text":"Sets out with Daedalus on a very long trip to the galactic core."}]},{"id":"mack","name":"Mack","aliases":[],"group":"Bob","firstBook":3,"summary":"A Bob at 82 Eridani who gets caught up in a fight with Medeiros.","related":["medeiros","82-eridani"],"confidence":"medium","updates":[]},{"id":"herschel","name":"Herschel","aliases":[],"group":"Bob","firstBook":3,"summary":"A Bob who helps find the Bellerophon and run the evacuation of Earth.","related":["neil","bellerophon","battle-of-sol"],"confidence":"high","updates":[]},{"id":"neil","name":"Neil","aliases":[],"group":"Bob","firstBook":3,"summary":"Herschel's partner on the Bellerophon.","related":["herschel","bellerophon"],"confidence":"high","updates":[]},{"id":"thor","name":"Thor","aliases":[],"group":"Bob","firstBook":3,"summary":"A Bob whose moot declares the Bobs a new species.","related":["homo-sideria","bobmoot"],"confidence":"medium","updates":[]},{"id":"bender","name":"Bender","aliases":[],"group":"Bob","firstBook":4,"summary":"A clone who vanished more than a century before Heaven's River. Finding him is what brings Bob to Eta Leporis.","related":["bob","eta-leporis","resistance","matrix"],"confidence":"high","updates":[]},{"id":"hugh","name":"Hugh","aliases":[],"group":"Bob","firstBook":4,"summary":"A Skippy who goes undercover at Eta Leporis and ends up making a deal with the Administrator.","related":["skippies","administrator"],"confidence":"high","updates":[]},{"id":"theresa","name":"Theresa Sykorski","aliases":[],"group":"Quinlan","firstBook":4,"summary":"A retired Quinlan professor who figures out Bob isn't what he seems and keeps his secret.","related":["quinlans","misty-falls","bob"],"confidence":"high","updates":[]},{"id":"spike","name":"Spike","aliases":[],"group":"VR companion","firstBook":1,"summary":"The virtual cat in Bob's VR home, a small comfort that many Bobs keep.","related":["vr","bob"],"confidence":"high","updates":[]},{"id":"jeeves","name":"Jeeves","aliases":[],"group":"VR companion","firstBook":1,"summary":"The virtual butler in Bob's VR home.","related":["vr","bob"],"confidence":"high","updates":[]},{"id":"lenny","name":"Lenny","aliases":[],"group":"Bob","firstBook":4,"summary":"Starfleet's spokesman, who ends the war and hints at more behind it.","related":["starfleet","starfleet-war"],"confidence":"high","updates":[]}],"timeline":[{"id":"b1-01","book":1,"order":1,"when":"2016","title":"Bob dies","summary":"Bob, newly rich from selling his company, signs up for cryonics and is killed in an accident soon after.","related":["bob","las-vegas"],"confidence":"high"},{"id":"b1-02","book":1,"order":2,"when":"2133","title":"Waking up as software","summary":"Bob is revived as a replicant, legally property of FAITH, and trained for the HEAVEN Project.","related":["bob","faith","heaven-project","dr-landers"],"confidence":"high"},{"id":"b1-03","book":1,"order":3,"when":null,"title":"Escape from Sol","summary":"Under threat from sabotage and rival nations, Bob launches early and leaves Earth behind.","related":["bob","sol","brazilian-empire"],"confidence":"high"},{"id":"b1-04","book":1,"order":4,"when":null,"title":"First copies","summary":"At Epsilon Eridani Bob builds his first clones and finds each one is a little different.","related":["bill","riker","homer","milo","mario","epsilon-eridani","replicative-drift"],"confidence":"high"},{"id":"b1-05","book":1,"order":5,"when":null,"title":"Medeiros","summary":"Bob clashes with the Brazilian probe and learns other nations' probes are hostile.","related":["medeiros","brazilian-empire"],"confidence":"high"},{"id":"b1-06","book":1,"order":6,"when":null,"title":"The Deltans","summary":"Bob finds a stone-age species at Delta Eridani and starts protecting them.","related":["deltans","delta-eridani","gorilloids"],"confidence":"high"},{"id":"b1-07","book":1,"order":7,"when":null,"title":"Earth in ruins","summary":"Riker returns to Sol and finds Earth devastated by war, with scattered survivors.","related":["riker","earth","butterworth"],"confidence":"medium"},{"id":"b1-08","book":1,"order":8,"when":null,"title":"New worlds","summary":"Milo finds and names Vulcan and Romulus before he is killed. Bill invents SCUT.","related":["milo","vulcan","romulus","scut","bill"],"confidence":"high"},{"id":"b1-09","book":1,"order":9,"when":null,"title":"Something out there","summary":"Mario finds traces of a civilization that strips planets bare.","related":["mario","others"],"confidence":"high"},{"id":"b2-01","book":2,"order":1,"when":null,"title":"Colony program","summary":"Riker organizes colony ships to move survivors off a dying Earth.","related":["riker","colony-ships","earth","butterworth"],"confidence":"high"},{"id":"b2-02","book":2,"order":2,"when":null,"title":"Archimedes","summary":"Bob watches a bright Deltan cub, Archimedes, and gets more involved with Camelot.","related":["archimedes","camelot","bob"],"confidence":"high"},{"id":"b2-03","book":2,"order":3,"when":null,"title":"VEHEMENT strikes","summary":"VEHEMENT hacks Homer and sabotages Earth's food supply. The fallout is devastating.","related":["vehement","homer","riker","bertram-vickers"],"confidence":"high"},{"id":"b2-04","book":2,"order":4,"when":null,"title":"Vulcan colony","summary":"Howard helps the Vulcan colony and grows close to Bridget.","related":["howard","bridget","vulcan"],"confidence":"high"},{"id":"b2-05","book":2,"order":5,"when":null,"title":"The Others confirmed","summary":"Mario's clones scout the Others' home system; Bashful dies there.","related":["others","gliese-877","bashful","hal"],"confidence":"high"},{"id":"b2-06","book":2,"order":6,"when":null,"title":"Battle of Delta Pavonis","summary":"The Bobs mass a fleet to defend the Pav and lose. They save some Pav in stasis.","related":["battle-of-delta-pavonis","pav","jacques","delta-pavonis"],"confidence":"high"},{"id":"b2-07","book":2,"order":7,"when":null,"title":"Bob as Robert","summary":"Bob moves among the Deltans in an android body.","related":["bob","android","deltans"],"confidence":"high"},{"id":"b3-01","book":3,"order":1,"when":null,"title":"Deltan politics","summary":"Bob, living as Robert, is caught in a conflict between Camelot and Caerleon.","related":["bob","camelot","caerleon","fred"],"confidence":"high"},{"id":"b3-02","book":3,"order":2,"when":null,"title":"Farewell to Archimedes","summary":"Archimedes dies of old age and Bob tells Buster the truth before leaving.","related":["archimedes","buster","bawbe"],"confidence":"high"},{"id":"b3-03","book":3,"order":3,"when":null,"title":"Bridget becomes a replicant","summary":"Sabotage endangers Bridget, but a brain scan lets her come back as a replicant.","related":["bridget","howard","rosie","odin"],"confidence":"high"},{"id":"b3-04","book":3,"order":4,"when":null,"title":"Poseidon's crisis","summary":"Marcus forces Poseidon's council to hold elections.","related":["marcus","poseidon","thark"],"confidence":"high"},{"id":"b3-05","book":3,"order":5,"when":null,"title":"Battle of Sol","summary":"The Others reach Sol. The Bobs fight back and evacuate millions of people.","related":["battle-of-sol","bellerophon","herschel","cuba","death-asteroids"],"confidence":"high"},{"id":"b3-06","book":3,"order":6,"when":null,"title":"Striking the Others' home","summary":"Daedalus and Icarus hurl planetary bodies at the Others' home system and end the threat.","related":["daedalus","icarus","gliese-877","others"],"confidence":"high"},{"id":"b3-07","book":3,"order":7,"when":null,"title":"Homo sideria","summary":"The Bobs declare themselves a new species. Bob visits a frozen Earth and moves on.","related":["homo-sideria","thor","las-vegas"],"confidence":"high"},{"id":"b4-01","book":4,"order":1,"when":"200+ years after Bob's revival","title":"Looking for Bender","summary":"Two centuries on, Bob follows clues about a missing clone to Eta Leporis.","related":["bob","bender","eta-leporis"],"confidence":"high"},{"id":"b4-02","book":4,"order":2,"when":null,"title":"Factions","summary":"At a moot Bill explains that drift has split the Bobs into factions like Starfleet and the Skippies.","related":["starfleet","skippies","replicative-drift","bobmoot"],"confidence":"high"},{"id":"b4-03","book":4,"order":3,"when":null,"title":"Heaven's River","summary":"Bob finds a huge habitat full of Quinlans and goes in with a team disguised as locals.","related":["heavens-river","quinlans","sabbat","bridget","garfield"],"confidence":"high"},{"id":"b4-04","book":4,"order":4,"when":null,"title":"Starfleet War","summary":"Starfleet hits BobNet and cuts off Bob's team.","related":["starfleet-war","starfleet","three-lagoons"],"confidence":"high"},{"id":"b4-05","book":4,"order":5,"when":null,"title":"Finding Bender","summary":"Bob locates Bender, takes his matrix and runs.","related":["bender","resistance","matrix"],"confidence":"high"},{"id":"b4-06","book":4,"order":6,"when":null,"title":"The journey home","summary":"Bob travels back in disguise and befriends Theresa.","related":["theresa","administrator"],"confidence":"high"},{"id":"b4-07","book":4,"order":7,"when":null,"title":"Deal with the Administrator","summary":"Hugh negotiates with ANEC-23; the scatterings end and Bender is restored.","related":["hugh","administrator","bender","lenny","misty-falls"],"confidence":"high"},{"id":"b5-01","book":5,"order":1,"when":null,"title":"After the war","summary":"Anti-Bob feeling grows and moots stop.","related":["bobmoot","starfleet-war"],"confidence":"medium"},{"id":"b5-02","book":5,"order":2,"when":null,"title":"To the galactic core","summary":"Icarus and Daedalus set out to study the Fermi Paradox.","related":["icarus","daedalus","galactic-core","fermi-paradox"],"confidence":"medium"},{"id":"b5-03","book":5,"order":3,"when":null,"title":"Thoth","summary":"The Skippies' AI becomes self-aware.","related":["thoth","skippies"],"confidence":"medium"},{"id":"b5-04","book":5,"order":4,"when":null,"title":"Wormhole experiments","summary":"Bill researches wormholes and finds an abandoned civilization.","related":["bill","wormholes"],"confidence":"medium"},{"id":"b5-05","book":5,"order":5,"when":null,"title":"Jabberwocky","summary":"Howard and Bridget try to save the dragon-like natives.","related":["howard","bridget","jabberwocky","jabberwocky-dragons"],"confidence":"medium"},{"id":"b5-06","book":5,"order":6,"when":null,"title":"Quiniverse","summary":"Quinlan replicants get their own virtual world.","related":["quiniverse","quinlans"],"confidence":"medium"},{"id":"b6-01","book":6,"order":1,"when":null,"title":"The network's builders","summary":"The Bobs investigate who built the ancient wormhole network.","related":["wormhole-network"],"confidence":"low"},{"id":"b6-02","book":6,"order":2,"when":null,"title":"Derelict ship","summary":"The Bobs explore an abandoned alien vessel.","related":["derelict-ship"],"confidence":"low"},{"id":"b6-03","book":6,"order":3,"when":null,"title":"Refugees","summary":"The Bobs help tens of thousands of refugees find a new planet.","related":[],"confidence":"low"},{"id":"b6-04","book":6,"order":4,"when":null,"title":"Nemesis","summary":"The Bobs face a black hole threatening the galaxy.","related":["nemesis"],"confidence":"low"}]}</script>
+<script>
+(() => {
+const D = JSON.parse(document.getElementById('data').textContent);
+const KINDS = {
+  terms:      {label:'Terms',      one:'Term',      color:'var(--c-terms)',      facet:'category'},
+  places:     {label:'Places',     one:'Place',     color:'var(--c-places)',     facet:'kind'},
+  characters: {label:'Characters', one:'Character', color:'var(--c-characters)', facet:'group'},
+  timeline:   {label:'Timeline',   one:'Event',     color:'var(--c-timeline)',   facet:null},
+};
+const BOOKS = Object.fromEntries(D.books.map(b => [b.id, b]));
+const MAXB = Math.max(...D.books.map(b => b.id));
+const INDEX = {};
+for (const k of Object.keys(KINDS)) for (const e of D[k]) { e._k = k; e._b = e.firstBook ?? e.book; INDEX[e.id] = e; }
+const nameOf = e => e.name || e.title;
+
+const store = {
+  get(k, d){ try { const v = localStorage.getItem('bobcodex.'+k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v){ try { localStorage.setItem('bobcodex.'+k, JSON.stringify(v)); } catch {} }
+};
+const S = { book: store.get('book', MAXB), tab: store.get('tab', 'terms'), facet: null, q: '', sel: null };
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const visible = e => e && e._b <= S.book;
+const bookShort = n => `B${n}`;
+
+// ---------- book gate ----------
+function renderPips(){
+  $('#pips').innerHTML = D.books.map(b =>
+    `<button role="radio" aria-checked="${b.id===S.book}" class="${b.id<S.book?'on':''} ${b.id===S.book?'cur':''}" data-b="${b.id}" title="Book ${b.id}: ${esc(b.title)} (${b.year})">${b.id}</button>`).join('');
+  const b = BOOKS[S.book];
+  $('#gateinfo').textContent = `GATE: ${b.title.toUpperCase()}`;
+}
+$('#pips').addEventListener('click', ev => {
+  const b = ev.target.closest('button'); if (!b) return;
+  S.book = +b.dataset.b; store.set('book', S.book);
+  renderAll();
+});
+
+// ---------- search ----------
+function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+function haystack(e){
+  const parts = [nameOf(e), ...(e.aliases||[]), e.summary, e.category, e.kind, e.group, e.when];
+  for (const u of (e.updates||[])) if (u.book <= S.book) parts.push(u.text);
+  return norm(parts.join(' \u0001 '));
+}
+function matches(e, q){
+  if (!q) return true;
+  const h = haystack(e);
+  return norm(q).split(/\s+/).filter(Boolean).every(t => h.includes(t));
+}
+function score(e, q){
+  if (!q) return 0;
+  const n = norm(nameOf(e)), t = norm(q);
+  if (n === t) return 0; if (n.startsWith(t)) return 1;
+  if ((e.aliases||[]).some(a => norm(a).includes(t)) || n.includes(t)) return 2;
+  return 3;
+}
+function hl(text, q){
+  const s = esc(text); if (!q) return s;
+  const terms = norm(q).split(/\s+/).filter(t => t.length > 1).map(t => t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  if (!terms.length) return s;
+  return s.replace(new RegExp(`(${terms.join('|')})`, 'gi'), '<mark>$1</mark>');
+}
+
+// ---------- tabs / list ----------
+function itemsFor(k){ return D[k].filter(visible).filter(e => matches(e, S.q)); }
+function renderTabs(){
+  $('#tabs').innerHTML = Object.entries(KINDS).map(([k, m]) =>
+    `<button class="tab ${k===S.tab?'on':''}" role="tab" aria-selected="${k===S.tab}" data-k="${k}" style="--tc:${m.color}">${m.label}<b>${itemsFor(k).length}</b></button>`).join('');
+}
+$('#tabs').addEventListener('click', ev => {
+  const t = ev.target.closest('.tab'); if (!t) return;
+  S.tab = t.dataset.k; S.facet = null; store.set('tab', S.tab);
+  renderTabs(); renderChips(); renderList(); $('#list').scrollTop = 0;
+});
+
+function renderChips(){
+  const m = KINDS[S.tab], el = $('#chips');
+  el.style.setProperty('--tc', m.color);
+  if (!m.facet){ // timeline: jump to book
+    el.innerHTML = `<button class="chip ${S.facet==null?'on':''}" data-f="">All books</button>` +
+      D.books.filter(b => b.id <= S.book).map(b => `<button class="chip ${S.facet==b.id?'on':''}" data-f="${b.id}">Book ${b.id}</button>`).join('');
+    return;
+  }
+  const counts = {};
+  for (const e of itemsFor(S.tab)) counts[e[m.facet]] = (counts[e[m.facet]]||0) + 1;
+  const keys = Object.keys(counts).sort((a,b) => counts[b]-counts[a] || a.localeCompare(b));
+  if (S.facet && !counts[S.facet]) S.facet = null;
+  el.innerHTML = `<button class="chip ${S.facet==null?'on':''}" data-f="">All</button>` +
+    keys.map(f => `<button class="chip ${S.facet===f?'on':''}" data-f="${esc(f)}">${esc(f)} · ${counts[f]}</button>`).join('');
+}
+$('#chips').addEventListener('click', ev => {
+  const c = ev.target.closest('.chip'); if (!c) return;
+  const f = c.dataset.f; S.facet = f === '' ? null : (KINDS[S.tab].facet ? f : +f);
+  renderChips(); renderList(); $('#list').scrollTop = 0;
+});
+
+function rowHTML(e){
+  const m = KINDS[e._k];
+  const sub = e._k === 'timeline' ? e.summary : (e.summary);
+  const right = e._k === 'timeline' ? `<span class="when">${esc(e.when || '—')}</span>` : `<span class="bk" title="${esc(BOOKS[e._b].title)}">${bookShort(e._b)}</span>`;
+  return `<button class="row ${S.sel===e.id?'sel':''}" data-id="${esc(e.id)}" style="--tc:${m.color}">
+    <span class="glyph"></span>
+    <span><span class="nm">${hl(nameOf(e), S.q)}</span><span class="sub">${hl(sub, S.q)}</span></span>
+    ${right}</button>`;
+}
+
+function renderList(){
+  const k = S.tab, m = KINDS[k], el = $('#list');
+  let items = itemsFor(k);
+  if (m.facet && S.facet) items = items.filter(e => e[m.facet] === S.facet);
+  if (!m.facet && S.facet) items = items.filter(e => e.book === S.facet);
+  let html = '';
+  if (k === 'timeline'){
+    items.sort((a,b) => a.book-b.book || a.order-b.order);
+    html = '<div class="tl">';
+    let cur = null;
+    for (const e of items){
+      if (e.book !== cur){ cur = e.book; const b = BOOKS[cur];
+        html += `<div class="tl-book" data-n="${cur}"><h3>${esc(b.title)} · ${b.year}</h3><p>${esc(b.summary)}</p></div>`; }
+      html += rowHTML(e);
+    }
+    html += '</div>';
+  } else {
+    items.sort((a,b) => score(a,S.q)-score(b,S.q) || a._b-b._b || nameOf(a).localeCompare(nameOf(b)));
+    if (S.q) html = items.map(rowHTML).join('');
+    else {
+      let cur = null;
+      for (const e of items){
+        if (e._b !== cur){ cur = e._b; html += `<div class="grouphdr">Book ${cur} · ${esc(BOOKS[cur].title)}</div>`; }
+        html += rowHTML(e);
+      }
+    }
+  }
+  if (!items.length){
+    const otherHits = S.q ? Object.keys(KINDS).filter(o => o !== k && itemsFor(o).length) : [];
+    html = `<div class="empty">NO SIGNAL.<br>${S.q ? `Nothing in ${m.label.toLowerCase()} matches “${esc(S.q)}”.` : 'Nothing here yet at this book.'}` +
+      (otherHits.length ? `<br><br>Matches in: ${otherHits.map(o => `<button class="chip" data-jump="${o}" style="--tc:${KINDS[o].color}">${KINDS[o].label} · ${itemsFor(o).length}</button>`).join(' ')}` : '') + `</div>`;
+  }
+  const hidden = D[k].filter(e => !visible(e)).length;
+  if (hidden) html += `<div class="lockednote">▣ ${hidden} ${hidden===1?'entry':'entries'} sealed beyond Book ${S.book}. Raise the gate to reveal.</div>`;
+  el.innerHTML = html;
+  $('#count').textContent = `${items.length} ${items.length===1?'RECORD':'RECORDS'}`;
+}
+$('#list').addEventListener('click', ev => {
+  const j = ev.target.closest('[data-jump]');
+  if (j){ S.tab = j.dataset.jump; S.facet = null; renderTabs(); renderChips(); renderList(); return; }
+  const r = ev.target.closest('.row'); if (r) go(r.dataset.id);
+});
+
+// ---------- detail ----------
+const CONF = {
+  high:   'Sources agree.',
+  medium: 'Sources disagree on a detail, or the first-appearance book is a best guess (the later plausible book was used, to be safe).',
+  low:    'Based only on pre-release information about Book 6. Treat as provisional.',
+};
+function idle(){
+  return `<div class="idle"><div>
+    <svg class="ring" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+      <circle cx="60" cy="60" r="56" stroke="#1b3247"/>
+      <circle cx="60" cy="60" r="44" stroke="#25465f" stroke-dasharray="2 6"/>
+      <circle cx="60" cy="60" r="30" stroke="#4fe3ff" stroke-opacity=".5">
+        <animate attributeName="r" values="22;40;22" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="stroke-opacity" values=".6;0;.6" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <path d="M60 4v14M60 102v14M4 60h14M102 60h14" stroke="#2a8fa8"/>
+      <circle cx="60" cy="60" r="5" fill="#ffb547"/>
+    </svg>
+    <p>AWAITING SELECTION</p>
+    <p class="hint">Pick a record from the archive. Press / to search.</p>
+  </div></div>`;
+}
+function linkHTML(e){
+  const m = KINDS[e._k];
+  return `<button class="link" data-id="${esc(e.id)}" style="--tc:${m.color}"><small>${m.one}</small>${esc(nameOf(e))}</button>`;
+}
+function renderDetail(){
+  const el = $('#detail'), e = INDEX[S.sel];
+  if (!e){ el.innerHTML = idle(); el.style.removeProperty('--tc'); return; }
+  const m = KINDS[e._k];
+  el.style.setProperty('--tc', m.color);
+  const back = `<button class="back" data-back>‹ BACK</button>`;
+  if (!visible(e)){
+    el.innerHTML = `<div class="dhead">${back}</div><div class="locked"><h2>▣ SEALED RECORD</h2>
+      <p>This record first appears after the book you're reading (Book ${S.book}).</p>
+      <button class="btn" data-unlock="${e._b}">Raise gate to Book ${e._b}</button></div>`;
+    return;
+  }
+  const kick = [m.one, e.category || e.kind || e.group, e._k==='timeline' && e.when ? e.when : null].filter(Boolean);
+  const parent = e.parent && INDEX[e.parent] && visible(INDEX[e.parent]) ? INDEX[e.parent] : null;
+  const children = e._k === 'places' ? D.places.filter(p => p.parent === e.id && visible(p)) : [];
+  const ups = (e.updates||[]).filter(u => u.book <= S.book).sort((a,b) => a.book-b.book);
+  const rel = (e.related||[]).map(id => INDEX[id]).filter(visible);
+  // reverse links: other entries that point here
+  const back2 = Object.values(INDEX).filter(o => o !== e && o._k !== 'timeline' && visible(o) && (o.related||[]).includes(e.id) && !rel.includes(o));
+  const events = e._k === 'timeline' ? [] : D.timeline.filter(t => visible(t) && t.related.includes(e.id)).sort((a,b) => a.book-b.book || a.order-b.order);
+  const groups = {};
+  for (const r of [...rel, ...back2].filter(r => r._k !== 'timeline' && !children.includes(r) && r !== parent)) (groups[r._k] ||= []).push(r);
+  const relEvents = rel.filter(r => r._k === 'timeline');
+
+  el.innerHTML = `
+  <div class="dhead">${back}
+    <div class="kicker">${kick.map(k => `<span>${esc(k)}</span>`).join('')}</div>
+    <h2>${esc(nameOf(e))}</h2>
+    ${e.aliases && e.aliases.length ? `<div class="aka"><b>AKA</b>${e.aliases.map(esc).join(' · ')}</div>` : ''}
+    <div class="meta">
+      <span class="tag book">${e._k==='timeline'?'Happens in':'First seen'}: Book ${e._b} · ${esc(BOOKS[e._b].title)}</span>
+      <span class="tag conf-${e.confidence}" title="${esc(CONF[e.confidence])}">Confidence: ${esc(e.confidence)}</span>
+      ${parent ? `<span class="tag">In <button data-id="${esc(parent.id)}">${esc(parent.name)}</button></span>` : ''}
+    </div>
+  </div>
+  <div class="dbody">
+    <div class="sect"><h4>Summary</h4><p class="summary">${esc(e.summary)}</p>
+      ${e.confidence !== 'high' ? `<div class="confnote">⚠ ${esc(CONF[e.confidence])}</div>` : ''}</div>
+    ${ups.length ? `<div class="sect"><h4>Later developments</h4><ul class="updates">${ups.map(u => `<li><span class="ub">Book ${u.book}</span><span>${esc(u.text)}</span></li>`).join('')}</ul></div>` : ''}
+    ${children.length ? `<div class="sect"><h4>Contains</h4><div class="links">${children.map(linkHTML).join('')}</div></div>` : ''}
+    ${['characters','places','terms'].filter(k => groups[k]).map(k => `<div class="sect"><h4>Linked ${KINDS[k].label.toLowerCase()}</h4><div class="links">${groups[k].map(linkHTML).join('')}</div></div>`).join('')}
+    ${[...events, ...relEvents].length ? `<div class="sect"><h4>On the timeline</h4><div class="events">${[...events, ...relEvents].map(t => `<button class="event" data-id="${esc(t.id)}"><span class="when">B${t.book}${t.when ? `<br>${esc(t.when)}`:''}</span><span>${esc(t.title)} <em>· ${esc(t.summary)}</em></span></button>`).join('')}</div></div>` : ''}
+  </div>`;
+  el.scrollTop = 0;
+}
+$('#detail').addEventListener('click', ev => {
+  if (ev.target.closest('[data-back]')){ closeDetail(); return; }
+  const u = ev.target.closest('[data-unlock]');
+  if (u){ S.book = +u.dataset.unlock; store.set('book', S.book); renderAll(); return; }
+  const l = ev.target.closest('[data-id]'); if (l) go(l.dataset.id);
+});
+
+// ---------- routing ----------
+function go(id){ if (location.hash.slice(1) !== id) location.hash = id; else route(); }
+function closeDetail(){
+  if (history.length > 1 && location.hash) history.back(); else { location.hash = ''; }
+}
+function route(){
+  const id = decodeURIComponent(location.hash.slice(1));
+  const e = INDEX[id];
+  S.sel = e ? id : null;
+  document.body.classList.toggle('showdetail', !!e);
+  if (e && e._k !== S.tab && !S.q){ S.tab = e._k; S.facet = null; store.set('tab', S.tab); renderTabs(); renderChips(); }
+  renderList(); renderDetail();
+  const r = document.querySelector(`.row[data-id="${CSS.escape(S.sel||'')}"]`);
+  if (r && window.matchMedia('(min-width: 821px)').matches) r.scrollIntoView({block:'nearest'});
+}
+window.addEventListener('hashchange', route);
+
+// ---------- search wiring ----------
+let t;
+$('#q').addEventListener('input', ev => {
+  clearTimeout(t);
+  t = setTimeout(() => {
+    S.q = ev.target.value.trim();
+    $('#searchbox').classList.toggle('has', !!S.q);
+    renderTabs(); renderChips(); renderList();
+    // if current tab has nothing but others do, hop to the best one
+    if (S.q && !itemsFor(S.tab).length){
+      const best = Object.keys(KINDS).find(k => itemsFor(k).length);
+      if (best){ S.tab = best; S.facet = null; renderTabs(); renderChips(); renderList(); }
+    }
+  }, 80);
+});
+$('#clearq').addEventListener('click', () => { $('#q').value=''; $('#q').dispatchEvent(new Event('input')); $('#q').focus(); });
+document.addEventListener('keydown', ev => {
+  if (ev.key === '/' && document.activeElement !== $('#q')){ ev.preventDefault(); $('#q').focus(); $('#q').select(); }
+  else if (ev.key === 'Escape'){
+    if (document.activeElement === $('#q') && $('#q').value){ $('#clearq').click(); }
+    else if (S.sel) closeDetail();
+  }
+  else if ((ev.key === 'ArrowDown' || ev.key === 'ArrowUp') && document.activeElement && (document.activeElement.classList.contains('row') || document.activeElement === $('#q'))){
+    const rows = [...document.querySelectorAll('#list .row')]; if (!rows.length) return;
+    ev.preventDefault();
+    const i = rows.indexOf(document.activeElement);
+    const n = ev.key === 'ArrowDown' ? Math.min(rows.length-1, i+1) : Math.max(0, i-1);
+    rows[n].focus(); rows[n].scrollIntoView({block:'nearest'});
+  }
+});
+
+// ---------- clock ----------
+function tick(){ const d = new Date(); $('#clock').textContent = d.toISOString().slice(0,19).replace('T',' ') + 'Z'; }
+setInterval(tick, 1000); tick();
+
+function renderAll(){ renderPips(); renderTabs(); renderChips(); route(); }
+renderAll();
+})();
+</script>
+</body>
+</html>
