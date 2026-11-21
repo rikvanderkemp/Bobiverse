@@ -13,7 +13,7 @@
   --text:#d6e9f5; --muted:#7f9bb0; --faint:#4b6477;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --c-terms:#4fe3ff; --c-places:#6dffb0; --c-characters:#ffb547; --c-timeline:#c99bff; --c-refs:#ff7ab8;
+  --c-terms:#4fe3ff; --c-places:#6dffb0; --c-characters:#ffb547; --c-timeline:#c99bff; --c-refs:#ff7ab8; --c-ships:#9fb4ff;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -84,10 +84,10 @@ a{color:inherit}
 .frame::before{top:-2px; left:-2px; border-right:0; border-bottom:0}
 .frame::after{bottom:-2px; right:-2px; border-left:0; border-top:0}
 
-.tabs{display:grid; grid-template-columns:repeat(5,1fr); border-bottom:1px solid var(--line)}
+.tabs{display:flex; overflow-x:auto; scrollbar-width:none; border-bottom:1px solid var(--line)}
 .tab{
-  background:none; border:0; border-bottom:2px solid transparent; padding:10px 4px 8px; cursor:pointer;
-  font-family:var(--mono); font-size:11px; letter-spacing:.12em; color:var(--muted); text-transform:uppercase;
+  flex:1 0 auto; background:none; border:0; border-bottom:2px solid transparent; padding:10px 8px 8px; cursor:pointer;
+  font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase;
   display:flex; flex-direction:column; align-items:center; gap:2px;
 }
 .tab b{font-size:16px; font-weight:600; letter-spacing:0; color:var(--faint)}
@@ -96,7 +96,7 @@ a{color:inherit}
 .tab:hover{color:var(--text)}
 
 .chips{display:flex; gap:6px; padding:10px 12px; overflow-x:auto; border-bottom:1px solid var(--line); scrollbar-width:none; flex:none}
-.chips::-webkit-scrollbar{display:none}
+.chips::-webkit-scrollbar,.tabs::-webkit-scrollbar{display:none}
 .chipsep{flex:none; width:1px; margin:2px 4px; background:var(--line)}
 .chip{flex:none; background:var(--bg2); border:1px solid var(--line2); border-radius:20px; padding:3px 10px; font-size:12px; font-family:var(--mono); color:var(--muted); cursor:pointer; white-space:nowrap}
 .chip.on{color:var(--bg); background:var(--tc); border-color:var(--tc)}
@@ -265,6 +265,7 @@ const KINDS = {
   terms:      {label:'Terms',      one:'Term',      color:'var(--c-terms)',      facet:'category'},
   places:     {label:'Places',     one:'Place',     color:'var(--c-places)',     facet:'kind'},
   characters: {label:'Characters', one:'Character', color:'var(--c-characters)', facet:'group'},
+  ships:      {label:'Ships',      one:'Ship',      color:'var(--c-ships)',      facet:'shipClass'},
   timeline:   {label:'Timeline',   one:'Event',     color:'var(--c-timeline)',   facet:null},
   references: {label:'Refs',       one:'Reference', color:'var(--c-refs)',       facet:'medium'},
 };
@@ -302,7 +303,7 @@ $('#pips').addEventListener('click', ev => {
 // ---------- search ----------
 function norm(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
 function haystack(e){
-  const parts = [nameOf(e), ...(e.aliases||[]), e.summary, e.category, e.kind, e.group, e.when, e.work, e.medium];
+  const parts = [nameOf(e), ...(e.aliases||[]), e.summary, e.category, e.kind, e.group, e.when, e.work, e.medium, e.shipClass];
   for (const u of (e.updates||[])) if (u.book <= S.book) parts.push(u.text);
   return norm(parts.join(' \u0001 '));
 }
@@ -461,7 +462,7 @@ function renderDetail(){
       <button class="btn" data-unlock="${e._b}">Raise gate to Book ${e._b}</button></div>`;
     return;
   }
-  const kick = [m.one, e.category || e.kind || e.group || e.medium, e._k==='timeline' && e.when ? e.when : null].filter(Boolean);
+  const kick = [m.one, e.category || e.kind || e.group || e.shipClass || e.medium, e._k==='timeline' && e.when ? e.when : null].filter(Boolean);
   const conf = (e._k === 'references' ? CONF_REF : CONF)[e.confidence];
   const parent = e.parent && INDEX[e.parent] && visible(INDEX[e.parent]) ? INDEX[e.parent] : null;
   const children = e._k === 'places' ? D.places.filter(p => p.parent === e.id && visible(p)) : [];
@@ -492,7 +493,7 @@ function renderDetail(){
       ${e.confidence !== 'high' ? `<div class="confnote">⚠ ${esc(conf)}</div>` : ''}</div>
     ${ups.length ? `<div class="sect"><h4>Later developments</h4><ul class="updates">${ups.map(u => `<li><span class="ub">Book ${u.book}</span><span>${esc(u.text)}</span></li>`).join('')}</ul></div>` : ''}
     ${children.length ? `<div class="sect"><h4>Contains</h4><div class="links">${children.map(linkHTML).join('')}</div></div>` : ''}
-    ${['characters','places','terms','references'].filter(k => groups[k]).map(k => `<div class="sect"><h4>Linked ${KINDS[k].label.toLowerCase()}</h4><div class="links">${groups[k].map(linkHTML).join('')}</div></div>`).join('')}
+    ${['characters','places','terms','ships','references'].filter(k => groups[k]).map(k => `<div class="sect"><h4>Linked ${KINDS[k].label.toLowerCase()}</h4><div class="links">${groups[k].map(linkHTML).join('')}</div></div>`).join('')}
     ${[...events, ...relEvents].length ? `<div class="sect"><h4>On the timeline</h4><div class="events">${[...events, ...relEvents].map(t => `<button class="event" data-id="${esc(t.id)}"><span class="when">B${t.book}${t.when ? `<br>${esc(t.when)}`:''}</span><span>${esc(t.title)} <em>· ${esc(t.summary)}</em></span></button>`).join('')}</div></div>` : ''}
   </div>`;
   el.scrollTop = 0;

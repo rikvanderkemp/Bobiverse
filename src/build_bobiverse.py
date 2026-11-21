@@ -332,6 +332,30 @@ ref("ref-jabberwocky", "Jabberwocky", "Through the Looking-Glass (Lewis Carroll)
 ref("ref-thoth", "Thoth", "Egyptian mythology", "Myth & legend", 5,
     "The Skippies' AI is named after the Egyptian god of wisdom and writing.", ["thoth", "skippies"], confidence="medium")
 
+# ---------------- SHIPS ----------------
+# Vessels and vessel classes. A few entries that used to be terms (colony ships, busters,
+# Bellerophon, the derelict) are moved here so they live in one place; their ids stay the same.
+SH = []
+def ship(id, name, book, summary, related=(), cls="Bob vessel", aliases=(), confidence="high"):
+    SH.append(dict(id=id, name=name, aliases=list(aliases), shipClass=cls, firstBook=book,
+                   summary=summary, related=list(related), confidence=confidence))
+
+ship("heaven-1", "HEAVEN-1 (Bob's probe)", 1,
+     "The HEAVEN Project probe that carries Bob out of the solar system: one replicant matrix, a fusion reactor, the SURGE drive, an autofactory for building more of itself, and a few drones. Small and lightly armed, built to explore, not to fight.",
+     ["bob", "heaven-project", "surge", "autofactory", "guppi", "von-neumann-probe"], cls="HEAVEN series", aliases=["HEAVEN probe"])
+ship("heaven-series", "Heaven-series vessels", 1,
+     "Every new Bob wakes up in a fresh vessel built by his parent's autofactory. The Bobs keep improving the design and number the versions (Heaven 1.0, 2.0 and so on), so later Bobs fly bigger, better-armed and better-equipped ships than the original.",
+     ["heaven-1", "autofactory", "bill", "replicative-drift"], cls="HEAVEN series", confidence="medium")
+ship("brazilian-probe", "Brazilian probe (Serra do Mar)", 1,
+     "The Brazilian Empire's own replicant probe, flown by Medeiros. Better armed than Bob's ship and openly hostile, and later backed by cloaking technology.",
+     ["medeiros", "brazilian-empire", "cloaking", "epsilon-eridani"], cls="Rival probe", confidence="medium")
+ship("heaven-5", "Heaven 5.0", 2,
+     "A much heavier generation of Bob vessel, built in numbers at Alpha Centauri once the Others become a real threat. Next to the original HEAVEN probe it is practically a dreadnought.",
+     ["heaven-series", "others", "alpha-centauri", "battle-of-delta-pavonis"], cls="HEAVEN series", confidence="medium")
+ship("others-ships", "The Others' ships", 2,
+     "Huge industrial ships that arrive at a star system, sterilize it and strip its planets for raw materials. Each one is a factory as much as a warship, and they travel in groups.",
+     ["others", "gliese-877", "battle-of-delta-pavonis", "death-asteroids"], cls="Alien", confidence="medium")
+
 data = dict(
     meta=dict(series="Bobiverse", author="Dennis E. Taylor", version=1, generated="2026-11-21",
               notes=["All summaries are original paraphrases written for this app.",
@@ -340,25 +364,32 @@ data = dict(
                      "confidence: high = sources agree; medium = sources conflict or first-book tag is inferred (the later plausible book was chosen); low = book 6 premise only, from pre-release info.",
                      "related lists ids across terms, places and characters. Hide a related link when its target's firstBook is past the reader's book. Timeline events carry a book and an order within it.",
                      "when = in-universe year(s), from the fan-made Bobiverse wiki timeline (bobiverse.fandom.com/wiki/Timeline). A leading ~ marks an estimate: the exact event is not dated there, or (books 5-6) only the book's overall span is known."]),
-    books=books, terms=T, places=P, characters=C, timeline=TL, references=R)
+    books=books, terms=T, places=P, characters=C, timeline=TL, references=R, ships=SH)
 
-for kind in (T, P, C):
+# move ship-like terms into SH
+_MOVE = {"ship-buster": "Drones & weapons", "colony-ships": "Transport", "bellerophon": "Transport", "derelict-ship": "Alien"}
+for _e in [e for e in T if e["id"] in _MOVE]:
+    T.remove(_e)
+    SH.append(dict(id=_e["id"], name=_e["name"], aliases=_e["aliases"], shipClass=_MOVE[_e["id"]], firstBook=_e["firstBook"],
+                   summary=_e["summary"], related=_e["related"], confidence=_e["confidence"]))
+
+for kind in (T, P, C, SH):
     for e in kind:
         e["updates"] = sorted(UPD.pop(e["id"], []), key=lambda u: u["book"])
 assert not UPD, UPD
-for kind in (T, P, C):
+for kind in (T, P, C, SH):
     for e in kind:
         for u in e["updates"]:
             assert u["book"] > e["firstBook"], (e["id"], u)
 
 # ---------- validation ----------
 ids = {}
-for kind in ("terms", "places", "characters", "references"):
+for kind in ("terms", "places", "characters", "references", "ships"):
     for e in data[kind]:
         assert e["id"] not in ids, ("dup", e["id"])
         ids[e["id"]] = (kind, e["firstBook"])
 errs = []
-for kind in ("terms", "places", "characters", "timeline", "references"):
+for kind in ("terms", "places", "characters", "timeline", "references", "ships"):
     for e in data[kind]:
         b = e.get("firstBook", e.get("book"))
         for r in e["related"]:
@@ -374,6 +405,6 @@ os.makedirs(os.path.dirname(out), exist_ok=True)
 with open(out, "w") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 from collections import Counter
-print({k: len(data[k]) for k in ("terms", "places", "characters", "timeline", "references")})
+print({k: len(data[k]) for k in ("terms", "places", "characters", "timeline", "references", "ships")})
 print("by book", Counter(e["firstBook"] for k in ("terms","places","characters") for e in data[k]))
 print("low/medium", Counter(e["confidence"] for k in ("terms","places","characters","timeline") for e in data[k]))

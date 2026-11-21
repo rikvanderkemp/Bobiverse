@@ -253,20 +253,6 @@
       "updates": []
     },
     {
-      "id": "ship-buster",
-      "name": "Busters",
-      "aliases": [],
-      "category": "technology",
-      "firstBook": 1,
-      "summary": "Small guided weapons and drones the Bobs use in space fights. Cloaked versions appear later as spies and as tools for disabling things quietly.",
-      "related": [
-        "medeiros",
-        "cloaking"
-      ],
-      "confidence": "high",
-      "updates": []
-    },
-    {
       "id": "cloaking",
       "name": "Cloaking",
       "aliases": [],
@@ -425,22 +411,6 @@
       "updates": []
     },
     {
-      "id": "colony-ships",
-      "name": "Colony ships",
-      "aliases": [],
-      "category": "technology",
-      "firstBook": 2,
-      "summary": "Ships the Bobs build to carry surviving humans, often in stasis, from the ruined Earth to new worlds like Vulcan.",
-      "related": [
-        "stasis-pods",
-        "vulcan",
-        "poseidon",
-        "riker"
-      ],
-      "confidence": "high",
-      "updates": []
-    },
-    {
       "id": "stasis-pods",
       "name": "Stasis pods",
       "aliases": [],
@@ -556,22 +526,6 @@
       "summary": "Rocks the Others send ahead of an attack to sterilize a world before they move in to strip it.",
       "related": [
         "others",
-        "battle-of-sol"
-      ],
-      "confidence": "high",
-      "updates": []
-    },
-    {
-      "id": "bellerophon",
-      "name": "Bellerophon",
-      "aliases": [],
-      "category": "technology",
-      "firstBook": 3,
-      "summary": "A captured Others ship that the Bobs rebuild as an enormous ark to carry humans.",
-      "related": [
-        "others",
-        "herschel",
-        "neil",
         "battle-of-sol"
       ],
       "confidence": "high",
@@ -873,19 +827,6 @@
         "wormholes",
         "derelict-ship",
         "nemesis"
-      ],
-      "confidence": "low",
-      "updates": []
-    },
-    {
-      "id": "derelict-ship",
-      "name": "Derelict alien ship",
-      "aliases": [],
-      "category": "technology",
-      "firstBook": 6,
-      "summary": "An abandoned alien vessel the Bobs investigate in book 6.",
-      "related": [
-        "wormhole-network"
       ],
       "confidence": "low",
       "updates": []
@@ -3128,6 +3069,151 @@
         "skippies"
       ],
       "confidence": "medium"
+    }
+  ],
+  "ships": [
+    {
+      "id": "heaven-1",
+      "name": "HEAVEN-1 (Bob's probe)",
+      "aliases": [
+        "HEAVEN probe"
+      ],
+      "shipClass": "HEAVEN series",
+      "firstBook": 1,
+      "summary": "The HEAVEN Project probe that carries Bob out of the solar system: one replicant matrix, a fusion reactor, the SURGE drive, an autofactory for building more of itself, and a few drones. Small and lightly armed, built to explore, not to fight.",
+      "related": [
+        "bob",
+        "heaven-project",
+        "surge",
+        "autofactory",
+        "guppi",
+        "von-neumann-probe"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "heaven-series",
+      "name": "Heaven-series vessels",
+      "aliases": [],
+      "shipClass": "HEAVEN series",
+      "firstBook": 1,
+      "summary": "Every new Bob wakes up in a fresh vessel built by his parent's autofactory. The Bobs keep improving the design and number the versions (Heaven 1.0, 2.0 and so on), so later Bobs fly bigger, better-armed and better-equipped ships than the original.",
+      "related": [
+        "heaven-1",
+        "autofactory",
+        "bill",
+        "replicative-drift"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "brazilian-probe",
+      "name": "Brazilian probe (Serra do Mar)",
+      "aliases": [],
+      "shipClass": "Rival probe",
+      "firstBook": 1,
+      "summary": "The Brazilian Empire's own replicant probe, flown by Medeiros. Better armed than Bob's ship and openly hostile, and later backed by cloaking technology.",
+      "related": [
+        "medeiros",
+        "brazilian-empire",
+        "cloaking",
+        "epsilon-eridani"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "heaven-5",
+      "name": "Heaven 5.0",
+      "aliases": [],
+      "shipClass": "HEAVEN series",
+      "firstBook": 2,
+      "summary": "A much heavier generation of Bob vessel, built in numbers at Alpha Centauri once the Others become a real threat. Next to the original HEAVEN probe it is practically a dreadnought.",
+      "related": [
+        "heaven-series",
+        "others",
+        "alpha-centauri",
+        "battle-of-delta-pavonis"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "others-ships",
+      "name": "The Others' ships",
+      "aliases": [],
+      "shipClass": "Alien",
+      "firstBook": 2,
+      "summary": "Huge industrial ships that arrive at a star system, sterilize it and strip its planets for raw materials. Each one is a factory as much as a warship, and they travel in groups.",
+      "related": [
+        "others",
+        "gliese-877",
+        "battle-of-delta-pavonis",
+        "death-asteroids"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "ship-buster",
+      "name": "Busters",
+      "aliases": [],
+      "shipClass": "Drones & weapons",
+      "firstBook": 1,
+      "summary": "Small guided weapons and drones the Bobs use in space fights. Cloaked versions appear later as spies and as tools for disabling things quietly.",
+      "related": [
+        "medeiros",
+        "cloaking"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "colony-ships",
+      "name": "Colony ships",
+      "aliases": [],
+      "shipClass": "Transport",
+      "firstBook": 2,
+      "summary": "Ships the Bobs build to carry surviving humans, often in stasis, from the ruined Earth to new worlds like Vulcan.",
+      "related": [
+        "stasis-pods",
+        "vulcan",
+        "poseidon",
+        "riker"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "bellerophon",
+      "name": "Bellerophon",
+      "aliases": [],
+      "shipClass": "Transport",
+      "firstBook": 3,
+      "summary": "A captured Others ship that the Bobs rebuild as an enormous ark to carry humans.",
+      "related": [
+        "others",
+        "herschel",
+        "neil",
+        "battle-of-sol"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "derelict-ship",
+      "name": "Derelict alien ship",
+      "aliases": [],
+      "shipClass": "Alien",
+      "firstBook": 6,
+      "summary": "An abandoned alien vessel the Bobs investigate in book 6.",
+      "related": [
+        "wormhole-network"
+      ],
+      "confidence": "low",
+      "updates": []
     }
   ]
 }

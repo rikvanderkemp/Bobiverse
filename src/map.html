@@ -13,7 +13,7 @@
   --text:#d6e9f5; --muted:#7f9bb0; --faint:#4b6477;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Menlo, Consolas, monospace;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --c-terms:#4fe3ff; --c-places:#6dffb0; --c-characters:#ffb547; --c-references:#ff7ab8;
+  --c-terms:#4fe3ff; --c-places:#6dffb0; --c-characters:#ffb547; --c-references:#ff7ab8; --c-ships:#9fb4ff;
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -153,6 +153,7 @@ const KINDS = {
   characters: {label:'Characters', one:'Character', color:'#ffb547'},
   places:     {label:'Places',     one:'Place',     color:'#6dffb0'},
   terms:      {label:'Terms',      one:'Term',      color:'#4fe3ff'},
+  ships:      {label:'Ships',      one:'Ship',      color:'#9fb4ff'},
   references: {label:'References', one:'Reference', color:'#ff7ab8'},
 };
 const MAXB = Math.max(...D.books.map(b => b.id));
@@ -178,7 +179,7 @@ for (const n of ALL){ for (const r of (n.e.related||[])) addEdge(n.id, r); if (n
 // seed positions: kinds in four sectors, stable pseudo-random
 let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 Object.keys(KINDS).forEach((k, i) => {
-  const a0 = i * Math.PI / 2;
+  const a0 = i * 2 * Math.PI / Object.keys(KINDS).length;
   for (const n of ALL.filter(n => n.k === k)){ const a = a0 + rnd() * 1.4, r = 120 + rnd() * 260; n.x = Math.cos(a) * r; n.y = Math.sin(a) * r; }
 });
 
@@ -267,7 +268,7 @@ function renderCard(n, nb){
   const c = $('#card');
   if (!n){ c.classList.remove('on'); return; }
   const m = KINDS[n.k], e = n.e;
-  const sub = n.k === 'references' ? `${e.name} · ${e.medium}` : (e.category || e.kind || e.group || '');
+  const sub = n.k === 'references' ? `${e.name} · ${e.medium}` : (e.category || e.kind || e.group || e.shipClass || '');
   const list = [...nb].sort((a, b) => a.k.localeCompare(b.k) || a.name.localeCompare(b.name));
   c.style.setProperty('--tc', m.color);
   c.innerHTML = `<button class="x" aria-label="Close">✕</button>
