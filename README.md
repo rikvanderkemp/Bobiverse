@@ -2,7 +2,7 @@
 
 A personal, spoiler-aware reference for the Bobiverse books: terms, places, characters and a timeline, each with a short summary. Pick the book you're on and anything later stays hidden.
 
-Unofficial fan project for personal use. Not affiliated with the author or publisher.
+The Bobiverse series is written by **Dennis E. Taylor** ([author's website](http://www.dennisetaylor.org), [the books on Goodreads](https://www.goodreads.com/series/192752-bobiverse)). This is an unofficial fan project for personal use, not affiliated with or endorsed by the author or publishers.
 
 **Live:** https://rikvanderkemp.github.io/Bobiverse/ · Star Map: https://rikvanderkemp.github.io/Bobiverse/map.html
 
