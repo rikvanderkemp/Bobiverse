@@ -9,7 +9,8 @@
       "firstBook = book where the entry first appears; hide entries with firstBook > reader's current book.",
       "summary only covers what is known by the entry's firstBook. updates[] adds later developments, each tagged with its book, so the app can reveal them only once the reader gets there.",
       "confidence: high = sources agree; medium = sources conflict or first-book tag is inferred (the later plausible book was chosen); low = book 6 premise only, from pre-release info.",
-      "related lists ids across terms, places and characters. Hide a related link when its target's firstBook is past the reader's book. Timeline events carry a book and an order within it."
+      "related lists ids across terms, places and characters. Hide a related link when its target's firstBook is past the reader's book. Timeline events carry a book and an order within it.",
+      "when = in-universe year(s), from the fan-made Bobiverse wiki timeline (bobiverse.fandom.com/wiki/Timeline). A leading ~ marks an estimate: the exact event is not dated there, or (books 5-6) only the book's overall span is known."
     ]
   },
   "books": [
@@ -2209,7 +2210,7 @@
       "id": "b1-03",
       "book": 1,
       "order": 3,
-      "when": null,
+      "when": "2133",
       "title": "Escape from Sol",
       "summary": "Under threat from sabotage and rival nations, Bob launches early and leaves Earth behind.",
       "related": [
@@ -2223,7 +2224,7 @@
       "id": "b1-04",
       "book": 1,
       "order": 4,
-      "when": null,
+      "when": "2144–2145",
       "title": "First copies",
       "summary": "At Epsilon Eridani Bob builds his first clones and finds each one is a little different.",
       "related": [
@@ -2241,7 +2242,7 @@
       "id": "b1-05",
       "book": 1,
       "order": 5,
-      "when": null,
+      "when": "2144",
       "title": "Medeiros",
       "summary": "Bob clashes with the Brazilian probe and learns other nations' probes are hostile.",
       "related": [
@@ -2254,7 +2255,7 @@
       "id": "b1-06",
       "book": 1,
       "order": 6,
-      "when": null,
+      "when": "2165",
       "title": "The Deltans",
       "summary": "Bob finds a stone-age species at Delta Eridani and starts protecting them.",
       "related": [
@@ -2268,7 +2269,7 @@
       "id": "b1-07",
       "book": 1,
       "order": 7,
-      "when": null,
+      "when": "2157",
       "title": "Earth in ruins",
       "summary": "Riker returns to Sol and finds Earth devastated by war, with scattered survivors.",
       "related": [
@@ -2282,7 +2283,7 @@
       "id": "b1-08",
       "book": 1,
       "order": 8,
-      "when": null,
+      "when": "2151–2165",
       "title": "New worlds",
       "summary": "Milo finds and names Vulcan and Romulus before he is killed. Bill invents SCUT.",
       "related": [
@@ -2298,7 +2299,7 @@
       "id": "b1-09",
       "book": 1,
       "order": 9,
-      "when": null,
+      "when": "2169",
       "title": "Something out there",
       "summary": "Mario finds traces of a civilization that strips planets bare.",
       "related": [
@@ -2311,7 +2312,7 @@
       "id": "b2-01",
       "book": 2,
       "order": 1,
-      "when": null,
+      "when": "2157–2170",
       "title": "Colony program",
       "summary": "Riker organizes colony ships to move survivors off a dying Earth.",
       "related": [
@@ -2326,7 +2327,7 @@
       "id": "b2-02",
       "book": 2,
       "order": 2,
-      "when": null,
+      "when": "2166",
       "title": "Archimedes",
       "summary": "Bob watches a bright Deltan cub, Archimedes, and gets more involved with Camelot.",
       "related": [
@@ -2340,7 +2341,7 @@
       "id": "b2-03",
       "book": 2,
       "order": 3,
-      "when": null,
+      "when": "2175–2176",
       "title": "VEHEMENT strikes",
       "summary": "VEHEMENT hacks Homer and sabotages Earth's food supply. The fallout is devastating.",
       "related": [
@@ -2355,7 +2356,7 @@
       "id": "b2-04",
       "book": 2,
       "order": 4,
-      "when": null,
+      "when": "2188–2189",
       "title": "Vulcan colony",
       "summary": "Howard helps the Vulcan colony and grows close to Bridget.",
       "related": [
@@ -2369,7 +2370,7 @@
       "id": "b2-05",
       "book": 2,
       "order": 5,
-      "when": null,
+      "when": "2187–2188",
       "title": "The Others confirmed",
       "summary": "Mario's clones scout the Others' home system; Bashful dies there.",
       "related": [
@@ -2384,7 +2385,7 @@
       "id": "b2-06",
       "book": 2,
       "order": 6,
-      "when": null,
+      "when": "2217",
       "title": "Battle of Delta Pavonis",
       "summary": "The Bobs mass a fleet to defend the Pav and lose. They save some Pav in stasis.",
       "related": [
@@ -2399,7 +2400,7 @@
       "id": "b2-07",
       "book": 2,
       "order": 7,
-      "when": null,
+      "when": "2213",
       "title": "Bob as Robert",
       "summary": "Bob moves among the Deltans in an android body.",
       "related": [
@@ -2413,7 +2414,7 @@
       "id": "b3-01",
       "book": 3,
       "order": 1,
-      "when": null,
+      "when": "2224–2225",
       "title": "Deltan politics",
       "summary": "Bob, living as Robert, is caught in a conflict between Camelot and Caerleon.",
       "related": [
@@ -2428,7 +2429,7 @@
       "id": "b3-02",
       "book": 3,
       "order": 2,
-      "when": null,
+      "when": "2233",
       "title": "Farewell to Archimedes",
       "summary": "Archimedes dies of old age and Bob tells Buster the truth before leaving.",
       "related": [
@@ -2442,7 +2443,7 @@
       "id": "b3-03",
       "book": 3,
       "order": 3,
-      "when": null,
+      "when": "2220",
       "title": "Bridget becomes a replicant",
       "summary": "Sabotage endangers Bridget, but a brain scan lets her come back as a replicant.",
       "related": [
@@ -2457,7 +2458,7 @@
       "id": "b3-04",
       "book": 3,
       "order": 4,
-      "when": null,
+      "when": "2214–2215",
       "title": "Poseidon's crisis",
       "summary": "Marcus forces Poseidon's council to hold elections.",
       "related": [
@@ -2471,7 +2472,7 @@
       "id": "b3-05",
       "book": 3,
       "order": 5,
-      "when": null,
+      "when": "2257",
       "title": "Battle of Sol",
       "summary": "The Others reach Sol. The Bobs fight back and evacuate millions of people.",
       "related": [
@@ -2487,7 +2488,7 @@
       "id": "b3-06",
       "book": 3,
       "order": 6,
-      "when": null,
+      "when": "2257",
       "title": "Striking the Others' home",
       "summary": "Daedalus and Icarus hurl planetary bodies at the Others' home system and end the threat.",
       "related": [
@@ -2502,7 +2503,7 @@
       "id": "b3-07",
       "book": 3,
       "order": 7,
-      "when": null,
+      "when": "~2258",
       "title": "Homo sideria",
       "summary": "The Bobs declare themselves a new species. Bob visits a frozen Earth and moves on.",
       "related": [
@@ -2516,7 +2517,7 @@
       "id": "b4-01",
       "book": 4,
       "order": 1,
-      "when": "200+ years after Bob's revival",
+      "when": "2331",
       "title": "Looking for Bender",
       "summary": "Two centuries on, Bob follows clues about a missing clone to Eta Leporis.",
       "related": [
@@ -2530,7 +2531,7 @@
       "id": "b4-02",
       "book": 4,
       "order": 2,
-      "when": null,
+      "when": "2331–2334",
       "title": "Factions",
       "summary": "At a moot Bill explains that drift has split the Bobs into factions like Starfleet and the Skippies.",
       "related": [
@@ -2545,7 +2546,7 @@
       "id": "b4-03",
       "book": 4,
       "order": 3,
-      "when": null,
+      "when": "~2332",
       "title": "Heaven's River",
       "summary": "Bob finds a huge habitat full of Quinlans and goes in with a team disguised as locals.",
       "related": [
@@ -2561,7 +2562,7 @@
       "id": "b4-04",
       "book": 4,
       "order": 4,
-      "when": null,
+      "when": "2334",
       "title": "Starfleet War",
       "summary": "Starfleet hits BobNet and cuts off Bob's team.",
       "related": [
@@ -2575,7 +2576,7 @@
       "id": "b4-05",
       "book": 4,
       "order": 5,
-      "when": null,
+      "when": "~2334",
       "title": "Finding Bender",
       "summary": "Bob locates Bender, takes his matrix and runs.",
       "related": [
@@ -2589,7 +2590,7 @@
       "id": "b4-06",
       "book": 4,
       "order": 6,
-      "when": null,
+      "when": "~2334",
       "title": "The journey home",
       "summary": "Bob travels back in disguise and befriends Theresa.",
       "related": [
@@ -2602,7 +2603,7 @@
       "id": "b4-07",
       "book": 4,
       "order": 7,
-      "when": null,
+      "when": "2334",
       "title": "Deal with the Administrator",
       "summary": "Hugh negotiates with ANEC-23; the scatterings end and Bender is restored.",
       "related": [
@@ -2618,7 +2619,7 @@
       "id": "b5-01",
       "book": 5,
       "order": 1,
-      "when": null,
+      "when": "~2335+",
       "title": "After the war",
       "summary": "Anti-Bob feeling grows and moots stop.",
       "related": [
@@ -2631,7 +2632,7 @@
       "id": "b5-02",
       "book": 5,
       "order": 2,
-      "when": null,
+      "when": "~2309–2345",
       "title": "To the galactic core",
       "summary": "Icarus and Daedalus set out to study the Fermi Paradox.",
       "related": [
@@ -2646,7 +2647,7 @@
       "id": "b5-03",
       "book": 5,
       "order": 3,
-      "when": null,
+      "when": "~2309–2345",
       "title": "Thoth",
       "summary": "The Skippies' AI becomes self-aware.",
       "related": [
@@ -2659,7 +2660,7 @@
       "id": "b5-04",
       "book": 5,
       "order": 4,
-      "when": null,
+      "when": "~2309–2345",
       "title": "Wormhole experiments",
       "summary": "Bill researches wormholes and finds an abandoned civilization.",
       "related": [
@@ -2672,7 +2673,7 @@
       "id": "b5-05",
       "book": 5,
       "order": 5,
-      "when": null,
+      "when": "~2309–2345",
       "title": "Jabberwocky",
       "summary": "Howard and Bridget try to save the dragon-like natives.",
       "related": [
@@ -2687,7 +2688,7 @@
       "id": "b5-06",
       "book": 5,
       "order": 6,
-      "when": null,
+      "when": "~2309–2345",
       "title": "Quiniverse",
       "summary": "Quinlan replicants get their own virtual world.",
       "related": [
@@ -2700,7 +2701,7 @@
       "id": "b6-01",
       "book": 6,
       "order": 1,
-      "when": null,
+      "when": "~2345+",
       "title": "The network's builders",
       "summary": "The Bobs investigate who built the ancient wormhole network.",
       "related": [
@@ -2712,7 +2713,7 @@
       "id": "b6-02",
       "book": 6,
       "order": 2,
-      "when": null,
+      "when": "~2345+",
       "title": "Derelict ship",
       "summary": "The Bobs explore an abandoned alien vessel.",
       "related": [
@@ -2724,7 +2725,7 @@
       "id": "b6-03",
       "book": 6,
       "order": 3,
-      "when": null,
+      "when": "~2345+",
       "title": "Refugees",
       "summary": "The Bobs help tens of thousands of refugees find a new planet.",
       "related": [],
@@ -2734,7 +2735,7 @@
       "id": "b6-04",
       "book": 6,
       "order": 4,
-      "when": null,
+      "when": "~2345+",
       "title": "Nemesis",
       "summary": "The Bobs face a black hole threatening the galaxy.",
       "related": [

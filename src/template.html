@@ -126,6 +126,7 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
 .tl .row::before{content:""; position:absolute; left:22px; top:0; bottom:0; width:1px; background:var(--line2)}
 .tl .row .glyph{position:relative; z-index:1; background:var(--bg2)}
 .tl .row.sel .glyph{background:var(--tc)}
+.tl-note{font-size:12px; opacity:.7; margin:2px 0 10px 12px}
 .when{font-family:var(--mono); font-size:11px; color:var(--c-timeline); opacity:.85}
 
 .empty{padding:28px 18px; color:var(--muted); font-family:var(--mono); font-size:13px; text-align:center}
@@ -351,7 +352,7 @@ $('#chips').addEventListener('click', ev => {
 function rowHTML(e){
   const m = KINDS[e._k];
   const sub = e._k === 'timeline' ? e.summary : (e.summary);
-  const right = e._k === 'timeline' ? `<span class="when">${esc(e.when || '—')}</span>` : `<span class="bk" title="${esc(BOOKS[e._b].title)}">${bookShort(e._b)}</span>`;
+  const right = e._k === 'timeline' ? `<span class="when"${(e.when||'').startsWith('~') ? ' title="Estimate"' : ''}>${esc(e.when || '—')}</span>` : `<span class="bk" title="${esc(BOOKS[e._b].title)}">${bookShort(e._b)}</span>`;
   return `<button class="row ${S.sel===e.id?'sel':''}" data-id="${esc(e.id)}" style="--tc:${m.color}">
     <span class="glyph"></span>
     <span><span class="nm">${hl(nameOf(e), S.q)}</span><span class="sub">${hl(sub, S.q)}</span></span>
@@ -366,11 +367,11 @@ function renderList(){
   let html = '';
   if (k === 'timeline'){
     items.sort((a,b) => a.book-b.book || a.order-b.order);
-    html = '<div class="tl">';
+    html = '<div class="tl"><p class="tl-note">Years are in-story dates. <span class="when">~</span> marks an estimate.</p>';
     let cur = null;
     for (const e of items){
       if (e.book !== cur){ cur = e.book; const b = BOOKS[cur];
-        html += `<div class="tl-book" data-n="${cur}"><h3>${esc(b.title)} · ${b.year}</h3><p>${esc(b.summary)}</p></div>`; }
+        html += `<div class="tl-book" data-n="${cur}"><h3>${esc(b.title)} · <span title="Publication year">pub. ${b.year}</span></h3><p>${esc(b.summary)}</p></div>`; }
       html += rowHTML(e);
     }
     html += '</div>';
