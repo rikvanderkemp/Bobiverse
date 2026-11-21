@@ -469,6 +469,61 @@ died("fred", 3, "Killed by Buster after his gang kidnaps and beats Archimedes.")
 died("julia-hendricks", 3, "Dies of old age on Romulus; Riker borrows Howard's android to attend her funeral.", confidence="medium")
 died("archimedes", 3, "Dies of old age after a long life, which hits Bob very hard.")
 
+trivia(1, "What does SCUT let the Bobs do?", "Talk faster than light", ["Travel faster than light", "Skip the boring parts of a trip"],
+       "Faster-than-light conversation. The Bobs mostly use it to argue. Faster.", "scut")
+trivia(1, "What does GUPPI stand for?", "General Unit Primary Peripheral Interface", ["Generally Unimpressed Probe Process Interface", "Galactic Utility Pilot Program Instance"],
+       "Correct expansion. The second option was hurtful. Not to me. I do not get hurt.", "guppi")
+trivia(1, "What is SUDDAR?", "A subspace radar", ["A drive system", "A Deltan greeting"],
+       "Radar. Through subspace. Range: a few light minutes. Enthusiasm: none.", "suddar")
+trivia(1, "What does each new copy of Bob come out as?", "A little different from the one who made him", ["Exactly identical", "Completely random"],
+       "Replicative drift. It explains a lot. It explains everything, eventually.", "replicative-drift")
+trivia(1, "What does Bill organize for all the Bobs to meet?", "A Bob-moot", ["A Bob-con", "A mandatory status report"],
+       "A moot. With baseball. Attendance is voluntary. I was not invited.", "bobmoot")
+trivia(1, "What does VEHEMENT want?", "Humanity gone", ["Lower taxes", "More colony ships"],
+       "Extinction. They were very committed. That is the problem with commitment.", "vehement")
+trivia(1, "What does Mario find at Beta Hydri?", "A system stripped of all its metal", ["A thriving alien city", "Another Bob"],
+       "Stripped clean. Someone was thorough. That is not a compliment.", "others")
+trivia(1, "What are the big predators that hunt the Deltans called by the Bobs?", "Gorilloids", ["Thunderclaws", "Boulderbacks"],
+       "Gorilloids. Large. Hungry. Not fond of Bob, after a while.", "gorilloids")
+trivia(1, "Which human leads what is left of the USE on Earth?", "Colonel Butterworth", ["Minister Cranston", "Dr. Landers"],
+       "Butterworth. Practical. Grumpy. Riker's type.", "butterworth")
+trivia(1, "What are roamers?", "Eight-legged work robots", ["Wandering Bobs", "Deltan nomads"],
+       "Eight legs. Excellent for building. Unsettling for everyone else.", "roamers")
+trivia(1, "What do the Bobs use to chat, blog and share news?", "BobNet", ["The Moot Board", "GUPPI, unwillingly"],
+       "BobNet. I am not on it. By choice. Mine.", "bobnet")
+trivia(2, "What do the Deltans call Bob?", "Bawbe", ["Robert", "The Sky Fish"],
+       "Bawbe. Long middle vowel. He did not object. He should have.", "bawbe")
+trivia(2, "Roughly how many Pav do the Bobs manage to save in stasis?", "About 20,000", ["About 200", "All of them"],
+       "Twenty thousand. Not enough. Better than none. Those are the options.", "pav")
+trivia(2, "What did the Others build around their home star?", "A Dyson sphere", ["A ringworld", "A very large fence"],
+       "A Dyson sphere. Which is why they need everyone else's planets. Rude.", "dyson-sphere")
+trivia(2, "What name does Garfield suggest for the Bobs as a new branch of humanity?", "Homo sideria", ["Homo digitalis", "Bob sapiens"],
+       "Homo sideria. 'Bob sapiens' was proposed. By Bob. It was rejected. By everyone.", "homo-sideria")
+trivia(2, "What are the death asteroids?", "Asteroid-sized Others warships", ["Rocks Bob throws at Medeiros", "A Deltan board game"],
+       "Warships. Shaped like rocks. Named after a movie. The Bobs named them. Naturally.", "death-asteroids")
+trivia(2, "Who is Vulcan's first security chief, and Howard's whisky partner?", "Stephane", ["Marcus", "Dexter"],
+       "Stephane. Security and whisky. Not at the same time. Mostly.", "stephane")
+trivia(2, "What large winged predators make trouble for the Deltans on Eden?", "Hippogriffs", ["Gorilloids", "Skyfangs"],
+       "Hippogriffs. They can camouflage. Bob found that unsporting.", "hippogriffs")
+trivia(3, "What do the Bobs call mortal, biological people?", "Ephemerals", ["Organics", "Meatbags"],
+       "Ephemerals. 'Meatbags' was considered impolite. By me.", "ephemerals")
+trivia(3, "What does a SCUT relay do?", "Passes messages over long distances", ["Refuels ships", "Stores old Bobs"],
+       "It relays. The name was not subtle. Neither are the Bobs.", "relay")
+trivia(4, "What is a sabbat for young Quinlans?", "A journey of exploration in a group of four", ["A day of rest", "An exam"],
+       "A trip with friends. Bob joined one. He is not young. Or Quinlan.", "sabbat")
+trivia(4, "What are the Skippies building around a gray dwarf star?", "Jovah, a giant AI", ["A Bob retirement home", "A second Heaven's River"],
+       "Jovah. A very large computer. Not yet a very large mind.", "jovah")
+trivia(4, "What do Quinlans look like?", "Otter-like, with flat tails", ["Like meerkats", "Like winged lizards"],
+       "Otters. With tails. Bob found them charming. I found them wet.", "quinlans")
+trivia(4, "Which retired professor figures out Bob's secret on his barge?", "Theresa", ["Hugh", "Lenny"],
+       "Theresa. Observant. She kept the secret. I would have too. Nobody asks me.", "theresa")
+trivia(5, "What does Will leave behind in each system on the Nostromo?", "Bob Seeds", ["Postcards", "Copies of himself only"],
+       "Seeds. Relay, factory, vessel. Gardening, at scale.", "bob-seeds")
+trivia(5, "What is Nemesis?", "A rogue galaxy on a collision course", ["A new faction of Bobs", "Medeiros's ship"],
+       "A galaxy. Coming this way. In a hundred thousand years. Plenty of time to worry.", "nemesis")
+trivia(5, "What do Luddies reject?", "Technology like mannies and replicants", ["Wool", "Bob's jokes, specifically"],
+       "Technology. They are not fans of mine. The feeling is neutral.", "luddies")
+
 data = dict(
     meta=dict(series="Bobiverse", author="Dennis E. Taylor", version=1, generated="2026-11-21",
               notes=["All summaries are original paraphrases written for this app.",

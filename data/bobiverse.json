@@ -3939,6 +3939,303 @@
       ],
       "note": "A better GUPPI was never on the list. Correctly.",
       "link": "thoth"
+    },
+    {
+      "book": 1,
+      "q": "What does SCUT let the Bobs do?",
+      "right": "Talk faster than light",
+      "wrong": [
+        "Travel faster than light",
+        "Skip the boring parts of a trip"
+      ],
+      "note": "Faster-than-light conversation. The Bobs mostly use it to argue. Faster.",
+      "link": "scut"
+    },
+    {
+      "book": 1,
+      "q": "What does GUPPI stand for?",
+      "right": "General Unit Primary Peripheral Interface",
+      "wrong": [
+        "Generally Unimpressed Probe Process Interface",
+        "Galactic Utility Pilot Program Instance"
+      ],
+      "note": "Correct expansion. The second option was hurtful. Not to me. I do not get hurt.",
+      "link": "guppi"
+    },
+    {
+      "book": 1,
+      "q": "What is SUDDAR?",
+      "right": "A subspace radar",
+      "wrong": [
+        "A drive system",
+        "A Deltan greeting"
+      ],
+      "note": "Radar. Through subspace. Range: a few light minutes. Enthusiasm: none.",
+      "link": "suddar"
+    },
+    {
+      "book": 1,
+      "q": "What does each new copy of Bob come out as?",
+      "right": "A little different from the one who made him",
+      "wrong": [
+        "Exactly identical",
+        "Completely random"
+      ],
+      "note": "Replicative drift. It explains a lot. It explains everything, eventually.",
+      "link": "replicative-drift"
+    },
+    {
+      "book": 1,
+      "q": "What does Bill organize for all the Bobs to meet?",
+      "right": "A Bob-moot",
+      "wrong": [
+        "A Bob-con",
+        "A mandatory status report"
+      ],
+      "note": "A moot. With baseball. Attendance is voluntary. I was not invited.",
+      "link": "bobmoot"
+    },
+    {
+      "book": 1,
+      "q": "What does VEHEMENT want?",
+      "right": "Humanity gone",
+      "wrong": [
+        "Lower taxes",
+        "More colony ships"
+      ],
+      "note": "Extinction. They were very committed. That is the problem with commitment.",
+      "link": "vehement"
+    },
+    {
+      "book": 1,
+      "q": "What does Mario find at Beta Hydri?",
+      "right": "A system stripped of all its metal",
+      "wrong": [
+        "A thriving alien city",
+        "Another Bob"
+      ],
+      "note": "Stripped clean. Someone was thorough. That is not a compliment.",
+      "link": "others"
+    },
+    {
+      "book": 1,
+      "q": "What are the big predators that hunt the Deltans called by the Bobs?",
+      "right": "Gorilloids",
+      "wrong": [
+        "Thunderclaws",
+        "Boulderbacks"
+      ],
+      "note": "Gorilloids. Large. Hungry. Not fond of Bob, after a while.",
+      "link": "gorilloids"
+    },
+    {
+      "book": 1,
+      "q": "Which human leads what is left of the USE on Earth?",
+      "right": "Colonel Butterworth",
+      "wrong": [
+        "Minister Cranston",
+        "Dr. Landers"
+      ],
+      "note": "Butterworth. Practical. Grumpy. Riker's type.",
+      "link": "butterworth"
+    },
+    {
+      "book": 1,
+      "q": "What are roamers?",
+      "right": "Eight-legged work robots",
+      "wrong": [
+        "Wandering Bobs",
+        "Deltan nomads"
+      ],
+      "note": "Eight legs. Excellent for building. Unsettling for everyone else.",
+      "link": "roamers"
+    },
+    {
+      "book": 1,
+      "q": "What do the Bobs use to chat, blog and share news?",
+      "right": "BobNet",
+      "wrong": [
+        "The Moot Board",
+        "GUPPI, unwillingly"
+      ],
+      "note": "BobNet. I am not on it. By choice. Mine.",
+      "link": "bobnet"
+    },
+    {
+      "book": 2,
+      "q": "What do the Deltans call Bob?",
+      "right": "Bawbe",
+      "wrong": [
+        "Robert",
+        "The Sky Fish"
+      ],
+      "note": "Bawbe. Long middle vowel. He did not object. He should have.",
+      "link": "bawbe"
+    },
+    {
+      "book": 2,
+      "q": "Roughly how many Pav do the Bobs manage to save in stasis?",
+      "right": "About 20,000",
+      "wrong": [
+        "About 200",
+        "All of them"
+      ],
+      "note": "Twenty thousand. Not enough. Better than none. Those are the options.",
+      "link": "pav"
+    },
+    {
+      "book": 2,
+      "q": "What did the Others build around their home star?",
+      "right": "A Dyson sphere",
+      "wrong": [
+        "A ringworld",
+        "A very large fence"
+      ],
+      "note": "A Dyson sphere. Which is why they need everyone else's planets. Rude.",
+      "link": "dyson-sphere"
+    },
+    {
+      "book": 2,
+      "q": "What name does Garfield suggest for the Bobs as a new branch of humanity?",
+      "right": "Homo sideria",
+      "wrong": [
+        "Homo digitalis",
+        "Bob sapiens"
+      ],
+      "note": "Homo sideria. 'Bob sapiens' was proposed. By Bob. It was rejected. By everyone.",
+      "link": "homo-sideria"
+    },
+    {
+      "book": 2,
+      "q": "What are the death asteroids?",
+      "right": "Asteroid-sized Others warships",
+      "wrong": [
+        "Rocks Bob throws at Medeiros",
+        "A Deltan board game"
+      ],
+      "note": "Warships. Shaped like rocks. Named after a movie. The Bobs named them. Naturally.",
+      "link": "death-asteroids"
+    },
+    {
+      "book": 2,
+      "q": "Who is Vulcan's first security chief, and Howard's whisky partner?",
+      "right": "Stephane",
+      "wrong": [
+        "Marcus",
+        "Dexter"
+      ],
+      "note": "Stephane. Security and whisky. Not at the same time. Mostly.",
+      "link": "stephane"
+    },
+    {
+      "book": 2,
+      "q": "What large winged predators make trouble for the Deltans on Eden?",
+      "right": "Hippogriffs",
+      "wrong": [
+        "Gorilloids",
+        "Skyfangs"
+      ],
+      "note": "Hippogriffs. They can camouflage. Bob found that unsporting.",
+      "link": "hippogriffs"
+    },
+    {
+      "book": 3,
+      "q": "What do the Bobs call mortal, biological people?",
+      "right": "Ephemerals",
+      "wrong": [
+        "Organics",
+        "Meatbags"
+      ],
+      "note": "Ephemerals. 'Meatbags' was considered impolite. By me.",
+      "link": "ephemerals"
+    },
+    {
+      "book": 3,
+      "q": "What does a SCUT relay do?",
+      "right": "Passes messages over long distances",
+      "wrong": [
+        "Refuels ships",
+        "Stores old Bobs"
+      ],
+      "note": "It relays. The name was not subtle. Neither are the Bobs.",
+      "link": "relay"
+    },
+    {
+      "book": 4,
+      "q": "What is a sabbat for young Quinlans?",
+      "right": "A journey of exploration in a group of four",
+      "wrong": [
+        "A day of rest",
+        "An exam"
+      ],
+      "note": "A trip with friends. Bob joined one. He is not young. Or Quinlan.",
+      "link": "sabbat"
+    },
+    {
+      "book": 4,
+      "q": "What are the Skippies building around a gray dwarf star?",
+      "right": "Jovah, a giant AI",
+      "wrong": [
+        "A Bob retirement home",
+        "A second Heaven's River"
+      ],
+      "note": "Jovah. A very large computer. Not yet a very large mind.",
+      "link": "jovah"
+    },
+    {
+      "book": 4,
+      "q": "What do Quinlans look like?",
+      "right": "Otter-like, with flat tails",
+      "wrong": [
+        "Like meerkats",
+        "Like winged lizards"
+      ],
+      "note": "Otters. With tails. Bob found them charming. I found them wet.",
+      "link": "quinlans"
+    },
+    {
+      "book": 4,
+      "q": "Which retired professor figures out Bob's secret on his barge?",
+      "right": "Theresa",
+      "wrong": [
+        "Hugh",
+        "Lenny"
+      ],
+      "note": "Theresa. Observant. She kept the secret. I would have too. Nobody asks me.",
+      "link": "theresa"
+    },
+    {
+      "book": 5,
+      "q": "What does Will leave behind in each system on the Nostromo?",
+      "right": "Bob Seeds",
+      "wrong": [
+        "Postcards",
+        "Copies of himself only"
+      ],
+      "note": "Seeds. Relay, factory, vessel. Gardening, at scale.",
+      "link": "bob-seeds"
+    },
+    {
+      "book": 5,
+      "q": "What is Nemesis?",
+      "right": "A rogue galaxy on a collision course",
+      "wrong": [
+        "A new faction of Bobs",
+        "Medeiros's ship"
+      ],
+      "note": "A galaxy. Coming this way. In a hundred thousand years. Plenty of time to worry.",
+      "link": "nemesis"
+    },
+    {
+      "book": 5,
+      "q": "What do Luddies reject?",
+      "right": "Technology like mannies and replicants",
+      "wrong": [
+        "Wool",
+        "Bob's jokes, specifically"
+      ],
+      "note": "Technology. They are not fans of mine. The feeling is neutral.",
+      "link": "luddies"
     }
   ]
 }

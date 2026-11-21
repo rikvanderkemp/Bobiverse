@@ -740,6 +740,25 @@ function gen(){
       if (wrong.length < 2) return null;
       return { q:`Navigation query. Where would I find “${e.name}”?`, right:right.name, wrong:wrong.map(p => p.name), link:e.id };
     },
+    () => { // deceased (only deaths the gate has reached)
+      const dead = vis('characters').filter(deadNow); if (!dead.length) return null;
+      const e = pick(dead), alive = shuffle(vis('characters').filter(c => !deadNow(c) && c.group === e.group)).slice(0, 2);
+      if (alive.length < 2) return null;
+      return { q:`Status check on ${e.group === 'Bob' ? 'the clan' : 'my contact list'}. Which of these is no longer running?`, right:nameOf(e), wrong:alive.map(nameOf), link:e.id, note:`${nameOf(e)}. ${e.died.text} I have archived the backups. Such as they are.` };
+    },
+    () => { // ship class
+      const pool = vis('ships').filter(x => x.shipClass), classes = [...new Set(pool.map(x => x.shipClass))];
+      if (classes.length < 3) return null;
+      const e = pick(pool);
+      return { q:`Vessel registry. How do my records classify “${nameOf(e)}”?`, right:e.shipClass, wrong:shuffle(classes.filter(c => c !== e.shipClass)).slice(0, 2), link:e.id };
+    },
+    () => { // character group / term category
+      const [k, f] = pick([['characters','group'], ['terms','category']]);
+      const pool = vis(k).filter(x => x[f]), vals = [...new Set(pool.map(x => x[f]))];
+      if (vals.length < 3) return null;
+      const e = pick(pool), what = k === 'characters' ? 'Which category does this individual belong to' : 'How is this filed in my records';
+      return { q:`${what}: “${nameOf(e)}”?`, right:e[f], wrong:shuffle(vals.filter(v => v !== e[f])).slice(0, 2), link:e.id };
+    },
   ];
   const hand = (D.trivia||[]).filter(t => t.book <= S.book);
   for (let tries = 0; tries < 40; tries++){
