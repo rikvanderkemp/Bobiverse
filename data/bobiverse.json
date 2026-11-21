@@ -879,6 +879,57 @@
       ],
       "confidence": "high",
       "updates": []
+    },
+    {
+      "id": "pgf",
+      "name": "Pan-Galactic Federation (PGF)",
+      "aliases": [
+        "PGF",
+        "Federation"
+      ],
+      "category": "organization",
+      "firstBook": 5,
+      "summary": "A long-gone alliance of alien species whose worlds were linked by wormholes. Its members left the galaxy thousands of years ago, and nobody knows why. Icarus and Daedalus explore what they left behind.",
+      "related": [
+        "icarus",
+        "daedalus",
+        "wormholes",
+        "fermi-paradox",
+        "archivist"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "archivist",
+      "name": "The Archivist",
+      "aliases": [],
+      "category": "AI",
+      "firstBook": 5,
+      "summary": "An AI that looks after the records the Pan-Galactic Federation left behind. The Bobs have to deal with it to learn anything, and it is not an easy conversation partner.",
+      "related": [
+        "pgf",
+        "icarus",
+        "daedalus"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "hueys",
+      "name": "Hueys",
+      "aliases": [
+        "Huey"
+      ],
+      "category": "technology",
+      "firstBook": 5,
+      "summary": "Remote-controlled bodies for humans, sold by a company Howard sets up. Basically the Bobs' mannies, made available to ordinary people.",
+      "related": [
+        "howard",
+        "android"
+      ],
+      "confidence": "medium",
+      "updates": []
     }
   ],
   "places": [
@@ -2135,6 +2186,22 @@
         "starfleet-war"
       ],
       "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "alexander",
+      "name": "Alexander",
+      "aliases": [],
+      "group": "Jabberwocky native",
+      "firstBook": 5,
+      "summary": "A leader of the dragon-like natives of Jabberwocky who guides his people on a migration to survive.",
+      "related": [
+        "jabberwocky",
+        "jabberwocky-dragons",
+        "howard",
+        "bridget"
+      ],
+      "confidence": "medium",
       "updates": []
     }
   ],

@@ -257,6 +257,12 @@ term("battle-of-delta-pavonis", "Battle of Delta Pavonis", 2, "The Bobs' first b
 term("battle-of-sol", "Battle of Sol", 3, "The Others' attack on humanity's home system and the Bobs' defense and mass evacuation of Earth.", ["others", "sol", "earth", "bellerophon", "herschel", "cuba", "death-asteroids"], category="event")
 
 
+# Added 2026-11-21 (book 5). Wiki pages were unreachable; based on book-5 reviews, so medium confidence.
+term("pgf", "Pan-Galactic Federation (PGF)", 5, "A long-gone alliance of alien species whose worlds were linked by wormholes. Its members left the galaxy thousands of years ago, and nobody knows why. Icarus and Daedalus explore what they left behind.", ["icarus", "daedalus", "wormholes", "fermi-paradox", "archivist"], category="organization", aliases=["PGF", "Federation"], confidence="medium")
+term("archivist", "The Archivist", 5, "An AI that looks after the records the Pan-Galactic Federation left behind. The Bobs have to deal with it to learn anything, and it is not an easy conversation partner.", ["pgf", "icarus", "daedalus"], category="AI", confidence="medium")
+term("hueys", "Hueys", 5, "Remote-controlled bodies for humans, sold by a company Howard sets up. Basically the Bobs' mannies, made available to ordinary people.", ["howard", "android"], category="technology", aliases=["Huey"], confidence="medium")
+char("alexander", "Alexander", 5, "A leader of the dragon-like natives of Jabberwocky who guides his people on a migration to survive.", ["jabberwocky", "jabberwocky-dragons", "howard", "bridget"], group="Jabberwocky native", confidence="medium")
+
 # ---------------- REFERENCES ----------------
 # Pop-culture and other references. firstBook = book where the reference first shows up.
 # confidence: high = the book makes it explicit or it's unmistakable; medium = the name clearly points
