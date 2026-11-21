@@ -37,7 +37,7 @@ a{color:inherit}
 
 /* ---------- header ---------- */
 .hdr{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
-.brand{display:flex; align-items:center; gap:10px; min-width:0}
+.brand{display:flex; align-items:center; gap:10px; min-width:0; margin-right:auto}
 .sigil{width:34px;height:34px;flex:none}
 .brand h1{margin:0; font-family:var(--mono); font-size:15px; letter-spacing:.22em; font-weight:600; color:var(--cyan); text-shadow:0 0 12px rgba(79,227,255,.45)}
 .brand small{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; color:var(--muted)}
@@ -294,6 +294,7 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
   .row{padding-top:7px; padding-bottom:7px}
   .tl-book{padding-top:8px; padding-bottom:8px}
 }
+.hdr .maplink{margin-left:0}
 </style>
 </head>
 <body>
@@ -313,8 +314,8 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
     </div>
     <button class="maplink homebtn" id="homebtn" hidden title="Back to the overview">⌂<span class="lbl"> HOME</span></button>
     <button class="maplink archbtn" id="archbtn" title="Ask the Archivist (search) — shortcut: /" aria-expanded="false" aria-controls="searchrow"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><span class="lbl"> ARCHIVIST</span></button>
-    <button class="maplink guppibtn" id="guppibtn" title="Ask GUPPI for a trivia question" aria-haspopup="dialog"><svg width="16" height="12" viewBox="0 0 32 22" fill="none" aria-hidden="true"><path d="M2 11c5-9 17-11 24-4l4-4v16l-4-4C19 22 7 20 2 11z" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg><span class="lbl"> GUPPI</span></button>
     <a class="maplink" href="map.html" title="Mind map of how everything connects">◈<span class="lbl"> STAR MAP</span></a>
+    <button class="maplink guppibtn" id="guppibtn" title="Ask GUPPI for a trivia question" aria-haspopup="dialog"><svg width="16" height="12" viewBox="0 0 32 22" fill="none" aria-hidden="true"><path d="M2 11c5-9 17-11 24-4l4-4v16l-4-4C19 22 7 20 2 11z" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="9" r="2" fill="currentColor"/></svg><span class="lbl"> GUPPI</span></button>
     <div class="bookgate" title="Anything first appearing after this book is hidden">
       <label>READING BOOK<span> · SPOILER GATE</span></label>
       <div class="bookpips" id="pips" role="radiogroup" aria-label="Current book"></div>
