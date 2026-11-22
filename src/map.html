@@ -143,7 +143,11 @@ svg#g.drag{cursor:grabbing}
 .credit a{color:var(--cyan); text-decoration:none; margin-left:10px; font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; white-space:nowrap}
 .credit a:hover{text-decoration:underline}
 .hapbtn{margin-left:10px; background:none; border:1px solid var(--line2); color:var(--cyan); font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; padding:2px 7px; cursor:pointer}
-.hapbtn[aria-pressed="false"]{color:var(--faint)}
+.hapbtn::after{content:''; display:inline-block; width:6px; height:6px; border-radius:50%; margin-left:6px; vertical-align:1px; background:var(--cyan); box-shadow:0 0 6px var(--cyan)}
+.hapbtn[data-state="pending"]::after{animation:hapwait 1.6s ease-in-out infinite}
+.hapbtn[data-state="off"]{color:var(--faint)}
+.hapbtn[data-state="off"]::after{background:none; box-shadow:none; border:1px solid var(--faint); width:4px; height:4px}
+@keyframes hapwait{50%{opacity:.25}}
 .credit small{font-size:11px; color:var(--faint)}
 @media (max-width: 720px){ .credit{padding:6px 10px; font-size:12px} .credit .more{display:none} .credit a{margin-left:6px} }
 
@@ -204,7 +208,7 @@ svg#g.drag{cursor:grabbing}
     <span>The <b>Bobiverse</b> series is written by <b>Dennis E. Taylor</b>.
       <a href="http://www.dennisetaylor.org" target="_blank" rel="noopener">Author's website ↗</a>
       <a href="https://www.goodreads.com/series/192752-bobiverse" target="_blank" rel="noopener">The books ↗</a>
-      <button class="hapbtn" id="hapbtn" hidden aria-pressed="true">HAPTICS ON</button></span>
+      <button class="hapbtn" id="hapbtn" hidden aria-pressed="true" data-state="pending">HAPTICS</button></span>
     <small>Unofficial fan project for personal use. Not affiliated with or endorsed by the author or publishers.<span class="more"> All summaries are written in our own words.</span></small>
   </footer>
 </div>
@@ -494,9 +498,10 @@ const HAP = (() => {
   const active = () => navigator.userActivation ? navigator.userActivation.hasBeenActive : armed;
   // Chrome only allows vibrate after a real tap (a scroll-drag doesn't count).
   // On the first tap anywhere: confirm with a short buzz and update the label.
-  let greeted = false;
+  let greeted = false, justArmed = false;
   const arm = () => {
     armed = true;
+    if (!greeted && !justArmed){ justArmed = true; setTimeout(() => { justArmed = false; }, 800); }
     setTimeout(() => {
       if (greeted || !active()) return;
       greeted = true; paint();
@@ -504,10 +509,10 @@ const HAP = (() => {
     }, 0);
   };
   ['pointerdown','touchstart','touchend','click','keydown'].forEach(t => addEventListener(t, arm, {capture:true, passive:true}));
-  const paint = () => { if (btn){ btn.textContent = !on ? 'HAPTICS OFF' : active() ? 'HAPTICS ON' : 'HAPTICS · TAP TO ARM'; btn.setAttribute('aria-pressed', String(on)); } };
+  const paint = () => { if (btn){ btn.dataset.state = !on ? 'off' : active() ? 'on' : 'pending'; btn.title = !on ? 'Haptics off' : active() ? 'Haptics on' : 'Haptics on, waiting for your first tap'; btn.setAttribute('aria-pressed', String(on)); } };
   if (can && btn){
     btn.hidden = false; paint();
-    btn.addEventListener('click', ev => { ev.stopPropagation(); greeted = true; on = !on; try { localStorage.setItem('bobcodex.haptics2', on ? '1' : '0'); } catch(e){} paint(); if (on) navigator.vibrate(60); });
+    btn.addEventListener('click', ev => { ev.stopPropagation(); if (justArmed) return; greeted = true; on = !on; try { localStorage.setItem('bobcodex.haptics2', on ? '1' : '0'); } catch(e){} paint(); if (on) navigator.vibrate(60); });
   }
   const buzz = (ms, gap = 0) => {
     if (!can || !on || !active() || document.hidden) return;
