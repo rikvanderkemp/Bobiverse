@@ -852,16 +852,26 @@ renderAll();
 const HAP = (() => {
   const can = typeof navigator.vibrate === 'function' && (matchMedia('(pointer:coarse)').matches || navigator.maxTouchPoints > 0);
   let on = true, armed = false, last = 0;
-  try { const v = localStorage.getItem('bobcodex.haptics'); if (v !== null) on = v === '1'; } catch(e){}
+  try { const v = localStorage.getItem('bobcodex.haptics2'); if (v !== null) on = v === '1'; } catch(e){}
   const btn = document.getElementById('hapbtn');
-  const paint = () => { if (btn){ btn.textContent = on ? 'HAPTICS ON' : 'HAPTICS OFF'; btn.setAttribute('aria-pressed', String(on)); } };
+  const active = () => navigator.userActivation ? navigator.userActivation.hasBeenActive : armed;
+  // Chrome only allows vibrate after a real tap (a scroll-drag doesn't count).
+  // On the first tap anywhere: confirm with a short buzz and update the label.
+  let greeted = false;
+  const arm = () => {
+    armed = true;
+    setTimeout(() => {
+      if (greeted || !active()) return;
+      greeted = true; paint();
+      if (can && on) { try { navigator.vibrate(20); } catch(e){} }
+    }, 0);
+  };
+  ['pointerdown','touchstart','touchend','click','keydown'].forEach(t => addEventListener(t, arm, {capture:true, passive:true}));
+  const paint = () => { if (btn){ btn.textContent = !on ? 'HAPTICS OFF' : active() ? 'HAPTICS ON' : 'HAPTICS · TAP TO ARM'; btn.setAttribute('aria-pressed', String(on)); } };
   if (can && btn){
     btn.hidden = false; paint();
-    btn.addEventListener('click', () => { on = !on; try { localStorage.setItem('bobcodex.haptics', on ? '1' : '0'); } catch(e){} paint(); if (on) navigator.vibrate(60); });
+    btn.addEventListener('click', ev => { ev.stopPropagation(); greeted = true; on = !on; try { localStorage.setItem('bobcodex.haptics2', on ? '1' : '0'); } catch(e){} paint(); if (on) navigator.vibrate(60); });
   }
-  // the browser only allows vibrate after a real tap (a scroll-drag doesn't count)
-  ['click','touchend','keydown'].forEach(t => addEventListener(t, () => { armed = true; }, {capture:true, passive:true}));
-  const active = () => navigator.userActivation ? navigator.userActivation.hasBeenActive : armed;
   const buzz = (ms, gap = 0) => {
     if (!can || !on || !active() || document.hidden) return;
     const now = performance.now(); if (now - last < gap) return;
