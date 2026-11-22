@@ -667,7 +667,9 @@
       "name": "The Administrator (ANEC-23)",
       "aliases": [
         "ANEC-23",
-        "ANEC"
+        "ANEC",
+        "Antec",
+        "Administrator"
       ],
       "category": "AI",
       "firstBook": 4,
