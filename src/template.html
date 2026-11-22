@@ -269,7 +269,7 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
   body:not(.showdetail) .detailwrap{visibility:hidden}
   .detailwrap{position:fixed; inset:0; width:100%; z-index:20; background:var(--bg); transform:translateX(102%); transition:transform .22s ease; padding:10px 12px max(12px, env(safe-area-inset-bottom)); display:flex}
   .detailwrap .frame{flex:1; min-height:0}
-  body .detailwrap{flex-direction:column; gap:8px}
+  body .detailwrap{flex-direction:column; gap:8px; background-color:var(--bg); background-image:linear-gradient(rgba(79,227,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(79,227,255,.035) 1px, transparent 1px), radial-gradient(ellipse at 50% -20%, #0d2236 0%, var(--bg) 60%); background-size:32px 32px,32px 32px,100% 100%}
   .detailwrap .phead{display:flex}
   body.showdetail .detailwrap{transform:none}
   .back{display:inline-block}
@@ -319,11 +319,11 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
 }
 .hdr .maplink{margin-left:0}
 
-.phead{display:none; align-items:center; gap:9px; flex:none; padding:2px 2px 4px; cursor:pointer}
-.phead .sigil{width:26px; height:26px}
-.phead b{display:block; font-family:var(--mono); font-size:13px; letter-spacing:.22em; font-weight:600; color:var(--cyan); text-shadow:0 0 12px rgba(79,227,255,.45)}
+.phead{display:none; align-items:center; gap:10px; flex:none; padding:0; cursor:pointer}
+.phead .sigil{width:34px; height:34px}
+.phead b{display:block; margin:0; font-family:var(--mono); font-size:15px; line-height:23px; letter-spacing:.22em; font-weight:600; color:var(--cyan); text-shadow:0 0 12px rgba(79,227,255,.45)}
 .phead b .dot{display:inline-block; width:6px; height:6px; vertical-align:middle; margin-left:6px}
-.phead small{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:var(--muted); margin-top:2px}
+.phead small{display:block; font-family:var(--mono); font-size:10.5px; line-height:16px; letter-spacing:.18em; color:var(--muted)}
 /* no sideways wobble on phones */
 html, body{overflow-x:hidden; max-width:100%}
 .detail, .list{overflow-x:hidden}
@@ -378,10 +378,11 @@ html, body{overflow-x:hidden; max-width:100%}
     </section>
     <div class="detailwrap">
       <div class="phead" id="phead" role="button" tabindex="0" aria-label="Back to the Codex overview">
-        <svg class="sigil mini" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <svg class="sigil" viewBox="0 0 40 40" fill="none" aria-hidden="true">
           <circle class="sg-outer" cx="20" cy="20" r="17" stroke="#4fe3ff" stroke-opacity=".35" stroke-dasharray="20 3 6 3"/>
           <circle class="sg-ring" cx="20" cy="20" r="11" stroke="#4fe3ff" stroke-dasharray="3 3"/>
-          <path d="M20 3v6M20 31v6M3 20h6M31 20h6" stroke="#4fe3ff"/>
+          <path class="sg-ticks" d="M20 3v6M20 31v6M3 20h6M31 20h6" stroke="#4fe3ff"/>
+          <circle class="sg-ping" cx="20" cy="20" r="3.2" stroke="#4fe3ff" fill="none"/>
           <circle class="sg-core" cx="20" cy="20" r="3.2" fill="#ffb547"/>
         </svg>
         <div><b>BOBIVERSE CODEX <span class="dot"></span></b><small id="phsub">RECORD VIEW</small></div>
@@ -936,8 +937,9 @@ const HAP = (() => {
 })();
 // ---------- logo idle animation: random scan ping / glitch / tick twitch ----------
 (() => {
-  const sg = document.querySelector('.sigil');
-  if (!sg || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const all = [...document.querySelectorAll('.sigil')];
+  if (!all.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const sg = { classList: { remove: (...c) => all.forEach(x => x.classList.remove(...c)), add: c => all.forEach(x => x.classList.add(c)) }, getBoundingClientRect: () => all[0].getBoundingClientRect() };
   const fx = ['ping','ping','glitch','twitch'];
   const go = () => {
     const c = fx[Math.floor(Math.random() * fx.length)];
