@@ -166,6 +166,15 @@ svg#g.drag{cursor:grabbing}
   .hint{display:none}
   .card{max-height:70%}
 }
+
+/* no sideways wobble on phones */
+html, body{overflow-x:hidden; max-width:100%}
+.detail, .list{overflow-x:hidden}
+@media (max-width: 360px){
+  .bookpips button{width:27px !important; height:28px}
+  .hdr{gap:6px}
+  .hdr .btn, .hdr .navlink, #archbtn{padding-left:7px; padding-right:7px}
+}
 </style>
 </head>
 <body>

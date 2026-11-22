@@ -316,6 +316,15 @@ mark{background:rgba(255,181,71,.25); color:var(--amber); border-radius:2px; pad
   .tl-book{padding-top:8px; padding-bottom:8px}
 }
 .hdr .maplink{margin-left:0}
+
+/* no sideways wobble on phones */
+html, body{overflow-x:hidden; max-width:100%}
+.detail, .list{overflow-x:hidden}
+@media (max-width: 360px){
+  .bookpips button{width:27px !important; height:28px}
+  .hdr{gap:6px}
+  .hdr .btn, .hdr .navlink, #archbtn{padding-left:7px; padding-right:7px}
+}
 </style>
 </head>
 <body>
