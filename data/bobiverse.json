@@ -178,7 +178,12 @@
         "replicative-drift"
       ],
       "confidence": "high",
-      "updates": []
+      "updates": [
+        {
+          "book": 4,
+          "text": "The Bobs now call it VIRT, versus Real."
+        }
+      ]
     },
     {
       "id": "replicative-drift",
@@ -1054,6 +1059,449 @@
       ],
       "confidence": "high",
       "updates": []
+    },
+    {
+      "id": "frame-rate",
+      "name": "Frame rate",
+      "aliases": [],
+      "category": "technology",
+      "firstBook": 1,
+      "summary": "A Bob's personal speed of time. Slow it down and a long trip flies by; speed it up and a split-second fight feels roomy.",
+      "related": [
+        "replicant",
+        "vr"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "railgun",
+      "name": "Railgun",
+      "aliases": [],
+      "category": "technology",
+      "firstBook": 1,
+      "summary": "Magnetic gun that throws any conductive lump of metal. A Bob favourite in early fights.",
+      "related": [
+        "medeiros",
+        "ship-buster"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "waldo",
+      "name": "Waldo",
+      "aliases": [],
+      "category": "technology",
+      "firstBook": 1,
+      "summary": "A remote manipulator arm. One of the first things Bob is given to control after waking up.",
+      "related": [
+        "dr-landers",
+        "roamers"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "skunk-works",
+      "name": "Skunk works",
+      "aliases": [],
+      "category": "concept",
+      "firstBook": 1,
+      "summary": "Bill's name for his labs and experiments at Epsilon Eridani, the source of many Bob inventions.",
+      "related": [
+        "bill",
+        "epsilon-eridani",
+        "scut"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "plasma-spike",
+      "name": "Plasma spike",
+      "aliases": [],
+      "category": "technology",
+      "firstBook": 1,
+      "summary": "Bill's lightning-torpedo weapon: superhot plasma that also fries electronics. Nearly invisible to SUDDAR, but it can't steer.",
+      "related": [
+        "bill",
+        "skunk-works",
+        "suddar",
+        "second-battle-82-eridani"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "second-battle-82-eridani",
+      "name": "Second battle of 82 Eridani",
+      "aliases": [],
+      "category": "event",
+      "firstBook": 1,
+      "summary": "Khan's task force goes back to avenge Milo and finds Medeiros upgraded. Bill's plasma spikes get their first real test; the Bobs win, at great cost.",
+      "related": [
+        "khan",
+        "medeiros",
+        "milo",
+        "plasma-spike",
+        "82-eridani"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "second-battle-of-sol",
+      "name": "Araujo's asteroids",
+      "aliases": [],
+      "category": "event",
+      "firstBook": 1,
+      "summary": "Riker and Homer find Brazilian probes towing planet-killers at Earth, lure most of them away and destroy them.",
+      "related": [
+        "araujo",
+        "riker",
+        "homer",
+        "sol"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "deadman-switch",
+      "name": "Deadman switch",
+      "aliases": [],
+      "category": "technology",
+      "firstBook": 2,
+      "summary": "A self-destruct GUPPI fires if a Bob's matrix is destroyed, so nobody can capture the technology. First used by Mario's clones.",
+      "related": [
+        "guppi",
+        "mario",
+        "gliese-54"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "ami",
+      "name": "AMI",
+      "aliases": [],
+      "category": "AI",
+      "firstBook": 2,
+      "summary": "Artificial machine intelligence: smart but not self-aware software that does work too dull or dangerous for a Bob.",
+      "related": [
+        "replicant",
+        "guppi"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "backups",
+      "name": "Differential backups",
+      "aliases": [],
+      "category": "technology",
+      "firstBook": 2,
+      "summary": "Bobs send regular backups of just what changed, so a destroyed Bob can be restored with only a little lost.",
+      "related": [
+        "bill",
+        "matrix"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "maser",
+      "name": "Maser",
+      "aliases": [],
+      "category": "technology",
+      "firstBook": 2,
+      "summary": "A microwave 'laser'. Riker uses one's faint bursts to trace Vickers.",
+      "related": [
+        "riker",
+        "bertram-vickers",
+        "vehement"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "third-battle-82-eridani",
+      "name": "Third battle of 82 Eridani",
+      "aliases": [],
+      "category": "event",
+      "firstBook": 2,
+      "summary": "Loki's twelve upgraded Bobs return to 82 Eridani, trick Medeiros into giving away his position and wipe him out.",
+      "related": [
+        "loki",
+        "medeiros",
+        "82-eridani"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "raptors",
+      "name": "Raptors",
+      "aliases": [],
+      "category": "species",
+      "firstBook": 2,
+      "summary": "Pack-hunting predators on Vulcan, smart and toothy, that attack the colony.",
+      "related": [
+        "vulcan",
+        "howard"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "cupid-bugs",
+      "name": "Cupid bugs",
+      "aliases": [],
+      "category": "species",
+      "firstBook": 2,
+      "summary": "A Vulcan parasite whose larvae head for the host's heart.",
+      "related": [
+        "vulcan",
+        "howard"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "fibrex",
+      "name": "Fibrex",
+      "aliases": [],
+      "category": "technology",
+      "firstBook": 3,
+      "summary": "Clear, super-strong building material used for the domes of floating cities.",
+      "related": [
+        "marcus",
+        "poseidon",
+        "odin"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "closest-continuer",
+      "name": "Closest continuer",
+      "aliases": [],
+      "category": "concept",
+      "firstBook": 3,
+      "summary": "The idea that if you are copied and the original is gone, the copy is you. Bridget uses it to think about being restored from backup.",
+      "related": [
+        "bridget",
+        "replicant"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "fourth-battle-82-eridani",
+      "name": "Fourth battle of 82 Eridani",
+      "aliases": [],
+      "category": "event",
+      "firstBook": 3,
+      "summary": "Medeiros ambushes Mack at 82 Eridani. Mack's matrix survives, and with the colonists' help the Bobs drive the probe to self-destruct.",
+      "related": [
+        "mack",
+        "medeiros",
+        "82-eridani",
+        "asgard",
+        "takamagahara"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "ancient-ones",
+      "name": "Ancient Ones",
+      "aliases": [],
+      "category": "faction",
+      "firstBook": 4,
+      "summary": "Garfield's name for the earliest Bobs, mainly Bob, Bill, Garfield and Will.",
+      "related": [
+        "garfield",
+        "bob",
+        "bill"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "gamers",
+      "name": "Gamers",
+      "aliases": [],
+      "category": "faction",
+      "firstBook": 4,
+      "summary": "A faction that lives for virtual games. They take on the problem of getting androids into Heaven's River because it's fun, then lose interest.",
+      "related": [
+        "gandalf",
+        "ferb",
+        "kevin",
+        "heavens-river"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "borg",
+      "name": "Borg",
+      "aliases": [],
+      "category": "faction",
+      "firstBook": 4,
+      "summary": "A faction that dresses up as the Star Trek cyborgs and prefers little contact with other species. Designs the Quinlan androids.",
+      "related": [
+        "locutus",
+        "quinlans",
+        "android"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "hunter-seeker",
+      "name": "Hunter-seeker",
+      "aliases": [],
+      "category": "technology",
+      "firstBook": 4,
+      "summary": "A drone built for long-range searching, with greatly extended SUDDAR range.",
+      "related": [
+        "suddar",
+        "bender"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "bussard-trail",
+      "name": "Bussard trail",
+      "aliases": [],
+      "category": "phenomenon",
+      "firstBook": 4,
+      "summary": "The faint wake of molecules a ramscoop ship leaves. Bob follows Bender's this way.",
+      "related": [
+        "bender",
+        "eta-leporis"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "ultima-thule",
+      "name": "Ultima Thule",
+      "aliases": [],
+      "category": "technology",
+      "firstBook": 4,
+      "summary": "Bill's huge archive and backup station at Epsilon Eridani, with spare ships and matrices for restoring lost Bobs. He hides it in the outer system.",
+      "related": [
+        "bill",
+        "backups",
+        "epsilon-eridani",
+        "starfleet-war"
+      ],
+      "confidence": "high",
+      "updates": [
+        {
+          "book": 5,
+          "text": "Someone posing as Hugh tricks Garfield into restoring them there."
+        }
+      ]
+    },
+    {
+      "id": "ufs",
+      "name": "United Federation of Sentients",
+      "aliases": [
+        "UFS"
+      ],
+      "category": "organization",
+      "firstBook": 4,
+      "summary": "A galactic UN founded by the human colonies and the Bobs, open to other species too.",
+      "related": [
+        "ella-cranston",
+        "deltans",
+        "pav"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "vulcan-arcology",
+      "name": "Vulcan Post-Life Arcology",
+      "aliases": [],
+      "category": "organization",
+      "firstBook": 4,
+      "summary": "A space station where about 200 replicated humans live on, in VR and in android bodies.",
+      "related": [
+        "vulcan",
+        "gilligan",
+        "replicant",
+        "android"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "battle-of-newholme",
+      "name": "Battle of Newholme",
+      "aliases": [],
+      "category": "event",
+      "firstBook": 4,
+      "summary": "Starfleet seizes Newholme's relay and a factory and demands the colony cut contact with replicants. Claude is the Bob on site.",
+      "related": [
+        "starfleet",
+        "newholme",
+        "claude",
+        "starfleet-war"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "pam",
+      "name": "PAM",
+      "aliases": [
+        "Printer Autofactory Minute"
+      ],
+      "category": "concept",
+      "firstBook": 5,
+      "summary": "A Printer Autofactory Minute: a minute of factory time, traded as money between colonies.",
+      "related": [
+        "autofactory"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "leviathans",
+      "name": "Leviathans",
+      "aliases": [
+        "Floaters"
+      ],
+      "category": "species",
+      "firstBook": 5,
+      "summary": "Huge gas-bag creatures that float over Jabberwocky. The Dragons build their villages on top of them.",
+      "related": [
+        "jabberwocky",
+        "jabberwocky-dragons",
+        "howard"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "centaurs",
+      "name": "Centaurs",
+      "aliases": [],
+      "category": "species",
+      "firstBook": 6,
+      "summary": "A four-legged species with three sexes, including workers who can't breed and protect the clan. Their civilization has since collapsed.",
+      "related": [
+        "centaurvania",
+        "gunther"
+      ],
+      "confidence": "medium",
+      "updates": []
     }
   ],
   "places": [
@@ -1587,6 +2035,262 @@
         "hazjiar"
       ],
       "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "zeta-tucanae",
+      "name": "Zeta Tucanae",
+      "kind": "star system",
+      "parent": null,
+      "firstBook": 1,
+      "summary": "A system Mario reaches to find its only living world wrecked and its native civilization gone, its metals already stripped.",
+      "related": [
+        "mario",
+        "others"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "big-top",
+      "name": "Big Top",
+      "kind": "planet",
+      "parent": "epsilon-indi",
+      "firstBook": 1,
+      "summary": "A gas giant in the habitable zone of Epsilon Indi, first explored by Linus.",
+      "related": [
+        "linus",
+        "epsilon-indi",
+        "quilt"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "quilt",
+      "name": "Quilt",
+      "kind": "planet",
+      "parent": "big-top",
+      "firstBook": 1,
+      "summary": "A moon of Big Top tipped on its side, giving it strange days and nights and wildly varied life. The Bobs first call it Klown Kar Planet.",
+      "related": [
+        "big-top",
+        "linus"
+      ],
+      "confidence": "medium",
+      "updates": [
+        {
+          "book": 3,
+          "text": "The settlers rename it Quilt."
+        }
+      ]
+    },
+    {
+      "id": "gamma-pavonis",
+      "name": "Gamma Pavonis",
+      "kind": "star system",
+      "parent": null,
+      "firstBook": 2,
+      "summary": "A Sun-like star first explored by Claude, with one very Earth-like planet.",
+      "related": [
+        "claude",
+        "newholme"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "newholme",
+      "name": "Newholme",
+      "kind": "planet",
+      "parent": "gamma-pavonis",
+      "firstBook": 2,
+      "summary": "Gamma Pavonis's first planet: blue, green and temperate, high on the Others' list. Later a human colony.",
+      "related": [
+        "gamma-pavonis",
+        "claude",
+        "others"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "gliese-54",
+      "name": "Gliese 54",
+      "kind": "star system",
+      "parent": null,
+      "firstBook": 2,
+      "summary": "A red dwarf where Mario sets up base and makes his clones before going after the Others.",
+      "related": [
+        "mario",
+        "deadman-switch",
+        "others"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "kappa-ceti",
+      "name": "Kappa Ceti",
+      "kind": "star system",
+      "parent": null,
+      "firstBook": 2,
+      "summary": "Luke's system, with a heavy super-Earth that's no good for settlers but full of life to catalogue.",
+      "related": [
+        "luke"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "takamagahara",
+      "name": "Takamagahara",
+      "kind": "planet",
+      "parent": "82-eridani",
+      "firstBook": 3,
+      "summary": "The inner rocky planet of 82 Eridani, settled by the Japanese enclave and usually shortened to Takama.",
+      "related": [
+        "82-eridani",
+        "isaac-jack-owen",
+        "asgard"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "asgard",
+      "name": "Asgard",
+      "kind": "planet",
+      "parent": "82-eridani",
+      "firstBook": 3,
+      "summary": "The outer rocky planet of 82 Eridani: steppe, slightly heavy gravity, giant mosquitoes. Settled by the Canadian enclave.",
+      "related": [
+        "82-eridani",
+        "valhalla",
+        "isaac-jack-owen",
+        "mack"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "valhalla",
+      "name": "Valhalla",
+      "kind": "planet",
+      "parent": "asgard",
+      "firstBook": 3,
+      "summary": "Asgard's moon, too thin-aired to live on. The Bobs start a long terraforming project there.",
+      "related": [
+        "asgard",
+        "ragnarok"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "trantor",
+      "name": "Trantor",
+      "kind": "city",
+      "parent": "big-top",
+      "firstBook": 4,
+      "summary": "A floating city in Big Top's upper clouds, where Howard and Bridget keep a home.",
+      "related": [
+        "big-top",
+        "howard",
+        "bridget"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "skippyland",
+      "name": "Skippyland",
+      "kind": "region",
+      "parent": null,
+      "firstBook": 4,
+      "summary": "The Skippies' home base, real and virtual, about 70 light years from Epsilon Eridani.",
+      "related": [
+        "skippies",
+        "thoth"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "perseus-transit",
+      "name": "Perseus Transit",
+      "kind": "region",
+      "parent": null,
+      "firstBook": 5,
+      "summary": "A region of space partly claimed by Starfleet.",
+      "related": [
+        "starfleet",
+        "jerry",
+        "hector"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "roanoke",
+      "name": "Roanoke",
+      "kind": "planet",
+      "parent": null,
+      "firstBook": 5,
+      "summary": "A beautiful, tidy world in the Federation's wormhole network whose advanced inhabitants simply packed up and left. Named by Icarus and Daedalus after the lost colony.",
+      "related": [
+        "icarus",
+        "daedalus",
+        "pgf",
+        "wormhole-network"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "federation-capital",
+      "name": "Federation Capital",
+      "kind": "star system",
+      "parent": null,
+      "firstBook": 5,
+      "summary": "The PGF's former capital near the galactic centre: a heavily engineered system of identical planets in perfect formation.",
+      "related": [
+        "pgf",
+        "icarus",
+        "daedalus",
+        "galactic-core"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "hub-zero",
+      "name": "Hub Zero",
+      "kind": "region",
+      "parent": null,
+      "firstBook": 5,
+      "summary": "A major hub of the Federation's wormhole network, with a thousand wormholes.",
+      "related": [
+        "pgf",
+        "wormhole-network"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "centaurvania",
+      "name": "Centaurvania",
+      "kind": "planet",
+      "parent": null,
+      "firstBook": 6,
+      "summary": "Home world of the Centaurs, near the Federation's wormhole network. Its civilization has slid back below industry.",
+      "related": [
+        "centaurs",
+        "gunther",
+        "icarus",
+        "daedalus"
+      ],
+      "confidence": "medium",
       "updates": []
     }
   ],
@@ -2522,6 +3226,641 @@
         "text": "Dies of old age on Romulus; Riker borrows Howard's android to attend her funeral.",
         "confidence": "medium"
       }
+    },
+    {
+      "id": "arthur",
+      "name": "Arthur",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 1,
+      "summary": "One of Riker's clones at Sol, gloomier than the average Bob. Helps build the first colony ships for Earth's survivors.",
+      "related": [
+        "riker",
+        "homer",
+        "charles",
+        "colony-ships",
+        "sol"
+      ],
+      "confidence": "high",
+      "updates": [],
+      "died": {
+        "book": 1,
+        "text": "Destroyed by a nuclear booby trap in wreckage near Earth. He had no backup.",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "bart",
+      "name": "Bart",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 1,
+      "summary": "One of Calvin's clones who stays at Alpha Centauri as resident Bob, running the system's probe factory. His VR is a rustic log cabin with a big rocking chair.",
+      "related": [
+        "calvin",
+        "alpha-centauri",
+        "autofactory"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 2,
+      "summary": "A Mario clone sent to map how far the Others reach. Explores Gamma Pavonis and its lovely habitable planet, and fights at Delta Pavonis. His VR is a beach cabana.",
+      "related": [
+        "mario",
+        "gamma-pavonis",
+        "newholme",
+        "battle-of-delta-pavonis",
+        "others"
+      ],
+      "confidence": "high",
+      "updates": [
+        {
+          "book": 4,
+          "text": "Is the Bob on site when Starfleet moves on Newholme."
+        }
+      ]
+    },
+    {
+      "id": "mulder",
+      "name": "Mulder",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 2,
+      "summary": "A Bill clone and the first Bob at Eta Cassiopeiae, where he finds and names the water world Poseidon. His VR is a tropical island of huts and beach.",
+      "related": [
+        "bill",
+        "eta-cassiopeiae",
+        "poseidon"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "monty",
+      "name": "Monty",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 2,
+      "summary": "A Riker-line Bob who escorts the first colony ships to Poseidon, carrying island-nation enclaves who settle on huge floating vegetation mats.",
+      "related": [
+        "riker",
+        "poseidon",
+        "colony-ships"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "oliver",
+      "name": "Oliver",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 2,
+      "summary": "The result of Bill beaming a copy of himself to waiting hardware at Alpha Centauri instead of building a new probe on the spot. Picks his name to keep Bill's comic-strip theme going.",
+      "related": [
+        "bill",
+        "alpha-centauri"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "loki",
+      "name": "Loki",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 2,
+      "summary": "A Khan clone who leads the return to 82 Eridani to finish off Medeiros, and claims the system afterwards.",
+      "related": [
+        "khan",
+        "82-eridani",
+        "medeiros",
+        "third-battle-82-eridani"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "bert-ernie",
+      "name": "Bert & Ernie",
+      "aliases": [
+        "Bert",
+        "Ernie"
+      ],
+      "group": "Bob",
+      "firstBook": 2,
+      "summary": "Two Bobs who fly the first colony ships from Earth to Omicron² Eridani, and are rather proud of it. Both style their VR look on Battlestar Galactica.",
+      "related": [
+        "colony-ships",
+        "omicron2-eridani",
+        "riker"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "phineas",
+      "name": "Phineas",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 3,
+      "summary": "Cloned by Jacques at Delta Pavonis together with Ferb. The pair run the 'alien abduction' of Pav ahead of the Others and fly the rescue ships.",
+      "related": [
+        "ferb",
+        "jacques",
+        "pav",
+        "delta-pavonis"
+      ],
+      "confidence": "medium",
+      "updates": [
+        {
+          "book": 4,
+          "text": "Heads for the Large Magellanic Cloud, keeping in touch by radio."
+        }
+      ]
+    },
+    {
+      "id": "ferb",
+      "name": "Ferb",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 3,
+      "summary": "Phineas's twin clone from Delta Pavonis. Helps lift thousands of Pav off their doomed world and flies one of the rescue ships.",
+      "related": [
+        "phineas",
+        "jacques",
+        "pav",
+        "delta-pavonis"
+      ],
+      "confidence": "medium",
+      "updates": [
+        {
+          "book": 4,
+          "text": "Runs the Gamers' tabletop campaigns and builds a huge ship full of relays to fly out of the galactic plane."
+        },
+        {
+          "book": 5,
+          "text": "Picks up radio messages from George, who had the same idea long before him."
+        }
+      ]
+    },
+    {
+      "id": "harvey",
+      "name": "Harvey",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 3,
+      "summary": "A tenth-generation Bob, resident at Sol after the Others are beaten. He prints the android body Bob uses to walk on Earth again.",
+      "related": [
+        "sol",
+        "earth",
+        "android",
+        "bob"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "isaac-jack-owen",
+      "name": "Isaac, Jack & Owen",
+      "aliases": [
+        "Isaac",
+        "Jack",
+        "Owen"
+      ],
+      "group": "Bob",
+      "firstBook": 3,
+      "summary": "Three of Bart's clones who fly the first colony ships from Sol to 82 Eridani, with refugees from the Vancouver Island and Japanese enclaves. All three dress casually in VR.",
+      "related": [
+        "bart",
+        "82-eridani",
+        "asgard",
+        "takamagahara",
+        "colony-ships"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "conan",
+      "name": "Conan",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 4,
+      "summary": "A Riker descendant who takes over as resident Bob at Omicron² Eridani. Lives in a VR treehouse and helps set up the Ever Onward society on Vulcan and Romulus.",
+      "related": [
+        "riker",
+        "omicron2-eridani",
+        "ever-onward"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "gandalf",
+      "name": "Gandalf",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 4,
+      "summary": "A Gamer Bob who looks and lives like the famous wizard (tower included, plus recliners). Speaks for the Gamers in the search for Bender.",
+      "related": [
+        "gamers",
+        "bender"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "kevin",
+      "name": "Kevin",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 4,
+      "summary": "A young, roughly 24th-generation Gamer Bob with a reputation for backstabbing at the game table. Older Bobs find him prickly; he's had enough of humans.",
+      "related": [
+        "gamers",
+        "gandalf",
+        "starfleet-war"
+      ],
+      "confidence": "medium",
+      "updates": [],
+      "died": {
+        "book": 6,
+        "text": "Attacked by an unknown enemy entering a system while exploring; his deadman switch destroys his ship.",
+        "confidence": "medium"
+      }
+    },
+    {
+      "id": "locutus",
+      "name": "Locutus",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 4,
+      "summary": "The Borg faction's spokesman in the search for Bender. He wanted the name Hugh, but it was taken.",
+      "related": [
+        "borg",
+        "hugh",
+        "bender"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "jeremy",
+      "name": "Jeremy",
+      "aliases": [
+        "Morlock"
+      ],
+      "group": "Bob",
+      "firstBook": 4,
+      "summary": "A Starfleet Bob, also called Morlock, the first to openly attack the Bobs' habit of meddling with biologicals. He heckles Bob at a moot.",
+      "related": [
+        "starfleet",
+        "bobmoot",
+        "bob"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "fearless-leader",
+      "name": "Fearless Leader",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 4,
+      "summary": "Hugh's nickname for the head of the Skippies, who no longer use names among themselves.",
+      "related": [
+        "skippies",
+        "hugh"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "harry",
+      "name": "Harry",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 5,
+      "summary": "A Skippy whose conscience bothers him about how Thoth is kept. He helps the AI get away, is branded 'Mudd' by the others and exiled.",
+      "related": [
+        "skippies",
+        "thoth",
+        "singularity"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "george",
+      "name": "George",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 5,
+      "summary": "An early Bob who never made it into the registry. He flew straight up out of the galactic plane long ago; his radio reports, picked up by Ferb, warn of Nemesis.",
+      "related": [
+        "ferb",
+        "nemesis",
+        "epsilon-eridani"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "jerry",
+      "name": "Jerry",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 5,
+      "summary": "A Charles descendant who found a forgotten backup of Homer and fled to the Perseus Transit to bring him back. His clones became the core of Starfleet.",
+      "related": [
+        "charles",
+        "homer",
+        "starfleet",
+        "perseus-transit",
+        "replicative-drift"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "hector",
+      "name": "Hector",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 5,
+      "summary": "An 18th-generation Bob exploring towards the Perseus Transit who gets told by Starfleet to turn around or be destroyed. He turns around and tells Bill.",
+      "related": [
+        "starfleet",
+        "perseus-transit",
+        "bill"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "greg",
+      "name": "Greg",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 6,
+      "summary": "A Bob heading home through the wormhole network for a ship upgrade, ambushed by unknown ships that demand his surrender. He blows himself up instead; his backup is two days old.",
+      "related": [
+        "wormhole-network",
+        "deadman-switch",
+        "ultima-thule"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "bobbi",
+      "name": "Bobbi",
+      "aliases": [],
+      "group": "Bob",
+      "firstBook": 6,
+      "summary": "A late-generation clone and the first Bob to identify as female. She comes up with a fix for the Bobs' raw-material shortage.",
+      "related": [
+        "bob"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "arnold",
+      "name": "Arnold",
+      "aliases": [],
+      "group": "Deltan",
+      "firstBook": 1,
+      "summary": "A big, unusually sharp Deltan in Archimedes' tribe, the first to kill a gorilloid with Archimedes' new hand axe. Bob gives him an Austrian accent in his translation.",
+      "related": [
+        "archimedes",
+        "deltans",
+        "gorilloids"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "diana",
+      "name": "Diana",
+      "aliases": [],
+      "group": "Deltan",
+      "firstBook": 2,
+      "summary": "Archimedes' wife and Buster's mother, who never warms to 'the Bob'.",
+      "related": [
+        "archimedes",
+        "buster",
+        "deltans"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "cruella",
+      "name": "Cruella",
+      "aliases": [],
+      "group": "Deltan",
+      "firstBook": 2,
+      "summary": "A Deltan medicine woman who keeps clashing with Bob over modern medicine.",
+      "related": [
+        "deltans",
+        "bob"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "travis",
+      "name": "Senior Minister Travis",
+      "aliases": [],
+      "group": "Human",
+      "firstBook": 1,
+      "summary": "A tall, gaunt FAITH official from the faction funding the replicant program. He drops in to interview the candidates; one who fails his approval is wiped.",
+      "related": [
+        "faith",
+        "heaven-project",
+        "bob"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "kazini",
+      "name": "Rudolf Kazini",
+      "aliases": [],
+      "group": "Other replicant",
+      "firstBook": 1,
+      "summary": "One of the earliest working replicants, a former miner who runs most of FAITH's mining machines when Bob wakes up.",
+      "related": [
+        "faith",
+        "replicant",
+        "dr-landers"
+      ],
+      "confidence": "high",
+      "updates": [
+        {
+          "book": 3,
+          "text": "Is found in old mining gear after the Others are beaten, restored, and joins the crew cleaning up Earth."
+        }
+      ]
+    },
+    {
+      "id": "araujo",
+      "name": "Matias Araujo",
+      "aliases": [],
+      "group": "Other replicant",
+      "firstBook": 1,
+      "summary": "A Brazilian replicant captain. His clones tow asteroids toward Earth before Riker and Homer stop them, and his reasons are never explained.",
+      "related": [
+        "brazilian-empire",
+        "riker",
+        "homer",
+        "sol",
+        "brazilian-probe"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "gina",
+      "name": "Gina",
+      "aliases": [],
+      "group": "Human",
+      "firstBook": 3,
+      "summary": "A security officer on Poseidon and part of Marcus's inner circle of revolutionaries. Leads an assault team when the fighting starts.",
+      "related": [
+        "marcus",
+        "poseidon"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "brennan",
+      "name": "Councillor Brennan",
+      "aliases": [],
+      "group": "Human",
+      "firstBook": 3,
+      "summary": "The most extreme member of Poseidon's ruling council, behind the plan to destroy Marcus and a secret military buildup.",
+      "related": [
+        "marcus",
+        "poseidon"
+      ],
+      "confidence": "high",
+      "updates": []
+    },
+    {
+      "id": "gilligan",
+      "name": "Stephen Gilligan",
+      "aliases": [
+        "Dr. Gilligan"
+      ],
+      "group": "Other replicant",
+      "firstBook": 4,
+      "summary": "A megastructure professor from Vulcan who had himself replicated when he died. Consults for the Bobs on getting into Heaven's River.",
+      "related": [
+        "heavens-river",
+        "topopolis",
+        "vulcan-arcology",
+        "vulcan"
+      ],
+      "confidence": "high",
+      "updates": [
+        {
+          "book": 5,
+          "text": "Advises consortiums that want to build their own megastructures."
+        }
+      ]
+    },
+    {
+      "id": "ella-cranston",
+      "name": "Ella Cranston",
+      "aliases": [],
+      "group": "Human",
+      "firstBook": 4,
+      "summary": "Minister Cranston's granddaughter, who represents Romulus in the United Federation of Sentients.",
+      "related": [
+        "minister-cranston",
+        "romulus",
+        "ufs",
+        "faith"
+      ],
+      "confidence": "high",
+      "updates": [
+        {
+          "book": 5,
+          "text": "Becomes president of the FAITH colony on Romulus."
+        }
+      ]
+    },
+    {
+      "id": "his-badgerness",
+      "name": "His Badgerness",
+      "aliases": [],
+      "group": "Quinlan",
+      "firstBook": 4,
+      "summary": "A feral Quinlan youngling living alone in the forest, who keeps scrapping with Bob after Bob blunders into his den.",
+      "related": [
+        "quinlans",
+        "heavens-river",
+        "bob"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "hannah-turnbull",
+      "name": "Hannah Turnbull",
+      "aliases": [],
+      "group": "Other replicant",
+      "firstBook": 5,
+      "summary": "A replicated physics professor from Newholme who helps Bill understand the negative energy that keeps a wormhole open.",
+      "related": [
+        "newholme",
+        "bill",
+        "wormholes"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "azmah",
+      "name": "Azmah",
+      "aliases": [],
+      "group": "Pav",
+      "firstBook": 5,
+      "summary": "A later planetary administrator of New Pav, deeply suspicious of the Bobs but still willing to talk.",
+      "related": [
+        "pav",
+        "new-pav",
+        "hazjiar"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "gunther",
+      "name": "Gunther",
+      "aliases": [],
+      "group": "Other replicant",
+      "firstBook": 6,
+      "summary": "A Centaur replicant sent out centuries ago to investigate strange microwave signals, caught by the Federation's wormhole sentries until his fuel ran out. Rescued by Icarus and Daedalus.",
+      "related": [
+        "centaurs",
+        "centaurvania",
+        "icarus",
+        "daedalus",
+        "pgf"
+      ],
+      "confidence": "medium",
+      "updates": []
     }
   ],
   "timeline": [
@@ -3716,6 +5055,36 @@
         "gliese-877",
         "battle-of-delta-pavonis",
         "death-asteroids"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "singularity",
+      "name": "Singularity",
+      "aliases": [],
+      "shipClass": "Transport",
+      "firstBook": 5,
+      "summary": "The Skippies' cargo ship, hijacked so Thoth can escape.",
+      "related": [
+        "skippies",
+        "thoth",
+        "harry"
+      ],
+      "confidence": "medium",
+      "updates": []
+    },
+    {
+      "id": "snark",
+      "name": "Snark",
+      "aliases": [],
+      "shipClass": "Bob vessel",
+      "firstBook": 5,
+      "summary": "Bill's wormhole test ship. The first one is lost stopping what looks like Thoth's escape; he builds another.",
+      "related": [
+        "bill",
+        "wormholes",
+        "thoth"
       ],
       "confidence": "medium",
       "updates": []

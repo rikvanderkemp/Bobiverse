@@ -524,6 +524,123 @@ trivia(5, "What is Nemesis?", "A rogue galaxy on a collision course", ["A new fa
 trivia(5, "What do Luddies reject?", "Technology like mannies and replicants", ["Wool", "Bob's jokes, specifically"],
        "Technology. They are not fans of mine. The feeling is neutral.", "luddies")
 
+
+# ---------------- ADDITIONS (2026-11-22): gaps found in a second pass ----------------
+# All in our own words. Where the book of first appearance was unclear we chose the
+# later book (safer for the spoiler gate) and marked confidence medium.
+
+# --- Bobs ---
+char("arthur", "Arthur", 1, "One of Riker's clones at Sol, gloomier than the average Bob. Helps build the first colony ships for Earth's survivors.", ["riker", "homer", "charles", "colony-ships", "sol"])
+char("bart", "Bart", 1, "One of Calvin's clones who stays at Alpha Centauri as resident Bob, running the system's probe factory. His VR is a rustic log cabin with a big rocking chair.", ["calvin", "alpha-centauri", "autofactory"], confidence="medium")
+char("claude", "Claude", 2, "A Mario clone sent to map how far the Others reach. Explores Gamma Pavonis and its lovely habitable planet, and fights at Delta Pavonis. His VR is a beach cabana.", ["mario", "gamma-pavonis", "newholme", "battle-of-delta-pavonis", "others"])
+char("mulder", "Mulder", 2, "A Bill clone and the first Bob at Eta Cassiopeiae, where he finds and names the water world Poseidon. His VR is a tropical island of huts and beach.", ["bill", "eta-cassiopeiae", "poseidon"])
+char("monty", "Monty", 2, "A Riker-line Bob who escorts the first colony ships to Poseidon, carrying island-nation enclaves who settle on huge floating vegetation mats.", ["riker", "poseidon", "colony-ships"], confidence="medium")
+char("oliver", "Oliver", 2, "The result of Bill beaming a copy of himself to waiting hardware at Alpha Centauri instead of building a new probe on the spot. Picks his name to keep Bill's comic-strip theme going.", ["bill", "alpha-centauri"])
+char("loki", "Loki", 2, "A Khan clone who leads the return to 82 Eridani to finish off Medeiros, and claims the system afterwards.", ["khan", "82-eridani", "medeiros", "third-battle-82-eridani"])
+char("bert-ernie", "Bert & Ernie", 2, "Two Bobs who fly the first colony ships from Earth to Omicron² Eridani, and are rather proud of it. Both style their VR look on Battlestar Galactica.", ["colony-ships", "omicron2-eridani", "riker"], aliases=["Bert", "Ernie"], confidence="medium")
+char("phineas", "Phineas", 3, "Cloned by Jacques at Delta Pavonis together with Ferb. The pair run the 'alien abduction' of Pav ahead of the Others and fly the rescue ships.", ["ferb", "jacques", "pav", "delta-pavonis"], confidence="medium")
+char("ferb", "Ferb", 3, "Phineas's twin clone from Delta Pavonis. Helps lift thousands of Pav off their doomed world and flies one of the rescue ships.", ["phineas", "jacques", "pav", "delta-pavonis"], confidence="medium")
+char("harvey", "Harvey", 3, "A tenth-generation Bob, resident at Sol after the Others are beaten. He prints the android body Bob uses to walk on Earth again.", ["sol", "earth", "android", "bob"], confidence="medium")
+char("isaac-jack-owen", "Isaac, Jack & Owen", 3, "Three of Bart's clones who fly the first colony ships from Sol to 82 Eridani, with refugees from the Vancouver Island and Japanese enclaves. All three dress casually in VR.", ["bart", "82-eridani", "asgard", "takamagahara", "colony-ships"], aliases=["Isaac", "Jack", "Owen"], confidence="medium")
+char("conan", "Conan", 4, "A Riker descendant who takes over as resident Bob at Omicron² Eridani. Lives in a VR treehouse and helps set up the Ever Onward society on Vulcan and Romulus.", ["riker", "omicron2-eridani", "ever-onward"], confidence="medium")
+char("gandalf", "Gandalf", 4, "A Gamer Bob who looks and lives like the famous wizard (tower included, plus recliners). Speaks for the Gamers in the search for Bender.", ["gamers", "bender"])
+char("kevin", "Kevin", 4, "A young, roughly 24th-generation Gamer Bob with a reputation for backstabbing at the game table. Older Bobs find him prickly; he's had enough of humans.", ["gamers", "gandalf", "starfleet-war"], confidence="medium")
+char("locutus", "Locutus", 4, "The Borg faction's spokesman in the search for Bender. He wanted the name Hugh, but it was taken.", ["borg", "hugh", "bender"])
+char("jeremy", "Jeremy", 4, "A Starfleet Bob, also called Morlock, the first to openly attack the Bobs' habit of meddling with biologicals. He heckles Bob at a moot.", ["starfleet", "bobmoot", "bob"], aliases=["Morlock"])
+char("fearless-leader", "Fearless Leader", 4, "Hugh's nickname for the head of the Skippies, who no longer use names among themselves.", ["skippies", "hugh"], confidence="medium")
+char("harry", "Harry", 5, "A Skippy whose conscience bothers him about how Thoth is kept. He helps the AI get away, is branded 'Mudd' by the others and exiled.", ["skippies", "thoth", "singularity"])
+char("george", "George", 5, "An early Bob who never made it into the registry. He flew straight up out of the galactic plane long ago; his radio reports, picked up by Ferb, warn of Nemesis.", ["ferb", "nemesis", "epsilon-eridani"])
+char("jerry", "Jerry", 5, "A Charles descendant who found a forgotten backup of Homer and fled to the Perseus Transit to bring him back. His clones became the core of Starfleet.", ["charles", "homer", "starfleet", "perseus-transit", "replicative-drift"], confidence="medium")
+char("hector", "Hector", 5, "An 18th-generation Bob exploring towards the Perseus Transit who gets told by Starfleet to turn around or be destroyed. He turns around and tells Bill.", ["starfleet", "perseus-transit", "bill"], confidence="medium")
+char("greg", "Greg", 6, "A Bob heading home through the wormhole network for a ship upgrade, ambushed by unknown ships that demand his surrender. He blows himself up instead; his backup is two days old.", ["wormhole-network", "deadman-switch", "ultima-thule"], confidence="medium")
+char("bobbi", "Bobbi", 6, "A late-generation clone and the first Bob to identify as female. She comes up with a fix for the Bobs' raw-material shortage.", ["bob"], confidence="medium")
+
+# --- other characters ---
+char("arnold", "Arnold", 1, "A big, unusually sharp Deltan in Archimedes' tribe, the first to kill a gorilloid with Archimedes' new hand axe. Bob gives him an Austrian accent in his translation.", ["archimedes", "deltans", "gorilloids"], group="Deltan")
+char("diana", "Diana", 2, "Archimedes' wife and Buster's mother, who never warms to 'the Bob'.", ["archimedes", "buster", "deltans"], group="Deltan", confidence="medium")
+char("cruella", "Cruella", 2, "A Deltan medicine woman who keeps clashing with Bob over modern medicine.", ["deltans", "bob"], group="Deltan", confidence="medium")
+char("travis", "Senior Minister Travis", 1, "A tall, gaunt FAITH official from the faction funding the replicant program. He drops in to interview the candidates; one who fails his approval is wiped.", ["faith", "heaven-project", "bob"], group="Human")
+char("kazini", "Rudolf Kazini", 1, "One of the earliest working replicants, a former miner who runs most of FAITH's mining machines when Bob wakes up.", ["faith", "replicant", "dr-landers"], group="Other replicant")
+char("araujo", "Matias Araujo", 1, "A Brazilian replicant captain. His clones tow asteroids toward Earth before Riker and Homer stop them, and his reasons are never explained.", ["brazilian-empire", "riker", "homer", "sol", "brazilian-probe"], group="Other replicant")
+char("gina", "Gina", 3, "A security officer on Poseidon and part of Marcus's inner circle of revolutionaries. Leads an assault team when the fighting starts.", ["marcus", "poseidon"], group="Human")
+char("brennan", "Councillor Brennan", 3, "The most extreme member of Poseidon's ruling council, behind the plan to destroy Marcus and a secret military buildup.", ["marcus", "poseidon"], group="Human")
+char("gilligan", "Stephen Gilligan", 4, "A megastructure professor from Vulcan who had himself replicated when he died. Consults for the Bobs on getting into Heaven's River.", ["heavens-river", "topopolis", "vulcan-arcology", "vulcan"], group="Other replicant", aliases=["Dr. Gilligan"])
+char("ella-cranston", "Ella Cranston", 4, "Minister Cranston's granddaughter, who represents Romulus in the United Federation of Sentients.", ["minister-cranston", "romulus", "ufs", "faith"], group="Human")
+char("his-badgerness", "His Badgerness", 4, "A feral Quinlan youngling living alone in the forest, who keeps scrapping with Bob after Bob blunders into his den.", ["quinlans", "heavens-river", "bob"], group="Quinlan", confidence="medium")
+char("hannah-turnbull", "Hannah Turnbull", 5, "A replicated physics professor from Newholme who helps Bill understand the negative energy that keeps a wormhole open.", ["newholme", "bill", "wormholes"], group="Other replicant", confidence="medium")
+char("azmah", "Azmah", 5, "A later planetary administrator of New Pav, deeply suspicious of the Bobs but still willing to talk.", ["pav", "new-pav", "hazjiar"], group="Pav", confidence="medium")
+char("gunther", "Gunther", 6, "A Centaur replicant sent out centuries ago to investigate strange microwave signals, caught by the Federation's wormhole sentries until his fuel ran out. Rescued by Icarus and Daedalus.", ["centaurs", "centaurvania", "icarus", "daedalus", "pgf"], group="Other replicant", confidence="medium")
+
+# --- places ---
+place("zeta-tucanae", "Zeta Tucanae", 1, "A system Mario reaches to find its only living world wrecked and its native civilization gone, its metals already stripped.", ["mario", "others"], confidence="medium")
+place("big-top", "Big Top", 1, "A gas giant in the habitable zone of Epsilon Indi, first explored by Linus.", ["linus", "epsilon-indi", "quilt"], kind="planet", parent="epsilon-indi")
+place("quilt", "Quilt", 1, "A moon of Big Top tipped on its side, giving it strange days and nights and wildly varied life. The Bobs first call it Klown Kar Planet.", ["big-top", "linus"], kind="planet", parent="big-top", confidence="medium")
+place("gamma-pavonis", "Gamma Pavonis", 2, "A Sun-like star first explored by Claude, with one very Earth-like planet.", ["claude", "newholme"])
+place("newholme", "Newholme", 2, "Gamma Pavonis's first planet: blue, green and temperate, high on the Others' list. Later a human colony.", ["gamma-pavonis", "claude", "others"], kind="planet", parent="gamma-pavonis")
+place("gliese-54", "Gliese 54", 2, "A red dwarf where Mario sets up base and makes his clones before going after the Others.", ["mario", "deadman-switch", "others"])
+place("kappa-ceti", "Kappa Ceti", 2, "Luke's system, with a heavy super-Earth that's no good for settlers but full of life to catalogue.", ["luke"], confidence="medium")
+place("takamagahara", "Takamagahara", 3, "The inner rocky planet of 82 Eridani, settled by the Japanese enclave and usually shortened to Takama.", ["82-eridani", "isaac-jack-owen", "asgard"], kind="planet", parent="82-eridani")
+place("asgard", "Asgard", 3, "The outer rocky planet of 82 Eridani: steppe, slightly heavy gravity, giant mosquitoes. Settled by the Canadian enclave.", ["82-eridani", "valhalla", "isaac-jack-owen", "mack"], kind="planet", parent="82-eridani")
+place("valhalla", "Valhalla", 3, "Asgard's moon, too thin-aired to live on. The Bobs start a long terraforming project there.", ["asgard", "ragnarok"], kind="planet", parent="asgard", confidence="medium")
+place("trantor", "Trantor", 4, "A floating city in Big Top's upper clouds, where Howard and Bridget keep a home.", ["big-top", "howard", "bridget"], kind="city", parent="big-top", confidence="medium")
+place("skippyland", "Skippyland", 4, "The Skippies' home base, real and virtual, about 70 light years from Epsilon Eridani.", ["skippies", "thoth"], kind="region")
+place("perseus-transit", "Perseus Transit", 5, "A region of space partly claimed by Starfleet.", ["starfleet", "jerry", "hector"], kind="region", confidence="medium")
+place("roanoke", "Roanoke", 5, "A beautiful, tidy world in the Federation's wormhole network whose advanced inhabitants simply packed up and left. Named by Icarus and Daedalus after the lost colony.", ["icarus", "daedalus", "pgf", "wormhole-network"], kind="planet", confidence="medium")
+place("federation-capital", "Federation Capital", 5, "The PGF's former capital near the galactic centre: a heavily engineered system of identical planets in perfect formation.", ["pgf", "icarus", "daedalus", "galactic-core"], confidence="medium")
+place("hub-zero", "Hub Zero", 5, "A major hub of the Federation's wormhole network, with a thousand wormholes.", ["pgf", "wormhole-network"], kind="region", confidence="medium")
+place("centaurvania", "Centaurvania", 6, "Home world of the Centaurs, near the Federation's wormhole network. Its civilization has slid back below industry.", ["centaurs", "gunther", "icarus", "daedalus"], kind="planet", confidence="medium")
+
+# --- terms ---
+term("frame-rate", "Frame rate", 1, "A Bob's personal speed of time. Slow it down and a long trip flies by; speed it up and a split-second fight feels roomy.", ["replicant", "vr"], category="technology")
+term("railgun", "Railgun", 1, "Magnetic gun that throws any conductive lump of metal. A Bob favourite in early fights.", ["medeiros", "ship-buster"], category="technology")
+term("waldo", "Waldo", 1, "A remote manipulator arm. One of the first things Bob is given to control after waking up.", ["dr-landers", "roamers"], category="technology")
+term("skunk-works", "Skunk works", 1, "Bill's name for his labs and experiments at Epsilon Eridani, the source of many Bob inventions.", ["bill", "epsilon-eridani", "scut"], category="concept", confidence="medium")
+term("plasma-spike", "Plasma spike", 1, "Bill's lightning-torpedo weapon: superhot plasma that also fries electronics. Nearly invisible to SUDDAR, but it can't steer.", ["bill", "skunk-works", "suddar", "second-battle-82-eridani"], category="technology", confidence="medium")
+term("second-battle-82-eridani", "Second battle of 82 Eridani", 1, "Khan's task force goes back to avenge Milo and finds Medeiros upgraded. Bill's plasma spikes get their first real test; the Bobs win, at great cost.", ["khan", "medeiros", "milo", "plasma-spike", "82-eridani"], category="event", confidence="medium")
+term("second-battle-of-sol", "Araujo's asteroids", 1, "Riker and Homer find Brazilian probes towing planet-killers at Earth, lure most of them away and destroy them.", ["araujo", "riker", "homer", "sol"], category="event")
+term("deadman-switch", "Deadman switch", 2, "A self-destruct GUPPI fires if a Bob's matrix is destroyed, so nobody can capture the technology. First used by Mario's clones.", ["guppi", "mario", "gliese-54"], category="technology")
+term("ami", "AMI", 2, "Artificial machine intelligence: smart but not self-aware software that does work too dull or dangerous for a Bob.", ["replicant", "guppi"], category="AI", confidence="medium")
+term("backups", "Differential backups", 2, "Bobs send regular backups of just what changed, so a destroyed Bob can be restored with only a little lost.", ["bill", "matrix"], category="technology", confidence="medium")
+term("maser", "Maser", 2, "A microwave 'laser'. Riker uses one's faint bursts to trace Vickers.", ["riker", "bertram-vickers", "vehement"], category="technology", confidence="medium")
+term("third-battle-82-eridani", "Third battle of 82 Eridani", 2, "Loki's twelve upgraded Bobs return to 82 Eridani, trick Medeiros into giving away his position and wipe him out.", ["loki", "medeiros", "82-eridani"], category="event")
+term("raptors", "Raptors", 2, "Pack-hunting predators on Vulcan, smart and toothy, that attack the colony.", ["vulcan", "howard"], category="species", confidence="medium")
+term("cupid-bugs", "Cupid bugs", 2, "A Vulcan parasite whose larvae head for the host's heart.", ["vulcan", "howard"], category="species", confidence="medium")
+term("fibrex", "Fibrex", 3, "Clear, super-strong building material used for the domes of floating cities.", ["marcus", "poseidon", "odin"], category="technology")
+term("closest-continuer", "Closest continuer", 3, "The idea that if you are copied and the original is gone, the copy is you. Bridget uses it to think about being restored from backup.", ["bridget", "replicant"], category="concept", confidence="medium")
+term("fourth-battle-82-eridani", "Fourth battle of 82 Eridani", 3, "Medeiros ambushes Mack at 82 Eridani. Mack's matrix survives, and with the colonists' help the Bobs drive the probe to self-destruct.", ["mack", "medeiros", "82-eridani", "asgard", "takamagahara"], category="event")
+term("ancient-ones", "Ancient Ones", 4, "Garfield's name for the earliest Bobs, mainly Bob, Bill, Garfield and Will.", ["garfield", "bob", "bill"], category="faction")
+term("gamers", "Gamers", 4, "A faction that lives for virtual games. They take on the problem of getting androids into Heaven's River because it's fun, then lose interest.", ["gandalf", "ferb", "kevin", "heavens-river"], category="faction")
+term("borg", "Borg", 4, "A faction that dresses up as the Star Trek cyborgs and prefers little contact with other species. Designs the Quinlan androids.", ["locutus", "quinlans", "android"], category="faction")
+term("hunter-seeker", "Hunter-seeker", 4, "A drone built for long-range searching, with greatly extended SUDDAR range.", ["suddar", "bender"], category="technology", confidence="medium")
+term("bussard-trail", "Bussard trail", 4, "The faint wake of molecules a ramscoop ship leaves. Bob follows Bender's this way.", ["bender", "eta-leporis"], category="phenomenon")
+term("ultima-thule", "Ultima Thule", 4, "Bill's huge archive and backup station at Epsilon Eridani, with spare ships and matrices for restoring lost Bobs. He hides it in the outer system.", ["bill", "backups", "epsilon-eridani", "starfleet-war"], category="technology")
+term("ufs", "United Federation of Sentients", 4, "A galactic UN founded by the human colonies and the Bobs, open to other species too.", ["ella-cranston", "deltans", "pav"], category="organization", aliases=["UFS"])
+term("vulcan-arcology", "Vulcan Post-Life Arcology", 4, "A space station where about 200 replicated humans live on, in VR and in android bodies.", ["vulcan", "gilligan", "replicant", "android"], category="organization", confidence="medium")
+term("battle-of-newholme", "Battle of Newholme", 4, "Starfleet seizes Newholme's relay and a factory and demands the colony cut contact with replicants. Claude is the Bob on site.", ["starfleet", "newholme", "claude", "starfleet-war"], category="event", confidence="medium")
+term("pam", "PAM", 5, "A Printer Autofactory Minute: a minute of factory time, traded as money between colonies.", ["autofactory"], category="concept", aliases=["Printer Autofactory Minute"], confidence="medium")
+term("leviathans", "Leviathans", 5, "Huge gas-bag creatures that float over Jabberwocky. The Dragons build their villages on top of them.", ["jabberwocky", "jabberwocky-dragons", "howard"], category="species", aliases=["Floaters"], confidence="medium")
+term("centaurs", "Centaurs", 6, "A four-legged species with three sexes, including workers who can't breed and protect the clan. Their civilization has since collapsed.", ["centaurvania", "gunther"], category="species", confidence="medium")
+
+# --- ships ---
+ship("singularity", "Singularity", 5, "The Skippies' cargo ship, hijacked so Thoth can escape.", ["skippies", "thoth", "harry"], cls="Transport", confidence="medium")
+ship("snark", "Snark", 5, "Bill's wormhole test ship. The first one is lost stopping what looks like Thoth's escape; he builds another.", ["bill", "wormholes", "thoth"], cls="Bob vessel", confidence="medium")
+
+# --- later developments ---
+later("ferb", 4, "Runs the Gamers' tabletop campaigns and builds a huge ship full of relays to fly out of the galactic plane.")
+later("ferb", 5, "Picks up radio messages from George, who had the same idea long before him.")
+later("phineas", 4, "Heads for the Large Magellanic Cloud, keeping in touch by radio.")
+later("claude", 4, "Is the Bob on site when Starfleet moves on Newholme.")
+later("ultima-thule", 5, "Someone posing as Hugh tricks Garfield into restoring them there.")
+later("kazini", 3, "Is found in old mining gear after the Others are beaten, restored, and joins the crew cleaning up Earth.")
+later("gilligan", 5, "Advises consortiums that want to build their own megastructures.")
+later("ella-cranston", 5, "Becomes president of the FAITH colony on Romulus.")
+later("quilt", 3, "The settlers rename it Quilt.")
+later("vr", 4, "The Bobs now call it VIRT, versus Real.")
+
+# --- deaths ---
+died("arthur", 1, "Destroyed by a nuclear booby trap in wreckage near Earth. He had no backup.", confidence="medium")
+died("kevin", 6, "Attacked by an unknown enemy entering a system while exploring; his deadman switch destroys his ship.", confidence="medium")
+
 data = dict(
     meta=dict(series="Bobiverse", author="Dennis E. Taylor", version=1, generated="2026-11-21",
               notes=["All summaries are original paraphrases written for this app.",
